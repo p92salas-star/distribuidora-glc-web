@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Realizar Pedido — Distribuidora GLC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600;700&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FBF6F0;
+    --blush: #F3DAD0;
+    --ink: #2A2422;
+    --ink-soft: #554C48;
+    --gold: #AD8A4E;
+    --berry: #8B3A46;
+    --berry-dark: #702E38;
+    --line: rgba(42,36,34,0.14);
+    --card: #FFFDFB;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    line-height: 1.15;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  p { margin: 0; }
+
+  a { color: inherit; text-decoration: none; }
+
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---------- Promo banner ---------- */
+
+  .promo-banner {
+    background: linear-gradient(90deg, #1B1916 0%, #272019 50%, #1B1916 100%);
+    color: #F4EADA;
+    font-family: 'Work Sans', sans-serif;
+    border-bottom: 1px solid rgba(173,138,78,0.35);
+  }
+  .promo-banner__inner {
+    position: relative;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 10px 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+  }
+  .promo-banner__text {
+    margin: 0;
+    text-align: center;
+    font-size: 13.5px;
+    font-weight: 500;
+    letter-spacing: 0.015em;
+    color: #F4EADA;
+  }
+  .promo-banner__text .promo-tag {
+    color: var(--gold);
+    font-weight: 600;
+  }
+  .promo-banner__close {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--gold);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .promo-banner__close:hover {
+    background: rgba(173,138,78,0.18);
+    color: #F4EADA;
+  }
+  .promo-banner.is-hidden { display: none; }
+
+  @media (max-width: 600px) {
+    .promo-banner__inner {
+      padding: 9px 42px 9px 16px;
+      justify-content: flex-start;
+    }
+    .promo-banner__text {
+      text-align: left;
+      font-size: 11.5px;
+      line-height: 1.4;
+    }
+    .promo-banner__close { right: 8px; }
+  }
+
+  /* ---------- Header ---------- */
+
+  header.site {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(251,246,240,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 24px;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  .wordmark {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    letter-spacing: 0.01em;
+  }
+  .wordmark span { color: var(--gold); }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 20px;
+    border-radius: 999px;
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 600;
+    font-size: 14.5px;
+    white-space: nowrap;
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .btn-primary {
+    background: var(--berry);
+    color: #FFF4EF;
+  }
+  .btn-primary:hover { background: var(--berry-dark); transform: translateY(-1px); }
+
+  header .btn-primary { padding: 9px 18px; font-size: 13.5px; }
+
+  /* ---------- Formulario de pedido ---------- */
+
+  .order-page { padding: 52px 0 76px; }
+
+  .order-head {
+    max-width: 640px;
+    margin: 0 auto 30px;
+    text-align: center;
+  }
+  .order-head .kicker {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .order-head h1 { font-size: clamp(28px, 4.4vw, 40px); }
+  .order-head p {
+    margin-top: 14px;
+    color: var(--ink-soft);
+    font-size: 16px;
+  }
+
+  .order-card {
+    max-width: 720px;
+    margin: 0 auto;
+    background: var(--ink);
+    color: #F2E9E2;
+    border: 1px solid rgba(173,138,78,0.28);
+    border-radius: 18px;
+    padding: 34px 30px;
+  }
+
+  .order-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .order-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .order-field.full { grid-column: 1 / -1; }
+
+  .order-subhead {
+    grid-column: 1 / -1;
+    margin: 8px 0 2px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(242,233,226,0.16);
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #F4EADA;
+  }
+  .order-subhead:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+  .order-field > label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #EED9CC;
+  }
+  .order-field .req { color: var(--gold); margin-left: 3px; }
+
+  .order-form input,
+  .order-form select,
+  .order-form textarea {
+    width: 100%;
+    background: rgba(251,246,240,0.06);
+    border: 1px solid rgba(242,233,226,0.26);
+    border-radius: 10px;
+    padding: 12px 13px;
+    color: #FBF6F0;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 15px;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .order-form select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' stroke='%23AD8A4E' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 40px;
+  }
+  .order-form option { color: #2A2422; }
+  .order-form input::placeholder,
+  .order-form textarea::placeholder { color: rgba(216,201,191,0.5); }
+  .order-form input:focus,
+  .order-form select:focus,
+  .order-form textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+    background: rgba(251,246,240,0.1);
+  }
+  .order-form textarea { resize: vertical; min-height: 120px; }
+
+  .order-field.invalid input,
+  .order-field.invalid select,
+  .order-field.invalid textarea {
+    border-color: #E2857F;
+    background: rgba(226,133,127,0.08);
+  }
+  .order-field .error-msg {
+    display: none;
+    font-size: 11.5px;
+    font-weight: 500;
+    color: #EDA8A2;
+    letter-spacing: 0.01em;
+  }
+  .order-field.invalid .error-msg { display: block; }
+
+  .form-status {
+    grid-column: 1 / -1;
+    display: none;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 13.5px;
+    font-weight: 500;
+  }
+  .form-status.error {
+    display: block;
+    background: rgba(226,133,127,0.12);
+    color: #EDA8A2;
+    border: 1px solid rgba(226,133,127,0.4);
+  }
+  .form-status.ok {
+    display: block;
+    background: rgba(173,138,78,0.14);
+    color: #E7CFA0;
+    border: 1px solid rgba(173,138,78,0.45);
+  }
+
+  .order-submit {
+    grid-column: 1 / -1;
+    margin-top: 6px;
+    width: 100%;
+    justify-content: center;
+    background: var(--gold);
+    color: var(--ink);
+    border: 0;
+    cursor: pointer;
+    font-size: 15.5px;
+    padding: 15px 22px;
+    letter-spacing: 0.02em;
+  }
+  .order-submit:hover { background: #C79E5C; transform: translateY(-1px); }
+
+  .order-note {
+    grid-column: 1 / -1;
+    margin-top: 2px;
+    font-size: 12px;
+    color: #B7A79C;
+    text-align: center;
+  }
+
+  /* ---------- Footer ---------- */
+
+  footer {
+    padding: 48px 0 40px;
+    border-top: 1px solid var(--line);
+  }
+  .foot-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  .foot-left .wordmark { font-size: 18px; }
+  .foot-left .place { color: var(--ink-soft); font-size: 14px; margin-top: 6px; }
+  .foot-signature {
+    font-family: 'Caveat', cursive;
+    font-size: 22px;
+    color: var(--gold);
+    margin-top: 10px;
+  }
+  .foot-links {
+    display: flex;
+    gap: 20px;
+    font-size: 14.5px;
+  }
+  .foot-links a { border-bottom: 1px solid var(--line); padding-bottom: 2px; }
+
+  /* ---------- Responsive ---------- */
+
+  @media (max-width: 620px) {
+    .order-form { grid-template-columns: 1fr; }
+    .order-card { padding: 26px 20px; }
+    .foot-row { flex-direction: column; align-items: flex-start; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--berry);
+    outline-offset: 2px;
+  }
+</style>
+</head>
+<body>
+
+<div class="promo-banner" id="promoBanner">
+  <div class="promo-banner__inner">
+    <p class="promo-banner__text">✨ <span class="promo-tag">Promociones de la semana:</span> ¡Envíos gratis al Valle Central por compras mayores a ₡20,000! ✨</p>
+    <button class="promo-banner__close" type="button" aria-label="Cerrar banner promocional">&times;</button>
+  </div>
+</div>
+
+<header class="site">
+  <div class="header-row">
+    <a class="wordmark" href="index.html.html">Distribuidora <span>GLC</span></a>
+    <a class="btn btn-primary" href="https://wa.me/50670281688" target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+</header>
+
+<main class="order-page">
+  <div class="wrap">
+    <div class="order-head">
+      <p class="kicker">Realizar pedido</p>
+      <h1>Datos de facturación y envío</h1>
+      <p>Completá tus datos para preparar tu pedido y coordinar el envío por Correos de Costa Rica. Todos los campos son obligatorios.</p>
+    </div>
+
+    <div class="order-card">
+      <form class="order-form" id="orderForm" action="https://script.google.com/macros/s/AKfycbx6taZhMApzYRCU4ZQsRm6Hgn_0IjYbvHcyFvWg3XkjCLi2VkLLh2I5tRJOzHcUdkRH3Q/exec" method="POST" novalidate>
+
+        <p class="order-subhead">Detalle del pedido</p>
+
+        <div class="order-field full">
+          <label for="producto">Producto <span class="req">*</span></label>
+          <input type="text" id="producto" name="producto" placeholder="Nombre del producto o descripción" required>
+          <span class="error-msg">Indicá el producto que querés pedir.</span>
+        </div>
+
+        <div class="order-field">
+          <label for="categoria">Categoría <span class="req">*</span></label>
+          <select id="categoria" name="categoria" required>
+            <option value="" disabled selected>Seleccioná una categoría</option>
+            <option value="Extensiones de pestañas">Extensiones de pestañas</option>
+            <option value="Pinzas y herramientas">Pinzas y herramientas</option>
+            <option value="Pegamentos y removedores">Pegamentos y removedores</option>
+            <option value="Cuidado y limpieza">Cuidado y limpieza</option>
+            <option value="Lash lift &amp; brow lift">Lash lift &amp; brow lift</option>
+            <option value="Kits de inicio y microblading">Kits de inicio y microblading</option>
+            <option value="Personal Shopper USA">Personal Shopper USA</option>
+            <option value="Otro">Otro</option>
+          </select>
+          <span class="error-msg">Seleccioná una categoría.</span>
+        </div>
+
+        <div class="order-field">
+          <label for="cantidad">Cantidad <span class="req">*</span></label>
+          <input type="number" id="cantidad" name="cantidad" min="1" step="1" inputmode="numeric" placeholder="Ej. 2" required>
+          <span class="error-msg">Ingresá una cantidad válida (mínimo 1).</span>
+        </div>
+
+        <div class="order-field">
+          <label for="precio">Precio unitario (₡) <span class="req">*</span></label>
+          <input type="number" id="precio" name="precio" min="0" step="0.01" inputmode="decimal" placeholder="Ej. 12000" required>
+          <span class="error-msg">Ingresá el precio.</span>
+        </div>
+
+        <div class="order-field">
+          <label for="pago">Método de pago <span class="req">*</span></label>
+          <select id="pago" name="pago" required>
+            <option value="" disabled selected>Seleccioná una opción</option>
+            <option value="SINPE Móvil">SINPE Móvil</option>
+            <option value="Efectivo (contra entrega)">Efectivo (contra entrega)</option>
+            <option value="Tarjeta">Tarjeta de crédito o débito</option>
+            <option value="Transferencia">Transferencia bancaria</option>
+          </select>
+          <span class="error-msg">Seleccioná el método de pago.</span>
+        </div>
+
+        <p class="order-subhead">Datos de contacto y facturación</p>
+
+        <div class="order-field full">
+          <label for="nombre">Nombre Completo <span class="req">*</span></label>
+          <input type="text" id="nombre" name="nombre" autocomplete="name" placeholder="Nombre y apellidos" required>
+          <span class="error-msg">Ingresá tu nombre completo.</span>
+        </div>
+
+        <div class="order-field">
+          <label for="whatsapp">WhatsApp Principal de contacto <span class="req">*</span></label>
+          <input type="tel" id="whatsapp" name="whatsapp" autocomplete="tel" inputmode="tel" placeholder="Ej. 8888 8888" required>
+          <span class="error-msg">Ingresá tu número de WhatsApp.</span>
+        </div>
+
+        <div class="order-field">
+          <label for="telefono_alt">Teléfono Alternativo <span class="req">*</span></label>
+          <input type="tel" id="telefono_alt" name="telefono_alt" inputmode="tel" placeholder="Otro número de contacto" required>
+          <span class="error-msg">Ingresá un teléfono alternativo.</span>
+        </div>
+
+        <div class="order-field full">
+          <label for="email">Correo Electrónico <span class="req">*</span></label>
+          <input type="email" id="email" name="email" autocomplete="email" placeholder="tucorreo@ejemplo.com" required>
+          <span class="error-msg">Ingresá un correo electrónico válido.</span>
+        </div>
+
+        <p class="order-subhead">Datos de envío (Correos de Costa Rica)</p>
+
+        <div class="order-field">
+          <label for="provincia">Provincia <span class="req">*</span></label>
+          <select id="provincia" name="provincia" required>
+            <option value="" disabled selected>Seleccioná una provincia</option>
+            <option value="San José">San José</option>
+            <option value="Alajuela">Alajuela</option>
+            <option value="Cartago">Cartago</option>
+            <option value="Heredia">Heredia</option>
+            <option value="Guanacaste">Guanacaste</option>
+            <option value="Puntarenas">Puntarenas</option>
+            <option value="Limón">Limón</option>
+          </select>
+          <span class="error-msg">Seleccioná tu provincia.</span>
+        </div>
+
+        <div class="order-field">
+          <label for="canton">Cantón <span class="req">*</span></label>
+          <input type="text" id="canton" name="canton" placeholder="Ej. Desamparados" required>
+          <span class="error-msg">Ingresá tu cantón.</span>
+        </div>
+
+        <div class="order-field">
+          <label for="distrito">Distrito <span class="req">*</span></label>
+          <input type="text" id="distrito" name="distrito" placeholder="Ej. San Rafael Arriba" required>
+          <span class="error-msg">Ingresá tu distrito.</span>
+        </div>
+
+        <div class="order-field full">
+          <label for="direccion">Dirección Exacta y señas detalladas <span class="req">*</span></label>
+          <textarea id="direccion" name="direccion" rows="5" placeholder="Dirección completa, puntos de referencia, color de casa/portón, y cualquier seña que ayude al mensajero a ubicarte." required></textarea>
+          <span class="error-msg">Ingresá tu dirección exacta y las señas.</span>
+        </div>
+
+        <div class="form-status" id="formStatus" role="alert" aria-live="polite"></div>
+
+        <button type="submit" class="btn order-submit" id="orderSubmit">🛒 Enviar Pedido</button>
+        <p class="order-note">Al enviar, confirmás que los datos son correctos para la facturación y el envío.</p>
+      </form>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-row">
+      <div class="foot-left">
+        <div class="wordmark">Distribuidora <span style="color:var(--gold)">GLC</span></div>
+        <p class="place">Desamparados, Costa Rica</p>
+        <p class="foot-signature">by Gaudi Lara</p>
+      </div>
+      <div class="foot-links">
+        <a href="https://wa.me/50670281688" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="https://www.instagram.com/distribuidoraglc" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.facebook.com/share/1HtPLkXZZc/" target="_blank" rel="noopener">Facebook</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var banner = document.getElementById('promoBanner');
+    if (banner) {
+      var closeBtn = banner.querySelector('.promo-banner__close');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', function () {
+          banner.classList.add('is-hidden');
+        });
+      }
+    }
+
+    var form = document.getElementById('orderForm');
+    if (!form) return;
+    var status = document.getElementById('formStatus');
+    var submitBtn = document.getElementById('orderSubmit');
+    var fields = Array.prototype.slice.call(form.querySelectorAll('input, select, textarea'));
+
+    // URL real de producción (Google Apps Script)
+    var ENDPOINT = 'https://script.google.com/macros/s/AKfycbx6taZhMApzYRCU4ZQsRm6Hgn_0IjYbvHcyFvWg3XkjCLi2VkLLh2I5tRJOzHcUdkRH3Q/exec';
+
+    function validateField(el) {
+      var wrap = el.closest('.order-field');
+      var value = (el.value || '').trim();
+      var ok = value.length > 0;
+      if (ok && el.type === 'email') {
+        ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+      }
+      if (ok && el.name === 'cantidad') {
+        ok = Number(value) >= 1;
+      }
+      if (ok && el.name === 'precio') {
+        ok = !isNaN(Number(value)) && Number(value) >= 0;
+      }
+      if (wrap) { wrap.classList.toggle('invalid', !ok); }
+      return ok;
+    }
+
+    fields.forEach(function (el) {
+      var evt = (el.tagName === 'SELECT') ? 'change' : 'blur';
+      el.addEventListener(evt, function () { validateField(el); });
+      el.addEventListener('input', function () {
+        var wrap = el.closest('.order-field');
+        if (wrap && wrap.classList.contains('invalid')) { validateField(el); }
+      });
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var firstInvalid = null;
+      fields.forEach(function (el) {
+        var ok = validateField(el);
+        if (!ok && !firstInvalid) { firstInvalid = el; }
+      });
+      if (firstInvalid) {
+        status.className = 'form-status error';
+        status.textContent = 'Revisá el formulario: hay campos obligatorios sin completar o con datos inválidos.';
+        firstInvalid.focus();
+        return;
+      }
+
+      // Recolección de campos para producción
+      var payload = new URLSearchParams({
+        cliente:      form.nombre.value.trim(),
+        telefono:     form.whatsapp.value.trim(),
+        telefono_alt: form.telefono_alt.value.trim(),
+        email:        form.email.value.trim(),
+        provincia:    form.provincia.value,
+        canton:       form.canton.value.trim(),
+        distrito:     form.distrito.value.trim(),
+        direccion:    form.direccion.value.trim(),
+        producto:     form.producto.value.trim(),
+        categoria:    form.categoria.value,
+        cantidad:     form.cantidad.value.trim(),
+        precio:       form.precio.value.trim(),
+        pago:         form.pago.value
+      });
+
+      submitBtn.disabled = true;
+      status.className = 'form-status';
+      status.textContent = 'Enviando pedido…';
+
+      fetch(ENDPOINT, {
+        method: 'POST',
+        body: payload
+      })
+        .then(function (response) {
+          if (!response.ok) { throw new Error('HTTP ' + response.status); }
+          status.className = 'form-status ok';
+          status.textContent = '¡Pedido enviado! Te contactaremos por WhatsApp para confirmar los detalles y el envío.';
+          form.reset();
+        })
+        .catch(function () {
+          status.className = 'form-status error';
+          status.textContent = 'No pudimos enviar el pedido. Revisá tu conexión e intentá de nuevo, o escribinos por WhatsApp.';
+        })
+        .then(function () {
+          submitBtn.disabled = false;
+        });
+    });
+  })();
+</script>
+
+</body>
+</html>

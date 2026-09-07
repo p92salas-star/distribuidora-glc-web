@@ -416,6 +416,163 @@
     .shopper-card { position: static; }
   }
 
+  /* ---------- Agendar citas (cejas, pestañas y microblading) ---------- */
+
+  .citas {
+    background: var(--ink);
+    color: #F2E9E2;
+    border-top: 1px solid rgba(173,138,78,0.25);
+  }
+  .citas .kicker {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .citas h2 {
+    color: #FBF6F0;
+    font-size: clamp(26px, 3.6vw, 36px);
+    max-width: 20ch;
+  }
+  .citas__lede {
+    margin-top: 16px;
+    max-width: 52ch;
+    color: #D8C9BF;
+    font-size: 16.5px;
+  }
+  .citas__grid {
+    margin-top: 34px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 44px;
+    align-items: flex-start;
+  }
+  .citas__info { flex: 1 1 280px; }
+  .citas__info h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 19px;
+    color: #FBF6F0;
+    margin-bottom: 10px;
+  }
+  .citas__info ul { margin: 0 0 24px; padding: 0; list-style: none; }
+  .citas__info li {
+    padding: 9px 0;
+    border-bottom: 1px solid rgba(242,233,226,0.16);
+    color: #D8C9BF;
+    font-size: 14.5px;
+  }
+  .citas__info li strong { color: #F4EADA; font-weight: 600; }
+
+  .cita-card {
+    flex: 1 1 380px;
+    background: rgba(251,246,240,0.04);
+    border: 1px solid rgba(173,138,78,0.28);
+    border-radius: 16px;
+    padding: 28px 26px;
+  }
+  .cita-form { display: flex; flex-wrap: wrap; gap: 16px; }
+  .cita-field { display: flex; flex-direction: column; gap: 6px; flex: 1 1 100%; }
+  .cita-field.half { flex: 1 1 calc(50% - 8px); }
+  .cita-field > label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #EED9CC;
+  }
+  .cita-field .req { color: var(--gold); margin-left: 3px; }
+  .cita-form input,
+  .cita-form select,
+  .cita-form textarea {
+    width: 100%;
+    background: rgba(251,246,240,0.06);
+    border: 1px solid rgba(242,233,226,0.26);
+    border-radius: 10px;
+    padding: 12px 13px;
+    color: #FBF6F0;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 15px;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .cita-form select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' stroke='%23AD8A4E' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 40px;
+  }
+  .cita-form option, .cita-form optgroup { color: #2A2422; }
+  .cita-form input::placeholder,
+  .cita-form textarea::placeholder { color: rgba(216,201,191,0.5); }
+  .cita-form input:focus,
+  .cita-form select:focus,
+  .cita-form textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+    background: rgba(251,246,240,0.1);
+  }
+  .cita-form textarea { resize: vertical; min-height: 90px; }
+  .cita-field.invalid input,
+  .cita-field.invalid select,
+  .cita-field.invalid textarea {
+    border-color: #E2857F;
+    background: rgba(226,133,127,0.08);
+  }
+  .cita-field .error-msg {
+    display: none;
+    font-size: 11.5px;
+    font-weight: 500;
+    color: #EDA8A2;
+  }
+  .cita-field.invalid .error-msg { display: block; }
+  .cita-status {
+    flex: 1 1 100%;
+    display: none;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 13.5px;
+    font-weight: 500;
+  }
+  .cita-status.error {
+    display: block;
+    background: rgba(226,133,127,0.12);
+    color: #EDA8A2;
+    border: 1px solid rgba(226,133,127,0.4);
+  }
+  .cita-status.ok {
+    display: block;
+    background: rgba(173,138,78,0.14);
+    color: #E7CFA0;
+    border: 1px solid rgba(173,138,78,0.45);
+  }
+  .cita-submit {
+    flex: 1 1 100%;
+    margin-top: 4px;
+    width: 100%;
+    justify-content: center;
+    background: var(--gold);
+    color: var(--ink);
+    border: 0;
+    cursor: pointer;
+    font-size: 15px;
+    padding: 14px 20px;
+    letter-spacing: 0.02em;
+  }
+  .cita-submit:hover { background: #C79E5C; transform: translateY(-1px); }
+  .cita-note {
+    flex: 1 1 100%;
+    margin-top: 2px;
+    font-size: 12px;
+    color: #B7A79C;
+    text-align: center;
+  }
+
+  @media (max-width: 620px) {
+    .cita-field.half { flex-basis: 100%; }
+  }
+
   /* Footer */
   footer {
     padding: 48px 0 40px;
@@ -473,7 +630,7 @@
 
 <div class="promo-banner" id="promoBanner">
   <div class="promo-banner__inner">
-    <p class="promo-banner__text">✨ <span class="promo-tag">Promociones de la semana:</span> ¡Envíos gratis al Valle Central por compras mayores a ₡20,000! ✨</p>
+    <p class="promo-banner__text">✨ <span class="promo-tag">Promociones de la semana:</span> ¡Envíos gratis al Valle Central por compras mayores a ₡30,000! ✨</p>
     <button class="promo-banner__close" type="button" aria-label="Cerrar banner promocional">&times;</button>
   </div>
 </div>
@@ -493,6 +650,7 @@
       <div class="ctas">
         <a class="btn btn-primary" href="https://wa.me/50670281688" target="_blank" rel="noopener">Pedir por WhatsApp</a>
         <a class="btn btn-ghost" href="#catalogo">Ver qué vendemos</a>
+        <a class="btn btn-ghost" href="#agendar-citas">Agendar cita</a>
       </div>
     </div>
     <div class="hero-art">
@@ -630,11 +788,100 @@
   </div>
 </section>
 
+<section class="citas" id="agendar-citas">
+  <div class="wrap">
+    <p class="kicker">Agendá tu cita</p>
+    <h2>Cejas, pestañas y microblading</h2>
+    <p class="citas__lede">Reservá tu espacio para diseño de cejas, extensiones y lifting de pestañas o microblading. Elegí el servicio, la fecha y la franja horaria que te queden mejor y te confirmamos por WhatsApp.</p>
+
+    <div class="citas__grid">
+      <div class="citas__info">
+        <h3>Servicios disponibles</h3>
+        <ul>
+          <li><strong>Cejas</strong> — diseño y depilación, laminado</li>
+          <li><strong>Pestañas</strong> — clásicas, volumen, lash lift</li>
+          <li><strong>Microblading</strong> — sesión completa y retoque</li>
+        </ul>
+        <h3>Cómo funciona</h3>
+        <ul>
+          <li>Enviás la solicitud con tu fecha y franja preferida.</li>
+          <li>Te escribimos por WhatsApp para confirmar el horario exacto.</li>
+          <li>Tu solicitud queda registrada al instante.</li>
+        </ul>
+      </div>
+
+      <div class="cita-card">
+        <form class="cita-form" id="citaForm" novalidate>
+          <div class="cita-field">
+            <label for="cita_nombre">Nombre completo <span class="req">*</span></label>
+            <input type="text" id="cita_nombre" name="nombre" autocomplete="name" placeholder="Nombre y apellidos" required>
+            <span class="error-msg">Ingresá tu nombre completo.</span>
+          </div>
+
+          <div class="cita-field">
+            <label for="cita_whatsapp">WhatsApp <span class="req">*</span></label>
+            <input type="tel" id="cita_whatsapp" name="whatsapp" autocomplete="tel" inputmode="tel" placeholder="Ej. 8888 8888" required>
+            <span class="error-msg">Ingresá tu número de WhatsApp.</span>
+          </div>
+
+          <div class="cita-field">
+            <label for="cita_servicio">Servicio <span class="req">*</span></label>
+            <select id="cita_servicio" name="servicio" required>
+              <option value="" disabled selected>Seleccioná un servicio</option>
+              <optgroup label="Cejas">
+                <option value="Cejas — Diseño y depilación">Diseño y depilación</option>
+                <option value="Cejas — Laminado de cejas">Laminado de cejas</option>
+              </optgroup>
+              <optgroup label="Pestañas">
+                <option value="Pestañas — Extensiones clásicas">Extensiones clásicas</option>
+                <option value="Pestañas — Volumen">Volumen</option>
+                <option value="Pestañas — Lash lift">Lash lift</option>
+              </optgroup>
+              <optgroup label="Microblading">
+                <option value="Microblading — Sesión completa">Sesión completa</option>
+                <option value="Microblading — Retoque">Retoque</option>
+              </optgroup>
+            </select>
+            <span class="error-msg">Seleccioná el servicio.</span>
+          </div>
+
+          <div class="cita-field half">
+            <label for="cita_fecha">Fecha preferida <span class="req">*</span></label>
+            <input type="date" id="cita_fecha" name="fecha_cita" required>
+            <span class="error-msg">Elegí una fecha.</span>
+          </div>
+
+          <div class="cita-field half">
+            <label for="cita_franja">Franja horaria <span class="req">*</span></label>
+            <select id="cita_franja" name="franja" required>
+              <option value="" disabled selected>Seleccioná una franja</option>
+              <option value="Mañana (8:00 – 12:00)">Mañana (8:00 – 12:00)</option>
+              <option value="Mediodía (12:00 – 15:00)">Mediodía (12:00 – 15:00)</option>
+              <option value="Tarde (15:00 – 18:00)">Tarde (15:00 – 18:00)</option>
+            </select>
+            <span class="error-msg">Seleccioná una franja horaria.</span>
+          </div>
+
+          <div class="cita-field">
+            <label for="cita_notas">Notas (opcional)</label>
+            <textarea id="cita_notas" name="notas" rows="3" placeholder="Contanos si es tu primera vez, si venís de un retoque, alergias, etc."></textarea>
+          </div>
+
+          <div class="cita-status" id="citaStatus" role="alert" aria-live="polite"></div>
+
+          <button type="submit" class="btn cita-submit" id="citaSubmit">📅 Solicitar cita</button>
+          <p class="cita-note">Al enviar, tu solicitud queda registrada. La cita se confirma por WhatsApp.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="shopper" id="personal-shopper">
   <div class="wrap">
     <span class="badge">Próximamente</span>
     <h2>Personal Shopper USA</h2>
-    <p class="lede">Gaudi va a viajar directamente a Estados Unidos para traer los encargos de sus clientas — desde tecnología hasta ropa, belleza y regalos, comprados en tiendas de confianza.</p>
+    <p class="lede">Estaremos viajando proximante en octubre a Estados Unidos para traer los encargos de todos nuestros clientes, Aproveche y relice sus pedidos para navidad y final de año! — desde tecnología hasta ropa, belleza y regalos, comprados en tiendas de confianza.</p>
     <div class="store-row">
       <span class="chip">Amazon</span>
       <span class="chip">Best Buy</span>
@@ -679,6 +926,93 @@
         banner.classList.add('is-hidden');
       });
     }
+  })();
+
+  /* ---------- Agendar cita → Google Sheets (Apps Script) ---------- */
+  (function () {
+    var form = document.getElementById('citaForm');
+    if (!form) return;
+    var status = document.getElementById('citaStatus');
+    var submitBtn = document.getElementById('citaSubmit');
+    var fields = Array.prototype.slice.call(form.querySelectorAll('input, select, textarea'));
+
+    // URL del Web App de Google Apps Script para citas (termina en /exec).
+    // Mientras no esté configurada, el formulario deriva a WhatsApp.
+    var ENDPOINT_CITAS = 'PENDIENTE_URL_APPS_SCRIPT_CITAS';
+
+    var fecha = document.getElementById('cita_fecha');
+    if (fecha) {
+      var ahora = new Date();
+      fecha.min = new Date(ahora.getTime() - ahora.getTimezoneOffset() * 60000)
+        .toISOString().slice(0, 10);
+    }
+
+    function validateField(el) {
+      if (el.name === 'notas') { return true; }
+      var wrap = el.closest('.cita-field');
+      var ok = (el.value || '').trim().length > 0;
+      if (wrap) { wrap.classList.toggle('invalid', !ok); }
+      return ok;
+    }
+
+    fields.forEach(function (el) {
+      var evt = (el.tagName === 'SELECT') ? 'change' : 'blur';
+      el.addEventListener(evt, function () { validateField(el); });
+      el.addEventListener('input', function () {
+        var wrap = el.closest('.cita-field');
+        if (wrap && wrap.classList.contains('invalid')) { validateField(el); }
+      });
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var firstInvalid = null;
+      fields.forEach(function (el) {
+        var ok = validateField(el);
+        if (!ok && !firstInvalid) { firstInvalid = el; }
+      });
+      if (firstInvalid) {
+        status.className = 'cita-status error';
+        status.textContent = 'Revisá el formulario: faltan campos obligatorios.';
+        firstInvalid.focus();
+        return;
+      }
+
+      if (ENDPOINT_CITAS.indexOf('http') !== 0) {
+        status.className = 'cita-status error';
+        status.textContent = 'El agendado en línea todavía no está activo. Escribinos por WhatsApp al 7028 1688 y te agendamos con gusto.';
+        return;
+      }
+
+      var payload = new URLSearchParams({
+        cliente:    form.nombre.value.trim(),
+        telefono:   form.whatsapp.value.trim(),
+        servicio:   form.servicio.value,
+        fecha_cita: form.fecha_cita.value,
+        franja:     form.franja.value,
+        notas:      form.notas.value.trim()
+      });
+
+      submitBtn.disabled = true;
+      status.className = 'cita-status';
+      status.textContent = 'Enviando solicitud…';
+
+      fetch(ENDPOINT_CITAS, { method: 'POST', body: payload })
+        .then(function (response) {
+          if (!response.ok) { throw new Error('HTTP ' + response.status); }
+          status.className = 'cita-status ok';
+          status.textContent = '¡Solicitud enviada! Te contactaremos por WhatsApp para confirmar tu cita.';
+          form.reset();
+        })
+        .catch(function () {
+          status.className = 'cita-status error';
+          status.textContent = 'No pudimos enviar la solicitud. Revisá tu conexión e intentá de nuevo, o escribinos por WhatsApp.';
+        })
+        .then(function () {
+          submitBtn.disabled = false;
+        });
+    });
   })();
 </script>
 

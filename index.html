@@ -778,7 +778,7 @@
             y entregados en mano en Costa Rica. Contanos qué necesitás y te
             preparamos una cotización.
           </p>
-          <form class="shopper-form" action="formspree.io" method="POST">
+          <form class="shopper-form" id="shopperForm" novalidate>
             <label class="shopper-form__field">
               <span>Nombre Completo</span>
               <input type="text" name="nombre" autocomplete="name" required>
@@ -1053,6 +1053,34 @@
         .then(function () {
           submitBtn.disabled = false;
         });
+    });
+  })();
+
+  /* ---------- Personal Shopper USA → WhatsApp ---------- */
+  (function () {
+    var form = document.getElementById('shopperForm');
+    if (!form) return;
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var nombre   = (form.nombre.value || '').trim();
+      var whatsapp = (form.whatsapp.value || '').trim();
+      var producto = (form.producto.value || '').trim();
+
+      if (!nombre || !whatsapp || !producto) {
+        form.reportValidity();
+        return;
+      }
+
+      var texto = '¡Hola Gaudi! Deseo cotizar un artículo con el Personal Shopper USA. ' +
+        'Nombre: ' + nombre + ', Teléfono: ' + whatsapp + ', Producto a cotizar: ' + producto;
+
+      window.open(
+        'https://wa.me/50670281688?text=' + encodeURIComponent(texto),
+        '_blank',
+        'noopener'
+      );
     });
   })();
 </script>

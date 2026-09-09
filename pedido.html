@@ -556,6 +556,40 @@
     // URL real de producción (Google Apps Script)
     var ENDPOINT = 'https://script.google.com/macros/s/AKfycbx6taZhMApzYRCU4ZQsRm6Hgn_0IjYbvHcyFvWg3XkjCLi2VkLLh2I5tRJOzHcUdkRH3Q/exec';
 
+    // Número de la tienda para el aviso por WhatsApp (OPCIÓN A)
+    var WHATSAPP_TIENDA = '50670281688';
+
+    // OPCIÓN A — Aviso por WhatsApp tras registrar el pedido.
+    // Placeholder a la espera de aprobación: dejar en false.
+    var MODO_WHATSAPP_ACTIVO = false;
+
+    // SEGURIDAD — Sanitización anti-inyección (XSS): neutraliza los
+    // caracteres/patrones usados para inyectar HTML o JS antes del fetch().
+    // Es una capa extra; el escape definitivo debe hacerse también en el
+    // servidor (Apps Script) al escribir en la hoja y al mostrar los datos.
+    function sanitize(value) {
+      return String(value == null ? '' : value)
+        .replace(/[<>]/g, '')                       // corta apertura/cierre de etiquetas HTML
+        .replace(/[\x00-\x1F\x7F]/g, '')            // elimina caracteres de control
+        .replace(/javascript:/gi, '')               // esquema de URL peligroso
+        .replace(/\bon\w+\s*=/gi, '')                // manejadores de eventos inline
+        .replace(/\s{2,}/g, ' ')                     // colapsa espacios múltiples
+        .trim();
+    }
+
+    function abrirAvisoWhatsApp(d) {
+      var msg = '¡Hola Gaudi! Registré un pedido en la web. ' +
+        'Cliente: ' + d.cliente + ', Teléfono: ' + d.telefono +
+        ', Provincia: ' + d.provincia + ', Dirección: ' + d.direccion +
+        ', Producto: ' + d.producto + ', Cantidad: ' + d.cantidad +
+        ', Pago: ' + d.pago + '.';
+      window.open(
+        'https://wa.me/' + WHATSAPP_TIENDA + '?text=' + encodeURIComponent(msg),
+        '_blank',
+        'noopener'
+      );
+    }
+
     function validateField(el) {
       var wrap = el.closest('.order-field');
       var value = (el.value || '').trim();
@@ -597,22 +631,23 @@
         return;
       }
 
-      // Recolección de campos para producción
-      var payload = new URLSearchParams({
-        cliente:      form.nombre.value.trim(),
-        telefono:     form.whatsapp.value.trim(),
-        telefono_alt: form.telefono_alt.value.trim(),
-        email:        form.email.value.trim(),
-        provincia:    form.provincia.value,
-        canton:       form.canton.value.trim(),
-        distrito:     form.distrito.value.trim(),
-        direccion:    form.direccion.value.trim(),
-        producto:     form.producto.value.trim(),
-        categoria:    form.categoria.value,
-        cantidad:     form.cantidad.value.trim(),
-        precio:       form.precio.value.trim(),
-        pago:         form.pago.value
-      });
+      // Recolección + sanitización de campos para producción
+      var datos = {
+        cliente:      sanitize(form.nombre.value),
+        telefono:     sanitize(form.whatsapp.value),
+        telefono_alt: sanitize(form.telefono_alt.value),
+        email:        sanitize(form.email.value),
+        provincia:    sanitize(form.provincia.value),
+        canton:       sanitize(form.canton.value),
+        distrito:     sanitize(form.distrito.value),
+        direccion:    sanitize(form.direccion.value),
+        producto:     sanitize(form.producto.value),
+        categoria:    sanitize(form.categoria.value),
+        cantidad:     sanitize(form.cantidad.value),
+        precio:       sanitize(form.precio.value),
+        pago:         sanitize(form.pago.value)
+      };
+      var payload = new URLSearchParams(datos);
 
       submitBtn.disabled = true;
       status.className = 'form-status';
@@ -626,6 +661,12 @@
           if (!response.ok) { throw new Error('HTTP ' + response.status); }
           status.className = 'form-status ok';
           status.textContent = '¡Pedido enviado! Te contactaremos por WhatsApp para confirmar los detalles y el envío.';
+
+          // OPCIÓN A: aviso por WhatsApp (solo si está aprobado/activo)
+          if (MODO_WHATSAPP_ACTIVO) {
+            abrirAvisoWhatsApp(datos);
+          }
+
           form.reset();
         })
         .catch(function () {

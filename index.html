@@ -330,6 +330,7 @@
     border-color: rgba(173,138,78,0.35);
   }
   .cat-card__photo {
+    position: relative;
     width: 100%;
     aspect-ratio: 4 / 5;
     border-radius: 14px;
@@ -341,6 +342,8 @@
     justify-content: center;
   }
   .cat-card__photo img {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -1224,10 +1227,11 @@
                 data-cat-title="Extensiones de pestañas"
                 data-cat-desc="Bandejas mixtas, volumen y clásicas, en distintos grosores y curvaturas.">
           <div class="cat-card__photo">
-            <!-- FOTO REAL AQUÍ: reemplazar por
-                 <img src="fotos/extensiones.jpg" alt="Bandejas de extensiones de pestañas Distribuidora GLC">
-                 Foto de estudio, fondo neutro claro, proporción vertical 4:5. -->
             <span class="cat-card__icon" aria-hidden="true">🖼️</span>
+            <!-- FOTO REAL: colocar el archivo en img/extensiones.jpg (foto de estudio,
+                 fondo neutro claro, proporción vertical 4:5). Si el archivo no existe
+                 todavía, esta imagen se oculta sola y se ve el marco de respaldo. -->
+            <img src="img/extensiones.jpg" alt="Bandejas de extensiones de pestañas Distribuidora GLC" loading="lazy" onerror="this.style.display='none'">
           </div>
           <div class="mark"></div>
           <h3>Extensiones de pestañas</h3>
@@ -1237,10 +1241,11 @@
                 data-cat-title="Pinzas y herramientas"
                 data-cat-desc="Rectas, curvas y de volumen, para cada técnica de aplicación.">
           <div class="cat-card__photo">
-            <!-- FOTO REAL AQUÍ: reemplazar por
-                 <img src="fotos/pinzas.jpg" alt="Pinzas profesionales para pestañas Distribuidora GLC">
-                 Foto de producto sobre superficie clara, proporción vertical 4:5. -->
             <span class="cat-card__icon" aria-hidden="true">🖼️</span>
+            <!-- FOTO REAL: colocar el archivo en img/pinzas.jpg (foto de producto sobre
+                 superficie clara, proporción vertical 4:5). Si el archivo no existe
+                 todavía, esta imagen se oculta sola y se ve el marco de respaldo. -->
+            <img src="img/pinzas.jpg" alt="Pinzas profesionales para pestañas Distribuidora GLC" loading="lazy" onerror="this.style.display='none'">
           </div>
           <div class="mark"></div>
           <h3>Pinzas y herramientas</h3>
@@ -1250,10 +1255,11 @@
                 data-cat-title="Pegamentos y removedores"
                 data-cat-desc="Para extensión y retiro seguro, de secado rápido o lento.">
           <div class="cat-card__photo">
-            <!-- FOTO REAL AQUÍ: reemplazar por
-                 <img src="fotos/pegamentos.jpg" alt="Pegamentos y removedores para pestañas Distribuidora GLC">
-                 Foto de producto sobre superficie clara, proporción vertical 4:5. -->
             <span class="cat-card__icon" aria-hidden="true">🖼️</span>
+            <!-- FOTO REAL: colocar el archivo en img/pegamentos.jpg (foto de producto
+                 sobre superficie clara, proporción vertical 4:5). Si el archivo no
+                 existe todavía, esta imagen se oculta sola y se ve el marco de respaldo. -->
+            <img src="img/pegamentos.jpg" alt="Pegamentos y removedores para pestañas Distribuidora GLC" loading="lazy" onerror="this.style.display='none'">
           </div>
           <div class="mark"></div>
           <h3>Pegamentos y removedores</h3>
@@ -1263,10 +1269,11 @@
                 data-cat-title="Cuidado y limpieza"
                 data-cat-desc="Lash shampoo, espuma limpiadora y accesorios de mantenimiento.">
           <div class="cat-card__photo">
-            <!-- FOTO REAL AQUÍ: reemplazar por
-                 <img src="fotos/cuidado.jpg" alt="Productos de cuidado y limpieza de pestañas Distribuidora GLC">
-                 Foto de producto sobre superficie clara, proporción vertical 4:5. -->
             <span class="cat-card__icon" aria-hidden="true">🖼️</span>
+            <!-- FOTO REAL: colocar el archivo en img/limpieza.jpg (foto de producto
+                 sobre superficie clara, proporción vertical 4:5). Si el archivo no
+                 existe todavía, esta imagen se oculta sola y se ve el marco de respaldo. -->
+            <img src="img/limpieza.jpg" alt="Productos de cuidado y limpieza de pestañas Distribuidora GLC" loading="lazy" onerror="this.style.display='none'">
           </div>
           <div class="mark"></div>
           <h3>Cuidado y limpieza</h3>
@@ -1276,10 +1283,11 @@
                 data-cat-title="Lash lift &amp; brow lift"
                 data-cat-desc="Kits completos para levantado de pestañas y cejas.">
           <div class="cat-card__photo">
-            <!-- FOTO REAL AQUÍ: reemplazar por
-                 <img src="fotos/lash-lift.jpg" alt="Kit de lash lift y brow lift Distribuidora GLC">
-                 Foto de resultado o kit, proporción vertical 4:5. -->
             <span class="cat-card__icon" aria-hidden="true">🖼️</span>
+            <!-- FOTO REAL: colocar el archivo en img/lifting.jpg (foto de resultado o
+                 kit, proporción vertical 4:5). Si el archivo no existe todavía, esta
+                 imagen se oculta sola y se ve el marco de respaldo. -->
+            <img src="img/lifting.jpg" alt="Kit de lash lift y brow lift Distribuidora GLC" loading="lazy" onerror="this.style.display='none'">
           </div>
           <div class="mark"></div>
           <h3>Lash lift &amp; brow lift</h3>
@@ -1289,10 +1297,12 @@
                 data-cat-title="Kits de inicio y microblading"
                 data-cat-desc="Todo para quienes están empezando en el oficio.">
           <div class="cat-card__photo">
-            <!-- FOTO REAL AQUÍ: reemplazar por
-                 <img src="fotos/kits-microblading.jpg" alt="Kit de inicio y microblading Distribuidora GLC">
-                 Foto de producto/kit sobre superficie clara, proporción vertical 4:5. -->
             <span class="cat-card__icon" aria-hidden="true">🖼️</span>
+            <!-- FOTO REAL: colocar el archivo en img/microblading.jpg (foto de
+                 producto/kit sobre superficie clara, proporción vertical 4:5). Si el
+                 archivo no existe todavía, esta imagen se oculta sola y se ve el
+                 marco de respaldo. -->
+            <img src="img/microblading.jpg" alt="Kit de inicio y microblading Distribuidora GLC" loading="lazy" onerror="this.style.display='none'">
           </div>
           <div class="mark"></div>
           <h3>Kits de inicio y microblading</h3>

@@ -9,15 +9,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600;700&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --paper: #FBF6F0;
+    /* ---- Light Luxury / "Primer Mundo" palette (Sandbox) ---- */
+    --paper: #FFFFFF;
     --blush: #F3DAD0;
-    --ink: #2A2422;
-    --ink-soft: #554C48;
+    --ink: #111111;
+    --ink-soft: #545454;
     --gold: #AD8A4E;
+    --gold-light: #E4C989;
     --berry: #8B3A46;
     --berry-dark: #702E38;
-    --line: rgba(42,36,34,0.14);
-    --card: #FFFDFB;
+    --line: rgba(17,17,17,0.07);
+    --card: #FDFCFA;
+    --shadow-soft: 0 4px 20px rgba(0,0,0,0.03);
+    --shadow-hover: 0 20px 45px rgba(0,0,0,0.08);
+    --ease-lux: cubic-bezier(0.25, 1, 0.5, 1);
   }
 
   * { box-sizing: border-box; }
@@ -127,9 +132,11 @@
     position: sticky;
     top: 0;
     z-index: 20;
-    background: rgba(251,246,240,0.92);
-    backdrop-filter: blur(6px);
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--line);
+    transition: box-shadow 0.4s var(--ease-lux);
   }
 
   .header-row {
@@ -158,13 +165,17 @@
     font-weight: 600;
     font-size: 14.5px;
     white-space: nowrap;
-    transition: transform 0.15s ease, background 0.15s ease;
+    transition: transform 0.4s var(--ease-lux), background 0.3s ease, box-shadow 0.4s var(--ease-lux);
   }
   .btn-primary {
     background: var(--berry);
     color: #FFF4EF;
   }
-  .btn-primary:hover { background: var(--berry-dark); transform: translateY(-1px); }
+  .btn-primary:hover {
+    background: var(--berry-dark);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+  }
   .btn-ghost {
     color: var(--ink);
     border-bottom: 1.5px solid var(--gold);
@@ -192,7 +203,8 @@
   .btn-nav:hover {
     background: var(--blush);
     border-color: transparent;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
   }
 
   @media (max-width: 860px) {
@@ -245,11 +257,16 @@
   }
   .hero-art img {
     width: 100%;
-    max-width: 340px;
-    border-radius: 50%;
-    background: var(--blush);
-    padding: 18px;
+    max-width: 380px;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 24px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-hover);
+    transition: transform 0.5s var(--ease-lux);
   }
+  .hero-art img:hover { transform: scale(1.015); }
 
   /* ---------- Sections ---------- */
 
@@ -271,9 +288,11 @@
   }
   .step {
     flex: 1 1 220px;
-    border-top: 2px solid var(--ink);
-    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    padding-top: 18px;
+    transition: border-color 0.4s var(--ease-lux);
   }
+  .step:hover { border-top-color: var(--gold); }
   .step .num {
     font-family: 'Fraunces', serif;
     font-size: 34px;
@@ -285,19 +304,51 @@
   .step p { color: var(--ink-soft); font-size: 15px; }
 
   /* Catalog */
-  .catalog-wrap { background: var(--card); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .catalog-wrap { background: var(--paper); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
   .cat-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1px;
-    background: var(--line);
-    border: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 22px;
   }
   .cat-card {
-    flex: 1 1 260px;
+    display: block;
+    width: 100%;
+    text-align: left;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
     background: var(--card);
-    padding: 26px 22px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 20px 20px 26px;
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.4s var(--ease-lux), box-shadow 0.4s var(--ease-lux), border-color 0.4s var(--ease-lux);
   }
+  .cat-card:hover, .cat-card:focus-visible {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+    border-color: rgba(173,138,78,0.35);
+  }
+  .cat-card__photo {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    background: linear-gradient(150deg, var(--blush) 0%, #FFFFFF 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cat-card__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s var(--ease-lux);
+  }
+  .cat-card:hover .cat-card__photo img { transform: scale(1.08); }
+  .cat-card__icon { font-size: 30px; opacity: 0.35; }
   .cat-card .mark {
     width: 34px; height: 2px; background: var(--berry); margin-bottom: 16px;
   }
@@ -385,6 +436,7 @@
     border: 1px solid rgba(173,138,78,0.25);
     border-radius: 16px;
     padding: 28px 24px;
+    box-shadow: var(--shadow-soft);
   }
   .shopper-card__title {
     font-family: 'Fraunces', serif;
@@ -538,7 +590,7 @@
     background-position: right 14px center;
     padding-right: 40px;
   }
-  .cita-form option, .cita-form optgroup { color: #2A2422; }
+  .cita-form option, .cita-form optgroup { color: var(--ink); }
   .cita-form input::placeholder,
   .cita-form textarea::placeholder { color: rgba(216,201,191,0.5); }
   .cita-form input:focus,
@@ -637,6 +689,74 @@
     text-align: center;
   }
 
+  /* Selector de "necesidad" en chips (modal Emprendedores B2B) */
+  .necesidad-choices { display: flex; flex-wrap: wrap; gap: 10px; }
+  .necesidad-choice { position: relative; }
+  .necesidad-choice input {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    cursor: pointer;
+  }
+  .necesidad-choice span {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(242,233,226,0.3);
+    color: #F2E9E2;
+    font-size: 13.5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s var(--ease-lux), border-color 0.3s var(--ease-lux), color 0.3s var(--ease-lux);
+  }
+  .necesidad-choice input:checked + span {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #1B1916;
+    font-weight: 600;
+  }
+  .necesidad-choice input:focus-visible + span {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+  .cita-field.invalid .necesidad-choices span { border-color: #E2857F; }
+
+  /* Tarjeta que invita a abrir el modal de citas (reemplaza el form inline) */
+  .citas__teaser {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .citas__teaser-photo {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    border-radius: 12px;
+    overflow: hidden;
+    background: linear-gradient(150deg, rgba(173,138,78,0.28), rgba(251,246,240,0.05));
+    border: 1px solid rgba(173,138,78,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .citas__teaser-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .citas__teaser-icon { font-size: 34px; opacity: 0.6; }
+  .citas__teaser h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 19px;
+    color: #FBF6F0;
+  }
+  .citas__teaser p { color: #D8C9BF; font-size: 14.5px; }
+  .citas__teaser-btn { align-self: flex-start; margin-top: 4px; }
+
   @media (max-width: 620px) {
     .cita-field.half { flex-basis: 100%; }
   }
@@ -668,18 +788,46 @@
   }
   .foot-links a { border-bottom: 1px solid var(--line); padding-bottom: 2px; }
 
+  /* Aviso de cookies y consentimiento (barra delgada en el pie de página) */
+  .cookie-bar {
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .cookie-bar__text {
+    margin: 0;
+    max-width: 62ch;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+  }
+  .cookie-bar__text a { color: var(--gold); text-decoration: underline; }
+  .cookie-bar__accept {
+    flex-shrink: 0;
+    padding: 8px 20px;
+    font-size: 13px;
+  }
+  .cookie-bar.is-hidden { display: none; }
+
+  @media (max-width: 620px) {
+    .cookie-bar { flex-direction: column; align-items: flex-start; }
+  }
+
   /* Responsive */
   @media (max-width: 820px) {
     .hero-art { order: -1; }
-    .hero-art img { max-width: 220px; }
+    .hero-art img { max-width: 220px; aspect-ratio: 4 / 5; }
     .hero .lede { max-width: none; }
     .step { flex-basis: 100%; }
-    .cat-card { flex-basis: 45%; }
     .info-grid > div { flex-basis: 100%; }
     .foot-row { flex-direction: column; align-items: flex-start; }
   }
   @media (max-width: 480px) {
-    .cat-card { flex-basis: 100%; }
+    .cat-grid { grid-template-columns: 1fr; }
     .hero .ctas { flex-direction: column; align-items: flex-start; gap: 16px; }
   }
 
@@ -691,6 +839,309 @@
   a:focus-visible, button:focus-visible {
     outline: 2px solid var(--berry);
     outline-offset: 2px;
+  }
+
+  /* ---------- Ventanas modales de lujo (catálogo + citas) ---------- */
+  .lux-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(17,17,17,0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s var(--ease-lux), visibility 0.4s var(--ease-lux);
+  }
+  .lux-overlay.is-open { opacity: 1; visibility: visible; }
+  body.lux-lock { overflow: hidden; }
+
+  .lux-modal {
+    position: relative;
+    width: 100%;
+    max-width: 560px;
+    max-height: 88vh;
+    overflow-y: auto;
+    background: var(--paper);
+    color: var(--ink);
+    border-radius: 22px;
+    box-shadow: var(--shadow-hover);
+    padding: 40px 34px;
+    transform: scale(0.92) translateY(14px);
+    opacity: 0;
+    transition: transform 0.45s var(--ease-lux), opacity 0.4s var(--ease-lux);
+  }
+  .lux-overlay.is-open .lux-modal { transform: scale(1) translateY(0); opacity: 1; }
+
+  .lux-modal--dark {
+    max-width: 640px;
+    background: var(--ink);
+    color: #F2E9E2;
+  }
+  .lux-modal--dark .cita-card {
+    background: transparent;
+    border: 0;
+    padding: 0;
+  }
+
+  .lux-modal__close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--card);
+    color: var(--ink);
+    font-size: 18px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.4s var(--ease-lux), background 0.3s ease;
+  }
+  .lux-modal__close:hover { transform: rotate(90deg); background: var(--blush); }
+
+  .lux-modal__photo {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 22px;
+    background: linear-gradient(150deg, var(--blush), #FFFFFF);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .lux-modal__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .lux-modal__icon { font-size: 34px; opacity: 0.4; }
+  .lux-modal__kicker { font-size: 13px; font-weight: 600; color: var(--gold); margin-bottom: 6px; }
+  .lux-modal h3 { font-size: 22px; margin-bottom: 10px; }
+  .lux-modal__desc { color: var(--ink-soft); font-size: 15px; margin-bottom: 24px; }
+  .lux-modal__ctas { display: flex; flex-wrap: wrap; gap: 14px; }
+  .lux-modal--dark .lux-modal__form-title {
+    font-size: 21px;
+    color: #FBF6F0;
+    margin-bottom: 18px;
+  }
+  .lux-modal--dark .lux-modal__desc { color: #D8C9BF; }
+
+  @media (max-width: 480px) {
+    .lux-modal { padding: 30px 22px; }
+  }
+
+  /* ---------- Programas y alianzas (Estudiante + Emprendedores B2B) ---------- */
+  .programs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .program-card {
+    position: relative;
+    display: block;
+    width: 100%;
+    text-align: left;
+    font: inherit;
+    cursor: pointer;
+    border-radius: 20px;
+    padding: 32px 28px;
+    transition: transform 0.4s var(--ease-lux), box-shadow 0.4s var(--ease-lux), border-color 0.4s var(--ease-lux);
+  }
+  .program-card:hover, .program-card:focus-visible { transform: translateY(-4px); }
+  .program-card__icon { font-size: 32px; margin-bottom: 14px; }
+  .program-card h3 { font-size: 21px; margin-bottom: 10px; }
+  .program-card p { font-size: 14.5px; margin-bottom: 18px; }
+  .program-card__cta { font-size: 13.5px; font-weight: 600; letter-spacing: 0.01em; }
+
+  .program-card--student {
+    background: var(--card);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-soft);
+    color: var(--ink);
+  }
+  .program-card--student:hover, .program-card--student:focus-visible {
+    box-shadow: var(--shadow-hover);
+    border-color: rgba(173,138,78,0.35);
+  }
+  .program-card--student p { color: var(--ink-soft); }
+  .program-card--student .program-card__cta { color: var(--gold); }
+
+  .program-card--b2b {
+    background: linear-gradient(150deg, #1B1916 0%, #221D18 100%);
+    color: #F2E9E2;
+    border: 1px solid rgba(173,138,78,0.35);
+    box-shadow: var(--shadow-soft);
+  }
+  .program-card--b2b:hover, .program-card--b2b:focus-visible {
+    box-shadow: 0 24px 55px rgba(0,0,0,0.28);
+    border-color: var(--gold);
+  }
+  .program-card--b2b h3 { color: #FBF6F0; }
+  .program-card--b2b p { color: #D8C9BF; }
+  .program-card--b2b .program-card__cta { color: var(--gold-light); }
+  .program-card__badge {
+    position: absolute;
+    top: 24px;
+    right: 28px;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #1B1916;
+    background: var(--gold);
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+
+  @media (max-width: 480px) {
+    .programs-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Formulario claro genérico (modal Membresía Estudiante) ---------- */
+  .lux-form { display: flex; flex-direction: column; gap: 16px; margin-top: 6px; }
+  .lux-field { display: flex; flex-direction: column; gap: 6px; }
+  .lux-field > label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .lux-field .req { color: var(--gold); margin-left: 3px; }
+  .lux-form input,
+  .lux-form select,
+  .lux-form textarea {
+    width: 100%;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 12px 13px;
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    font-size: 15px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .lux-form textarea { resize: vertical; min-height: 110px; }
+  .lux-form input:focus,
+  .lux-form select:focus,
+  .lux-form textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(173,138,78,0.12);
+  }
+  .lux-field.invalid input,
+  .lux-field.invalid select,
+  .lux-field.invalid textarea {
+    border-color: #C0392B;
+    background: rgba(192,57,43,0.05);
+  }
+  .lux-field .error-msg {
+    display: none;
+    font-size: 11.5px;
+    font-weight: 500;
+    color: #C0392B;
+  }
+  .lux-field.invalid .error-msg { display: block; }
+
+  /* Carga de archivos con estilo fino dorado (comprobante de estudio) */
+  .lux-field--file input[type="file"] {
+    padding: 10px 12px;
+    border: 1px dashed rgba(173,138,78,0.5);
+    background: linear-gradient(150deg, rgba(173,138,78,0.05), transparent);
+    cursor: pointer;
+    font-size: 13.5px;
+  }
+  .lux-field--file input[type="file"]::file-selector-button {
+    margin-right: 12px;
+    padding: 8px 16px;
+    border: 1px solid var(--gold);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--gold);
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  .lux-field--file input[type="file"]:hover::file-selector-button,
+  .lux-field--file input[type="file"]::file-selector-button:hover {
+    background: var(--gold);
+    color: #FFFFFF;
+  }
+  .lux-field--file.invalid input[type="file"] { border-color: #C0392B; }
+  .lux-field__hint { font-size: 12px; color: var(--ink-soft); }
+
+  .lux-consent-field { margin-top: 2px; }
+  .lux-field > label.lux-consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 12.5px;
+    font-weight: 400;
+    letter-spacing: normal;
+    text-transform: none;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    cursor: pointer;
+  }
+  .lux-consent input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    margin: 1px 0 0;
+    accent-color: var(--gold);
+    cursor: pointer;
+  }
+  .lux-consent a { color: var(--berry); text-decoration: underline; }
+  .lux-consent-field.invalid .lux-consent { color: #C0392B; }
+
+  .lux-status {
+    display: none;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 13.5px;
+    font-weight: 500;
+  }
+  .lux-status.error {
+    display: block;
+    background: rgba(192,57,43,0.08);
+    color: #A8362A;
+    border: 1px solid rgba(192,57,43,0.3);
+  }
+  .lux-status.ok {
+    display: block;
+    background: rgba(173,138,78,0.12);
+    color: #8A6A2E;
+    border: 1px solid rgba(173,138,78,0.4);
+  }
+
+  .lux-submit {
+    width: 100%;
+    justify-content: center;
+    background: var(--gold);
+    color: #FFFFFF;
+    border: 0;
+    cursor: pointer;
+    font-size: 15px;
+    padding: 14px 20px;
+    letter-spacing: 0.02em;
+  }
+  .lux-submit:hover {
+    background: #8F7038;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+  }
+  .lux-note {
+    font-size: 12px;
+    color: var(--ink-soft);
+    text-align: center;
+    margin-top: 2px;
   }
 </style>
 </head>
@@ -769,36 +1220,84 @@
         <h2>Lo que encontrás en Distribuidora GLC</h2>
       </div>
       <div class="cat-grid">
-        <div class="cat-card">
+        <button type="button" class="cat-card"
+                data-cat-title="Extensiones de pestañas"
+                data-cat-desc="Bandejas mixtas, volumen y clásicas, en distintos grosores y curvaturas.">
+          <div class="cat-card__photo">
+            <!-- FOTO REAL AQUÍ: reemplazar por
+                 <img src="fotos/extensiones.jpg" alt="Bandejas de extensiones de pestañas Distribuidora GLC">
+                 Foto de estudio, fondo neutro claro, proporción vertical 4:5. -->
+            <span class="cat-card__icon" aria-hidden="true">🖼️</span>
+          </div>
           <div class="mark"></div>
           <h3>Extensiones de pestañas</h3>
           <p>Bandejas mixtas, volumen y clásicas, en distintos grosores y curvaturas.</p>
-        </div>
-        <div class="cat-card">
+        </button>
+        <button type="button" class="cat-card"
+                data-cat-title="Pinzas y herramientas"
+                data-cat-desc="Rectas, curvas y de volumen, para cada técnica de aplicación.">
+          <div class="cat-card__photo">
+            <!-- FOTO REAL AQUÍ: reemplazar por
+                 <img src="fotos/pinzas.jpg" alt="Pinzas profesionales para pestañas Distribuidora GLC">
+                 Foto de producto sobre superficie clara, proporción vertical 4:5. -->
+            <span class="cat-card__icon" aria-hidden="true">🖼️</span>
+          </div>
           <div class="mark"></div>
           <h3>Pinzas y herramientas</h3>
           <p>Rectas, curvas y de volumen, para cada técnica de aplicación.</p>
-        </div>
-        <div class="cat-card">
+        </button>
+        <button type="button" class="cat-card"
+                data-cat-title="Pegamentos y removedores"
+                data-cat-desc="Para extensión y retiro seguro, de secado rápido o lento.">
+          <div class="cat-card__photo">
+            <!-- FOTO REAL AQUÍ: reemplazar por
+                 <img src="fotos/pegamentos.jpg" alt="Pegamentos y removedores para pestañas Distribuidora GLC">
+                 Foto de producto sobre superficie clara, proporción vertical 4:5. -->
+            <span class="cat-card__icon" aria-hidden="true">🖼️</span>
+          </div>
           <div class="mark"></div>
           <h3>Pegamentos y removedores</h3>
           <p>Para extensión y retiro seguro, de secado rápido o lento.</p>
-        </div>
-        <div class="cat-card">
+        </button>
+        <button type="button" class="cat-card"
+                data-cat-title="Cuidado y limpieza"
+                data-cat-desc="Lash shampoo, espuma limpiadora y accesorios de mantenimiento.">
+          <div class="cat-card__photo">
+            <!-- FOTO REAL AQUÍ: reemplazar por
+                 <img src="fotos/cuidado.jpg" alt="Productos de cuidado y limpieza de pestañas Distribuidora GLC">
+                 Foto de producto sobre superficie clara, proporción vertical 4:5. -->
+            <span class="cat-card__icon" aria-hidden="true">🖼️</span>
+          </div>
           <div class="mark"></div>
           <h3>Cuidado y limpieza</h3>
           <p>Lash shampoo, espuma limpiadora y accesorios de mantenimiento.</p>
-        </div>
-        <div class="cat-card">
+        </button>
+        <button type="button" class="cat-card"
+                data-cat-title="Lash lift &amp; brow lift"
+                data-cat-desc="Kits completos para levantado de pestañas y cejas.">
+          <div class="cat-card__photo">
+            <!-- FOTO REAL AQUÍ: reemplazar por
+                 <img src="fotos/lash-lift.jpg" alt="Kit de lash lift y brow lift Distribuidora GLC">
+                 Foto de resultado o kit, proporción vertical 4:5. -->
+            <span class="cat-card__icon" aria-hidden="true">🖼️</span>
+          </div>
           <div class="mark"></div>
           <h3>Lash lift &amp; brow lift</h3>
           <p>Kits completos para levantado de pestañas y cejas.</p>
-        </div>
-        <div class="cat-card">
+        </button>
+        <button type="button" class="cat-card"
+                data-cat-title="Kits de inicio y microblading"
+                data-cat-desc="Todo para quienes están empezando en el oficio.">
+          <div class="cat-card__photo">
+            <!-- FOTO REAL AQUÍ: reemplazar por
+                 <img src="fotos/kits-microblading.jpg" alt="Kit de inicio y microblading Distribuidora GLC">
+                 Foto de producto/kit sobre superficie clara, proporción vertical 4:5. -->
+            <span class="cat-card__icon" aria-hidden="true">🖼️</span>
+          </div>
           <div class="mark"></div>
           <h3>Kits de inicio y microblading</h3>
           <p>Todo para quienes están empezando en el oficio.</p>
-        </div>
+        </button>
       </div>
       </div>
 
@@ -831,6 +1330,24 @@
      </div>
     </div>
   </section>
+</div>
+
+<div class="lux-overlay" id="modalCatalogo" aria-hidden="true">
+  <div class="lux-modal" role="dialog" aria-modal="true" aria-labelledby="modalCatalogoTitle">
+    <button type="button" class="lux-modal__close" aria-label="Cerrar ventana de catálogo">&times;</button>
+    <div class="lux-modal__photo" data-modal-photo>
+      <!-- FOTO REAL AQUÍ: vista ampliada de la categoría seleccionada. Cuando existan
+           fotos reales del catálogo, esta caja puede recibir un <img> por categoría. -->
+      <span class="lux-modal__icon" aria-hidden="true">✨</span>
+    </div>
+    <p class="lux-modal__kicker">Catálogo Distribuidora GLC</p>
+    <h3 id="modalCatalogoTitle" data-modal-title>—</h3>
+    <p class="lux-modal__desc" data-modal-desc>—</p>
+    <div class="lux-modal__ctas">
+      <a class="btn btn-primary" href="pedido.html">🛒 Pedir esta categoría</a>
+      <a class="btn btn-ghost" href="https://wa.me/50670281688" target="_blank" rel="noopener">Consultar por WhatsApp</a>
+    </div>
+  </div>
 </div>
 
 <section id="entrega">
@@ -884,80 +1401,98 @@
         </ul>
       </div>
 
-      <div class="cita-card">
-        <form class="cita-form" id="citaForm" novalidate>
-          <div class="cita-field">
-            <label for="cita_nombre">Nombre completo <span class="req">*</span></label>
-            <input type="text" id="cita_nombre" name="nombre" autocomplete="name" placeholder="Nombre y apellidos" required>
-            <span class="error-msg">Ingresá tu nombre completo.</span>
-          </div>
-
-          <div class="cita-field">
-            <label for="cita_whatsapp">WhatsApp <span class="req">*</span></label>
-            <input type="tel" id="cita_whatsapp" name="whatsapp" autocomplete="tel" inputmode="tel" placeholder="Ej. 8888 8888" required>
-            <span class="error-msg">Ingresá tu número de WhatsApp.</span>
-          </div>
-
-          <div class="cita-field">
-            <label for="cita_servicio">Servicio <span class="req">*</span></label>
-            <select id="cita_servicio" name="servicio" required>
-              <option value="" disabled selected>Seleccioná un servicio</option>
-              <optgroup label="Cejas">
-                <option value="Cejas — Diseño y depilación">Diseño y depilación</option>
-                <option value="Cejas — Laminado de cejas">Laminado de cejas</option>
-              </optgroup>
-              <optgroup label="Pestañas">
-                <option value="Pestañas — Extensiones clásicas">Extensiones clásicas</option>
-                <option value="Pestañas — Volumen">Volumen</option>
-                <option value="Pestañas — Lash lift">Lash lift</option>
-              </optgroup>
-              <optgroup label="Microblading">
-                <option value="Microblading — Sesión completa">Sesión completa</option>
-                <option value="Microblading — Retoque">Retoque</option>
-              </optgroup>
-            </select>
-            <span class="error-msg">Seleccioná el servicio.</span>
-          </div>
-
-          <div class="cita-field half">
-            <label for="cita_fecha">Fecha preferida <span class="req">*</span></label>
-            <input type="date" id="cita_fecha" name="fecha_cita" required>
-            <span class="error-msg">Elegí una fecha.</span>
-          </div>
-
-          <div class="cita-field half">
-            <label for="cita_franja">Franja horaria <span class="req">*</span></label>
-            <select id="cita_franja" name="franja" required>
-              <option value="" disabled selected>Seleccioná una franja</option>
-              <option value="Mañana (8:00 – 12:00)">Mañana (8:00 – 12:00)</option>
-              <option value="Mediodía (12:00 – 15:00)">Mediodía (12:00 – 15:00)</option>
-              <option value="Tarde (15:00 – 18:00)">Tarde (15:00 – 18:00)</option>
-            </select>
-            <span class="error-msg">Seleccioná una franja horaria.</span>
-          </div>
-
-          <div class="cita-field">
-            <label for="cita_notas">Notas (opcional)</label>
-            <textarea id="cita_notas" name="notas" rows="3" placeholder="Contanos si es tu primera vez, si venís de un retoque, alergias, etc."></textarea>
-          </div>
-
-          <div class="cita-field cita-consent">
-            <label class="cita-consent__label">
-              <input type="checkbox" id="cita_privacidad" name="privacidad" required>
-              <span>🔒 Acepto que mis datos personales sean tratados de forma segura exclusivamente para la gestión de mi cita, conforme a la <a href="privacidad.html" target="_blank" rel="noopener">Política de Privacidad</a> y los <a href="terminos.html" target="_blank" rel="noopener">Términos y Condiciones</a>.</span>
-            </label>
-            <span class="error-msg">Necesitamos tu confirmación para agendar la cita.</span>
-          </div>
-
-          <div class="cita-status" id="citaStatus" role="alert" aria-live="polite"></div>
-
-          <button type="submit" class="btn cita-submit" id="citaSubmit">📅 Solicitar cita</button>
-          <p class="cita-note">Al enviar, tu solicitud queda registrada. La cita se confirma por WhatsApp.</p>
-        </form>
+      <div class="cita-card citas__teaser">
+        <div class="citas__teaser-photo">
+          <!-- FOTO REAL AQUÍ: reemplazar por
+               <img src="fotos/cejas-pestanas.jpg" alt="Resultado de cejas y pestañas Distribuidora GLC">
+               Foto de antes/después o resultado final, proporción vertical 4:5. -->
+          <span class="citas__teaser-icon" aria-hidden="true">💫</span>
+        </div>
+        <h3>Reservá en menos de un minuto</h3>
+        <p>Elegí el servicio, la fecha y la franja horaria que te queden mejor. Confirmamos tu espacio por WhatsApp.</p>
+        <button type="button" class="btn btn-primary citas__teaser-btn" data-modal-open="#modalCitas">📅 Agendar mi cita</button>
       </div>
     </div>
   </div>
 </section>
+
+<div class="lux-overlay" id="modalCitas" aria-hidden="true">
+  <div class="lux-modal lux-modal--dark" role="dialog" aria-modal="true" aria-labelledby="modalCitasTitle">
+    <button type="button" class="lux-modal__close" aria-label="Cerrar ventana de citas">&times;</button>
+    <div class="cita-card">
+      <h3 id="modalCitasTitle" class="lux-modal__form-title">Agendá tu cita</h3>
+      <form class="cita-form" id="citaForm" novalidate>
+        <div class="cita-field">
+          <label for="cita_nombre">Nombre completo <span class="req">*</span></label>
+          <input type="text" id="cita_nombre" name="nombre" autocomplete="name" placeholder="Nombre y apellidos" required>
+          <span class="error-msg">Ingresá tu nombre completo.</span>
+        </div>
+
+        <div class="cita-field">
+          <label for="cita_whatsapp">WhatsApp <span class="req">*</span></label>
+          <input type="tel" id="cita_whatsapp" name="whatsapp" autocomplete="tel" inputmode="tel" placeholder="Ej. 8888 8888" required>
+          <span class="error-msg">Ingresá tu número de WhatsApp.</span>
+        </div>
+
+        <div class="cita-field">
+          <label for="cita_servicio">Servicio <span class="req">*</span></label>
+          <select id="cita_servicio" name="servicio" required>
+            <option value="" disabled selected>Seleccioná un servicio</option>
+            <optgroup label="Cejas">
+              <option value="Cejas — Diseño y depilación">Diseño y depilación</option>
+              <option value="Cejas — Laminado de cejas">Laminado de cejas</option>
+            </optgroup>
+            <optgroup label="Pestañas">
+              <option value="Pestañas — Extensiones clásicas">Extensiones clásicas</option>
+              <option value="Pestañas — Volumen">Volumen</option>
+              <option value="Pestañas — Lash lift">Lash lift</option>
+            </optgroup>
+            <optgroup label="Microblading">
+              <option value="Microblading — Sesión completa">Sesión completa</option>
+              <option value="Microblading — Retoque">Retoque</option>
+            </optgroup>
+          </select>
+          <span class="error-msg">Seleccioná el servicio.</span>
+        </div>
+
+        <div class="cita-field half">
+          <label for="cita_fecha">Fecha preferida <span class="req">*</span></label>
+          <input type="date" id="cita_fecha" name="fecha_cita" required>
+          <span class="error-msg">Elegí una fecha.</span>
+        </div>
+
+        <div class="cita-field half">
+          <label for="cita_franja">Franja horaria <span class="req">*</span></label>
+          <select id="cita_franja" name="franja" required>
+            <option value="" disabled selected>Seleccioná una franja</option>
+            <option value="Mañana (8:00 – 12:00)">Mañana (8:00 – 12:00)</option>
+            <option value="Mediodía (12:00 – 15:00)">Mediodía (12:00 – 15:00)</option>
+            <option value="Tarde (15:00 – 18:00)">Tarde (15:00 – 18:00)</option>
+          </select>
+          <span class="error-msg">Seleccioná una franja horaria.</span>
+        </div>
+
+        <div class="cita-field">
+          <label for="cita_notas">Notas (opcional)</label>
+          <textarea id="cita_notas" name="notas" rows="3" placeholder="Contanos si es tu primera vez, si venís de un retoque, alergias, etc."></textarea>
+        </div>
+
+        <div class="cita-field cita-consent">
+          <label class="cita-consent__label">
+            <input type="checkbox" id="cita_privacidad" name="privacidad" required>
+            <span>🔒 Acepto que mis datos personales sean tratados de forma segura exclusivamente para la gestión de mi cita, conforme a la <a href="privacidad.html" target="_blank" rel="noopener">Política de Privacidad</a> y los <a href="terminos.html" target="_blank" rel="noopener">Términos y Condiciones</a>.</span>
+          </label>
+          <span class="error-msg">Necesitamos tu confirmación para agendar la cita.</span>
+        </div>
+
+        <div class="cita-status" id="citaStatus" role="alert" aria-live="polite"></div>
+
+        <button type="submit" class="btn cita-submit" id="citaSubmit">📅 Solicitar cita</button>
+        <p class="cita-note">Al enviar, tu solicitud queda registrada. La cita se confirma por WhatsApp.</p>
+      </form>
+    </div>
+  </div>
+</div>
 
 <section class="shopper" id="personal-shopper">
   <div class="wrap">
@@ -981,6 +1516,162 @@
   </div>
 </section>
 
+<section id="programas">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Programas y alianzas</p>
+      <h2>Beneficios pensados para profesionales y negocios.</h2>
+    </div>
+    <div class="programs-grid">
+      <button type="button" class="program-card program-card--student" data-modal-open="#modalEstudiante">
+        <div class="program-card__icon" aria-hidden="true">🎓</div>
+        <h3>Membresía Estudiante Profesional</h3>
+        <p>Precios preferenciales para estudiantes activos de academias de belleza. Subí tu comprobante de estudio y activá tu membresía.</p>
+        <span class="program-card__cta">Quiero mi membresía →</span>
+      </button>
+
+      <button type="button" class="program-card program-card--b2b" data-modal-open="#modalEmprende">
+        <span class="program-card__badge">B2B</span>
+        <div class="program-card__icon" aria-hidden="true">🚀</div>
+        <h3>Alianzas para Emprendedores &amp; Logística</h3>
+        <p>Cotizaciones al por mayor, distribución masiva y alianzas logísticas para tu negocio. Contanos tu proyecto.</p>
+        <span class="program-card__cta">Explorar alianza →</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<div class="lux-overlay" id="modalEstudiante" aria-hidden="true">
+  <div class="lux-modal" role="dialog" aria-modal="true" aria-labelledby="modalEstudianteTitle">
+    <button type="button" class="lux-modal__close" aria-label="Cerrar ventana de membresía estudiante">&times;</button>
+    <p class="lux-modal__kicker">Programa para estudiantes</p>
+    <h3 id="modalEstudianteTitle">🎓 Membresía Estudiante Profesional</h3>
+    <p class="lux-modal__desc">Activá precios preferenciales presentando tu comprobante de estudio activo en una academia o instituto de belleza.</p>
+
+    <!-- ID listo para conexión futura con la pestaña "Estudiantes" de Google Sheets (Apps Script): #estudianteForm -->
+    <form class="lux-form" id="estudianteForm" novalidate>
+      <div class="lux-field">
+        <label for="est_nombre">Nombre completo <span class="req">*</span></label>
+        <input type="text" id="est_nombre" name="nombre" autocomplete="name" placeholder="Nombre y apellidos" required>
+        <span class="error-msg">Ingresá tu nombre completo.</span>
+      </div>
+
+      <div class="lux-field">
+        <label for="est_whatsapp">WhatsApp de contacto <span class="req">*</span></label>
+        <input type="tel" id="est_whatsapp" name="whatsapp" autocomplete="tel" inputmode="tel" placeholder="Ej. 8888 8888" required>
+        <span class="error-msg">Ingresá tu número de WhatsApp.</span>
+      </div>
+
+      <div class="lux-field">
+        <label for="est_correo">Correo electrónico <span class="req">*</span></label>
+        <input type="email" id="est_correo" name="correo" autocomplete="email" placeholder="tucorreo@ejemplo.com" required>
+        <span class="error-msg">Ingresá un correo electrónico válido.</span>
+      </div>
+
+      <div class="lux-field">
+        <label for="est_instituto">Instituto / Academia de belleza <span class="req">*</span></label>
+        <input type="text" id="est_instituto" name="instituto" placeholder="Nombre del instituto o academia" required>
+        <span class="error-msg">Ingresá el nombre de tu instituto o academia.</span>
+      </div>
+
+      <div class="lux-field lux-field--file">
+        <label for="est_comprobante">Comprobante de estudio activo <span class="req">*</span></label>
+        <input type="file" id="est_comprobante" name="comprobante" accept="image/*,.pdf" required>
+        <span class="lux-field__hint">Carné vigente, constancia o recibo de matrícula (imagen o PDF).</span>
+        <span class="error-msg">Adjuntá tu comprobante de estudio activo.</span>
+      </div>
+
+      <div class="lux-field lux-consent-field">
+        <label class="lux-consent">
+          <input type="checkbox" id="est_privacidad" name="privacidad" required>
+          <span>🔒 Acepto que mis datos personales y mi comprobante sean tratados de forma segura exclusivamente para validar mi membresía estudiante, conforme a la Ley 8968 y la <a href="privacidad.html" target="_blank" rel="noopener">Política de Privacidad</a> y los <a href="terminos.html" target="_blank" rel="noopener">Términos y Condiciones</a>.</span>
+        </label>
+        <span class="error-msg">Necesitamos tu confirmación para procesar la solicitud.</span>
+      </div>
+
+      <div class="lux-status" id="estudianteStatus" role="alert" aria-live="polite"></div>
+
+      <button type="submit" class="btn lux-submit" id="estudianteSubmit">🎓 Solicitar membresía</button>
+      <p class="lux-note">Validamos tu comprobante y te confirmamos tu membresía por WhatsApp.</p>
+    </form>
+  </div>
+</div>
+
+<div class="lux-overlay" id="modalEmprende" aria-hidden="true">
+  <div class="lux-modal lux-modal--dark" role="dialog" aria-modal="true" aria-labelledby="modalEmprendeTitle">
+    <button type="button" class="lux-modal__close" aria-label="Cerrar ventana de alianzas para emprendedores">&times;</button>
+    <div class="cita-card">
+      <p class="lux-modal__kicker">Alianzas B2B</p>
+      <h3 id="modalEmprendeTitle" class="lux-modal__form-title">🚀 Alianzas para Emprendedores &amp; Logística</h3>
+      <p class="lux-modal__desc">Contanos tu proyecto: cotizaciones al por mayor, distribución masiva o alianzas logísticas.</p>
+
+      <!-- ID listo para conexión futura con la pestaña "Emprendedores B2B" de Google Sheets (Apps Script): #emprendeForm -->
+      <form class="cita-form" id="emprendeForm" novalidate>
+        <div class="cita-field">
+          <label for="emp_nombre">Nombre completo <span class="req">*</span></label>
+          <input type="text" id="emp_nombre" name="nombre" autocomplete="name" placeholder="Nombre y apellidos" required>
+          <span class="error-msg">Ingresá tu nombre completo.</span>
+        </div>
+
+        <div class="cita-field">
+          <label for="emp_negocio">Negocio o proyecto (opcional)</label>
+          <input type="text" id="emp_negocio" name="negocio" placeholder="Nombre de tu negocio">
+        </div>
+
+        <div class="cita-field half">
+          <label for="emp_whatsapp">WhatsApp <span class="req">*</span></label>
+          <input type="tel" id="emp_whatsapp" name="whatsapp" autocomplete="tel" inputmode="tel" placeholder="Ej. 8888 8888" required>
+          <span class="error-msg">Ingresá tu número de WhatsApp.</span>
+        </div>
+
+        <div class="cita-field half">
+          <label for="emp_correo">Correo electrónico <span class="req">*</span></label>
+          <input type="email" id="emp_correo" name="correo" autocomplete="email" placeholder="tucorreo@ejemplo.com" required>
+          <span class="error-msg">Ingresá un correo electrónico válido.</span>
+        </div>
+
+        <div class="cita-field">
+          <label>¿Qué necesitás? <span class="req">*</span></label>
+          <div class="necesidad-choices" role="radiogroup" aria-label="¿Qué necesitás?">
+            <label class="necesidad-choice">
+              <input type="radio" name="necesidad" value="Cotización al por mayor" required>
+              <span>Cotización al por mayor</span>
+            </label>
+            <label class="necesidad-choice">
+              <input type="radio" name="necesidad" value="Distribución masiva" required>
+              <span>Distribución masiva</span>
+            </label>
+            <label class="necesidad-choice">
+              <input type="radio" name="necesidad" value="Alianza logística" required>
+              <span>Alianza logística</span>
+            </label>
+          </div>
+          <span class="error-msg">Seleccioná qué tipo de alianza buscás.</span>
+        </div>
+
+        <div class="cita-field">
+          <label for="emp_detalle">Contanos tu proyecto <span class="req">*</span></label>
+          <textarea id="emp_detalle" name="detalle" rows="5" placeholder="Tu idea de negocio, propuesta comercial, volumen deseado o plan de expansión…" required></textarea>
+          <span class="error-msg">Contanos brevemente tu proyecto o propuesta.</span>
+        </div>
+
+        <div class="cita-field cita-consent">
+          <label class="cita-consent__label">
+            <input type="checkbox" id="emp_privacidad" name="privacidad" required>
+            <span>🔒 Acepto que mis datos personales sean tratados de forma segura exclusivamente para evaluar esta alianza comercial, conforme a la Ley 8968 y la <a href="privacidad.html" target="_blank" rel="noopener">Política de Privacidad</a> y los <a href="terminos.html" target="_blank" rel="noopener">Términos y Condiciones</a>.</span>
+          </label>
+          <span class="error-msg">Necesitamos tu confirmación para procesar la solicitud.</span>
+        </div>
+
+        <div class="cita-status" id="emprendeStatus" role="alert" aria-live="polite"></div>
+
+        <button type="submit" class="btn cita-submit" id="emprendeSubmit">🚀 Enviar propuesta</button>
+        <p class="cita-note">Analizamos tu propuesta y te contactamos por WhatsApp o correo.</p>
+      </form>
+    </div>
+  </div>
+</div>
+
 <footer>
   <div class="wrap">
     <div class="foot-row">
@@ -998,10 +1689,42 @@
         <a href="terminos.html">Términos y Condiciones</a>
       </div>
     </div>
+
+    <div class="cookie-bar" id="cookieBar">
+      <p class="cookie-bar__text">
+        🍪 Usamos únicamente los recursos técnicos necesarios para mostrar el sitio (como
+        tipografías de Google). No usamos cookies de publicidad ni de analítica. Más
+        información en nuestra <a href="privacidad.html">Política de Privacidad</a>.
+      </p>
+      <button type="button" class="btn btn-primary cookie-bar__accept" id="cookieAccept">Aceptar</button>
+    </div>
   </div>
 </footer>
 
 <script>
+  // SEGURIDAD (RULE-02/RULE-03) — Sanitización anti-inyección (XSS): neutraliza los
+  // caracteres/patrones usados para inyectar HTML o JS antes de cualquier fetch().
+  // Es una capa extra; el escape definitivo debe hacerse también en el
+  // servidor (Apps Script) al escribir en la hoja y al mostrar los datos.
+  function sanitize(value) {
+    var limpio = String(value == null ? '' : value)
+      .replace(/[<>]/g, '')                       // corta apertura/cierre de etiquetas HTML
+      .replace(/[\x00-\x1F\x7F]/g, '')            // elimina caracteres de control
+      .replace(/javascript:/gi, '')               // esquema de URL peligroso
+      .replace(/\bon\w+\s*=/gi, '')                // manejadores de eventos inline
+      .replace(/\s{2,}/g, ' ')                     // colapsa espacios múltiples
+      .trim();
+
+    // ESCUDO ANTI-INYECCIÓN DE FÓRMULAS (Google Sheets / CSV):
+    // si el texto arranca con = + - o @, Sheets lo ejecutaría como fórmula.
+    // Anteponer una comilla simple lo fuerza a leerse como texto plano.
+    if (/^[=+\-@]/.test(limpio)) {
+      limpio = "'" + limpio;
+    }
+
+    return limpio;
+  }
+
   (function () {
     var banner = document.getElementById('promoBanner');
     if (!banner) return;
@@ -1009,6 +1732,22 @@
     if (closeBtn) {
       closeBtn.addEventListener('click', function () {
         banner.classList.add('is-hidden');
+      });
+    }
+  })();
+
+  /* ---------- Aviso de cookies y consentimiento ---------- */
+  (function () {
+    var bar = document.getElementById('cookieBar');
+    if (!bar) return;
+    var aceptado = false;
+    try { aceptado = localStorage.getItem('glc_cookies_ok') === '1'; } catch (e) {}
+    if (aceptado) { bar.classList.add('is-hidden'); return; }
+    var btn = document.getElementById('cookieAccept');
+    if (btn) {
+      btn.addEventListener('click', function () {
+        bar.classList.add('is-hidden');
+        try { localStorage.setItem('glc_cookies_ok', '1'); } catch (e) {}
       });
     }
   })();
@@ -1099,6 +1838,240 @@
         .then(function () {
           submitBtn.disabled = false;
         });
+    });
+  })();
+
+  /* ---------- Ventanas modales de lujo (catálogo + citas) ---------- */
+  (function () {
+    function lockScroll(lock) { document.body.classList.toggle('lux-lock', lock); }
+
+    function openModal(overlay) {
+      if (!overlay) return;
+      overlay.classList.add('is-open');
+      overlay.setAttribute('aria-hidden', 'false');
+      lockScroll(true);
+      var closeBtn = overlay.querySelector('.lux-modal__close');
+      if (closeBtn) { closeBtn.focus(); }
+    }
+
+    function closeModal(overlay) {
+      if (!overlay) return;
+      overlay.classList.remove('is-open');
+      overlay.setAttribute('aria-hidden', 'true');
+      lockScroll(false);
+    }
+
+    document.querySelectorAll('[data-modal-open]').forEach(function (trigger) {
+      trigger.addEventListener('click', function () {
+        var overlay = document.querySelector(trigger.getAttribute('data-modal-open'));
+        openModal(overlay);
+      });
+    });
+
+    document.querySelectorAll('.lux-overlay').forEach(function (overlay) {
+      overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) { closeModal(overlay); }
+      });
+      var closeBtn = overlay.querySelector('.lux-modal__close');
+      if (closeBtn) { closeBtn.addEventListener('click', function () { closeModal(overlay); }); }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.lux-overlay.is-open').forEach(closeModal);
+      }
+    });
+
+    /* Catálogo: cada tarjeta abre el modal con su propio título y descripción */
+    var modalCatalogo = document.getElementById('modalCatalogo');
+    if (modalCatalogo) {
+      var mTitle = modalCatalogo.querySelector('[data-modal-title]');
+      var mDesc = modalCatalogo.querySelector('[data-modal-desc]');
+      document.querySelectorAll('.cat-card').forEach(function (card) {
+        card.addEventListener('click', function () {
+          if (mTitle) { mTitle.textContent = card.getAttribute('data-cat-title') || ''; }
+          if (mDesc) { mDesc.textContent = card.getAttribute('data-cat-desc') || ''; }
+          openModal(modalCatalogo);
+        });
+      });
+    }
+  })();
+
+  /* ---------- Membresía Estudiante Profesional → Google Sheets (Apps Script) ---------- */
+  (function () {
+    var form = document.getElementById('estudianteForm');
+    if (!form) return;
+    var status = document.getElementById('estudianteStatus');
+    var submitBtn = document.getElementById('estudianteSubmit');
+    var fields = Array.prototype.slice.call(form.querySelectorAll('input, textarea'));
+
+    // URL del Web App de Google Apps Script para la pestaña mayorista "Estudiantes"
+    // (termina en /exec). Mientras no esté configurada, el formulario deriva a WhatsApp.
+    var ENDPOINT_ESTUDIANTES = 'PENDIENTE_URL_APPS_SCRIPT_ESTUDIANTES';
+
+    function validateField(el) {
+      var wrap = el.closest('.lux-field');
+      var ok;
+      if (el.type === 'checkbox') {
+        ok = el.checked;
+      } else if (el.type === 'file') {
+        ok = !!(el.files && el.files.length > 0);
+      } else {
+        var value = (el.value || '').trim();
+        ok = value.length > 0;
+        if (ok && el.type === 'email') {
+          ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+        }
+      }
+      if (wrap) { wrap.classList.toggle('invalid', !ok); }
+      return ok;
+    }
+
+    fields.forEach(function (el) {
+      var evt = (el.type === 'checkbox' || el.type === 'file') ? 'change' : 'blur';
+      el.addEventListener(evt, function () { validateField(el); });
+      el.addEventListener('input', function () {
+        var wrap = el.closest('.lux-field');
+        if (wrap && wrap.classList.contains('invalid')) { validateField(el); }
+      });
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var firstInvalid = null;
+      fields.forEach(function (el) {
+        var ok = validateField(el);
+        if (!ok && !firstInvalid) { firstInvalid = el; }
+      });
+      if (firstInvalid) {
+        status.className = 'lux-status error';
+        status.textContent = (firstInvalid.type === 'checkbox')
+          ? 'Necesitamos tu confirmación para procesar la solicitud.'
+          : 'Revisá el formulario: hay campos obligatorios sin completar.';
+        firstInvalid.focus();
+        return;
+      }
+
+      // SEGURIDAD (RULE-02/RULE-03): sanitizar todos los campos de texto antes
+      // de cualquier procesamiento. El archivo "comprobante" viaja aparte (no es
+      // texto) y se incorporará a un FormData cuando se conecte el endpoint real.
+      var datos = {
+        nombre:    sanitize(form.nombre.value),
+        whatsapp:  sanitize(form.whatsapp.value),
+        correo:    sanitize(form.correo.value),
+        instituto: sanitize(form.instituto.value)
+      };
+
+      if (ENDPOINT_ESTUDIANTES.indexOf('http') !== 0) {
+        status.className = 'lux-status error';
+        status.textContent = 'La activación en línea todavía no está disponible. Escribinos por WhatsApp al 7028 1688 y validamos tu comprobante ahí mismo.';
+        return;
+      }
+
+      // Conexión futura: armar un FormData con `datos` + el archivo de
+      // form.comprobante.files[0], y hacer fetch(ENDPOINT_ESTUDIANTES,
+      // { method: 'POST', body: formData }) hacia la pestaña "Estudiantes".
+      submitBtn.disabled = true;
+      status.className = 'lux-status';
+      status.textContent = 'Enviando solicitud…';
+    });
+  })();
+
+  /* ---------- Alianzas para Emprendedores & Logística (B2B) → Google Sheets (Apps Script) ---------- */
+  (function () {
+    var form = document.getElementById('emprendeForm');
+    if (!form) return;
+    var status = document.getElementById('emprendeStatus');
+    var submitBtn = document.getElementById('emprendeSubmit');
+    var fields = Array.prototype.slice.call(form.querySelectorAll('input:not([type="radio"]), textarea'));
+    var necesidadRadios = Array.prototype.slice.call(form.querySelectorAll('input[name="necesidad"]'));
+
+    // URL del Web App de Google Apps Script para la pestaña mayorista "Emprendedores B2B"
+    // (termina en /exec). Mientras no esté configurada, el formulario deriva a WhatsApp.
+    var ENDPOINT_EMPRENDE = 'PENDIENTE_URL_APPS_SCRIPT_EMPRENDEDORES';
+
+    function validateField(el) {
+      if (el.name === 'negocio') { return true; } // campo opcional
+      var wrap = el.closest('.cita-field');
+      var ok;
+      if (el.type === 'checkbox') {
+        ok = el.checked;
+      } else {
+        var value = (el.value || '').trim();
+        ok = value.length > 0;
+        if (ok && el.type === 'email') {
+          ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+        }
+      }
+      if (wrap) { wrap.classList.toggle('invalid', !ok); }
+      return ok;
+    }
+
+    function validateNecesidad() {
+      var wrap = necesidadRadios.length ? necesidadRadios[0].closest('.cita-field') : null;
+      var ok = necesidadRadios.some(function (r) { return r.checked; });
+      if (wrap) { wrap.classList.toggle('invalid', !ok); }
+      return ok;
+    }
+
+    fields.forEach(function (el) {
+      if (el.name === 'negocio') { return; }
+      el.addEventListener('blur', function () { validateField(el); });
+      el.addEventListener('input', function () {
+        var wrap = el.closest('.cita-field');
+        if (wrap && wrap.classList.contains('invalid')) { validateField(el); }
+      });
+    });
+    necesidadRadios.forEach(function (r) {
+      r.addEventListener('change', validateNecesidad);
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var firstInvalid = null;
+      fields.forEach(function (el) {
+        if (el.name === 'negocio') { return; }
+        var ok = validateField(el);
+        if (!ok && !firstInvalid) { firstInvalid = el; }
+      });
+      if (!validateNecesidad() && !firstInvalid) {
+        firstInvalid = necesidadRadios[0];
+      }
+      if (firstInvalid) {
+        status.className = 'cita-status error';
+        status.textContent = (firstInvalid.type === 'checkbox')
+          ? 'Necesitamos tu confirmación para procesar la solicitud.'
+          : 'Revisá el formulario: hay campos obligatorios sin completar.';
+        firstInvalid.focus();
+        return;
+      }
+
+      var necesidadSel = necesidadRadios.filter(function (r) { return r.checked; })[0];
+
+      // SEGURIDAD (RULE-02/RULE-03): sanitizar todos los campos de texto antes
+      // de cualquier procesamiento.
+      var datos = {
+        nombre:    sanitize(form.nombre.value),
+        negocio:   sanitize(form.negocio.value),
+        whatsapp:  sanitize(form.whatsapp.value),
+        correo:    sanitize(form.correo.value),
+        necesidad: sanitize(necesidadSel ? necesidadSel.value : ''),
+        detalle:   sanitize(form.detalle.value)
+      };
+
+      if (ENDPOINT_EMPRENDE.indexOf('http') !== 0) {
+        status.className = 'cita-status error';
+        status.textContent = 'El envío en línea todavía no está activo. Escribinos por WhatsApp al 7028 1688 y coordinamos tu propuesta.';
+        return;
+      }
+
+      // Conexión futura: fetch(ENDPOINT_EMPRENDE, { method: 'POST',
+      // body: new URLSearchParams(datos) }) hacia la pestaña "Emprendedores B2B".
+      submitBtn.disabled = true;
+      status.className = 'cita-status';
+      status.textContent = 'Enviando propuesta…';
     });
   })();
 

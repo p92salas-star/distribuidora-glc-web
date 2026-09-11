@@ -282,6 +282,40 @@
   }
   .order-field.invalid .error-msg { display: block; }
 
+  .order-consent { margin-top: 4px; }
+  .order-field.order-consent > label.order-consent__label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 12.5px;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    color: #C9B9AE;
+    cursor: pointer;
+  }
+  .order-consent__label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    margin: 1px 0 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    appearance: auto;
+    -webkit-appearance: checkbox;
+    accent-color: var(--gold);
+    cursor: pointer;
+  }
+  .order-consent__label a { color: #E7CFA0; text-decoration: underline; }
+  .order-consent.invalid .order-consent__label { color: #EDA8A2; }
+  .order-consent.invalid .order-consent__label input[type="checkbox"] {
+    outline: 2px solid #E2857F;
+    outline-offset: 2px;
+  }
+
   .form-status {
     grid-column: 1 / -1;
     display: none;
@@ -509,6 +543,14 @@
           <span class="error-msg">Ingresá tu dirección exacta y las señas.</span>
         </div>
 
+        <div class="order-field full order-consent">
+          <label class="order-consent__label">
+            <input type="checkbox" id="privacidad" name="privacidad" required>
+            <span>🔒 Acepto que mis datos personales sean tratados de forma segura exclusivamente para la gestión y entrega de mi pedido a través de Correos de Costa Rica, conforme a la <a href="privacidad.html" target="_blank" rel="noopener">Política de Privacidad</a> y los <a href="terminos.html" target="_blank" rel="noopener">Términos y Condiciones</a>.</span>
+          </label>
+          <span class="error-msg">Necesitamos tu confirmación para procesar el pedido.</span>
+        </div>
+
         <div class="form-status" id="formStatus" role="alert" aria-live="polite"></div>
 
         <button type="submit" class="btn order-submit" id="orderSubmit">🛒 Enviar Pedido</button>
@@ -530,6 +572,9 @@
         <a href="https://wa.me/50670281688" target="_blank" rel="noopener">WhatsApp</a>
         <a href="https://www.instagram.com/distribuidoraglc" target="_blank" rel="noopener">Instagram</a>
         <a href="https://www.facebook.com/share/1HtPLkXZZc/" target="_blank" rel="noopener">Facebook</a>
+        <a href="mailto:gaudicuentasglc@outlook.com">Correo</a>
+        <a href="privacidad.html">Privacidad</a>
+        <a href="terminos.html">Términos y Condiciones</a>
       </div>
     </div>
   </div>
@@ -568,13 +613,22 @@
     // Es una capa extra; el escape definitivo debe hacerse también en el
     // servidor (Apps Script) al escribir en la hoja y al mostrar los datos.
     function sanitize(value) {
-      return String(value == null ? '' : value)
+      var limpio = String(value == null ? '' : value)
         .replace(/[<>]/g, '')                       // corta apertura/cierre de etiquetas HTML
         .replace(/[\x00-\x1F\x7F]/g, '')            // elimina caracteres de control
         .replace(/javascript:/gi, '')               // esquema de URL peligroso
         .replace(/\bon\w+\s*=/gi, '')                // manejadores de eventos inline
         .replace(/\s{2,}/g, ' ')                     // colapsa espacios múltiples
         .trim();
+
+      // ESCUDO ANTI-INYECCIÓN DE FÓRMULAS (Google Sheets / CSV):
+      // si el texto arranca con = + - o @, Sheets lo ejecutaría como fórmula.
+      // Anteponer una comilla simple lo fuerza a leerse como texto plano.
+      if (/^[=+\-@]/.test(limpio)) {
+        limpio = "'" + limpio;
+      }
+
+      return limpio;
     }
 
     function abrirAvisoWhatsApp(d) {
@@ -592,23 +646,28 @@
 
     function validateField(el) {
       var wrap = el.closest('.order-field');
-      var value = (el.value || '').trim();
-      var ok = value.length > 0;
-      if (ok && el.type === 'email') {
-        ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-      }
-      if (ok && el.name === 'cantidad') {
-        ok = Number(value) >= 1;
-      }
-      if (ok && el.name === 'precio') {
-        ok = !isNaN(Number(value)) && Number(value) >= 0;
+      var ok;
+      if (el.type === 'checkbox') {
+        ok = el.checked;
+      } else {
+        var value = (el.value || '').trim();
+        ok = value.length > 0;
+        if (ok && el.type === 'email') {
+          ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+        }
+        if (ok && el.name === 'cantidad') {
+          ok = Number(value) >= 1;
+        }
+        if (ok && el.name === 'precio') {
+          ok = !isNaN(Number(value)) && Number(value) >= 0;
+        }
       }
       if (wrap) { wrap.classList.toggle('invalid', !ok); }
       return ok;
     }
 
     fields.forEach(function (el) {
-      var evt = (el.tagName === 'SELECT') ? 'change' : 'blur';
+      var evt = (el.tagName === 'SELECT' || el.type === 'checkbox') ? 'change' : 'blur';
       el.addEventListener(evt, function () { validateField(el); });
       el.addEventListener('input', function () {
         var wrap = el.closest('.order-field');

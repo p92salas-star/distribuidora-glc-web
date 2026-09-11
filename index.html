@@ -562,6 +562,39 @@
     color: #EDA8A2;
   }
   .cita-field.invalid .error-msg { display: block; }
+  .cita-consent { margin-top: 2px; }
+  .cita-field.cita-consent > label.cita-consent__label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 12.5px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 1.5;
+    text-transform: none;
+    color: #C9B9AE;
+    cursor: pointer;
+  }
+  .cita-consent__label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    margin: 1px 0 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    appearance: auto;
+    -webkit-appearance: checkbox;
+    accent-color: var(--gold);
+    cursor: pointer;
+  }
+  .cita-consent__label a { color: #E7CFA0; text-decoration: underline; }
+  .cita-consent.invalid .cita-consent__label { color: #EDA8A2; }
+  .cita-consent.invalid .cita-consent__label input[type="checkbox"] {
+    outline: 2px solid #E2857F;
+    outline-offset: 2px;
+  }
   .cita-status {
     flex: 1 1 100%;
     display: none;
@@ -908,6 +941,14 @@
             <textarea id="cita_notas" name="notas" rows="3" placeholder="Contanos si es tu primera vez, si venís de un retoque, alergias, etc."></textarea>
           </div>
 
+          <div class="cita-field cita-consent">
+            <label class="cita-consent__label">
+              <input type="checkbox" id="cita_privacidad" name="privacidad" required>
+              <span>🔒 Acepto que mis datos personales sean tratados de forma segura exclusivamente para la gestión de mi cita, conforme a la <a href="privacidad.html" target="_blank" rel="noopener">Política de Privacidad</a> y los <a href="terminos.html" target="_blank" rel="noopener">Términos y Condiciones</a>.</span>
+            </label>
+            <span class="error-msg">Necesitamos tu confirmación para agendar la cita.</span>
+          </div>
+
           <div class="cita-status" id="citaStatus" role="alert" aria-live="polite"></div>
 
           <button type="submit" class="btn cita-submit" id="citaSubmit">📅 Solicitar cita</button>
@@ -952,6 +993,9 @@
         <a href="https://wa.me/50670281688" target="_blank" rel="noopener">WhatsApp</a>
         <a href="https://www.instagram.com/distribuidoraglc" target="_blank" rel="noopener">Instagram</a>
         <a href="https://www.facebook.com/share/1HtPLkXZZc/" target="_blank" rel="noopener">Facebook</a>
+        <a href="mailto:gaudicuentasglc@outlook.com">Correo</a>
+        <a href="privacidad.html">Privacidad</a>
+        <a href="terminos.html">Términos y Condiciones</a>
       </div>
     </div>
   </div>
@@ -991,13 +1035,13 @@
     function validateField(el) {
       if (el.name === 'notas') { return true; }
       var wrap = el.closest('.cita-field');
-      var ok = (el.value || '').trim().length > 0;
+      var ok = (el.type === 'checkbox') ? el.checked : (el.value || '').trim().length > 0;
       if (wrap) { wrap.classList.toggle('invalid', !ok); }
       return ok;
     }
 
     fields.forEach(function (el) {
-      var evt = (el.tagName === 'SELECT') ? 'change' : 'blur';
+      var evt = (el.tagName === 'SELECT' || el.type === 'checkbox') ? 'change' : 'blur';
       el.addEventListener(evt, function () { validateField(el); });
       el.addEventListener('input', function () {
         var wrap = el.closest('.cita-field');
@@ -1015,7 +1059,9 @@
       });
       if (firstInvalid) {
         status.className = 'cita-status error';
-        status.textContent = 'Revisá el formulario: faltan campos obligatorios.';
+        status.textContent = (firstInvalid.type === 'checkbox')
+          ? 'Necesitamos tu confirmación para agendar la cita.'
+          : 'Revisá el formulario: faltan campos obligatorios.';
         firstInvalid.focus();
         return;
       }

@@ -1,0 +1,1515 @@
+{
+  "source": "WhatsApp Business Catalog — Distribuidora GLC (+506 7028-1688)",
+  "extraction_method": "Manual, ordinary UI reading (screenshots + scrolling) inside an already-authenticated WhatsApp Web session, owner-authorized. No scripting, no network interception, no DOM scraping.",
+  "extraction_date": "2026-09-17",
+  "field_notes": {
+    "brand": "Only set when explicitly identifiable from the visible product name/description text. Null means no brand was visible, not that one does not exist.",
+    "category_proposed": "Discovery-only heuristic grouping based on catalog content, for website planning. Not written back into WhatsApp or the site.",
+    "price_crc": "Costa Rican colones, decimals dropped since all observed prices were whole-colon amounts (.00)."
+  },
+  "items": [
+    {
+      "name": "Agujas microblanding",
+      "price_crc": 300,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Microblading"
+    },
+    {
+      "name": "Tinte pestañas",
+      "price_crc": 5500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Pestañas"
+    },
+    {
+      "name": "Boquilla para adhesivo ...",
+      "price_crc": 2500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Adhesivos y selladores"
+    },
+    {
+      "name": "Vitamina AyD",
+      "price_crc": 300,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Cuidado / serums"
+    },
+    {
+      "name": "Frasco para conservar ...",
+      "price_crc": 4000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "Microporo",
+      "price_crc": 1000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "50 aplicadores sin pelusa",
+      "price_crc": 2200,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "lifting golle",
+      "price_crc": 11200,
+      "brand": "Golle",
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Lifting y laminado"
+    },
+    {
+      "name": "Cepillos con tubito",
+      "price_crc": 375,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "Pestañas en Y",
+      "price_crc": 5000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Pestañas"
+    },
+    {
+      "name": "Pinza de aislar nariz...",
+      "price_crc": 5500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Pinzas"
+    },
+    {
+      "name": "Dermapen (también...)",
+      "price_crc": 57500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Microblading"
+    },
+    {
+      "name": "Henna iconsing",
+      "price_crc": 5500,
+      "brand": "Iconsing",
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Tintes y henna"
+    },
+    {
+      "name": "Tijeras de pestañas",
+      "price_crc": 1300,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Pestañas"
+    },
+    {
+      "name": "Volume bubble",
+      "price_crc": 700,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "Pestañas Nagaraku mi...",
+      "price_crc": 2500,
+      "brand": "Nagaraku",
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Pestañas"
+    },
+    {
+      "name": "100 Microaplicadores",
+      "price_crc": 2000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "Organización para almacenar...",
+      "price_crc": 8000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "Almohada rosada o negra...",
+      "price_crc": 10000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "Transporo",
+      "price_crc": 1200,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "Anillos paq 100",
+      "price_crc": 2900,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "Máquina de cera",
+      "price_crc": 13500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Herramientas y equipo"
+    },
+    {
+      "name": "pestañas tecnológicas 3D 4D 5D 6D 7D",
+      "price_crc": 4500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Pestañas"
+    },
+    {
+      "name": "Basurero de desechos",
+      "price_crc": 2800,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "Microagujas",
+      "price_crc": 1000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Microblading"
+    },
+    {
+      "name": "Inductor tebori doble",
+      "price_crc": 5500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Herramientas y equipo"
+    },
+    {
+      "name": "SUPER BONDER V2",
+      "price_crc": 8000,
+      "brand": null,
+      "description": "Super bonder ayuda con r...",
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Adhesivos y selladores"
+    },
+    {
+      "name": "Abanico recargable par...",
+      "price_crc": 4000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Herramientas y equipo"
+    },
+    {
+      "name": "Almohada lashista más...",
+      "price_crc": 20000,
+      "brand": null,
+      "description": "Negro o rosa",
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "Kit de 20 de cada dese...",
+      "price_crc": 4000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Kits"
+    },
+    {
+      "name": "herramienta para...",
+      "price_crc": 2500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "Tablas con Piedra...",
+      "price_crc": 2500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "Dispensador de a...",
+      "price_crc": 2000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "Pad silicon",
+      "price_crc": 2000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "Removedor 15g",
+      "price_crc": 7000,
+      "brand": null,
+      "description": "Removedor en gel",
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Cuidado / serums"
+    },
+    {
+      "name": "Sky zone",
+      "price_crc": 7500,
+      "brand": "Sky Zone",
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "Lapicero quirúrgico bla...",
+      "price_crc": 2900,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Herramientas y equipo"
+    },
+    {
+      "name": "Tinte bigen",
+      "price_crc": 6500,
+      "brand": "Bigen",
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Tintes y henna"
+    },
+    {
+      "name": "Adhesivo Golle to...",
+      "price_crc": 11500,
+      "brand": "Golle",
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Adhesivos y selladores"
+    },
+    {
+      "name": "Adhesivo super pl...",
+      "price_crc": 9000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Adhesivos y selladores"
+    },
+    {
+      "name": "Afinador de lapiz...",
+      "price_crc": 3500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "super bonder IB",
+      "price_crc": 7000,
+      "brand": "IB Beauty",
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Adhesivos y selladores"
+    },
+    {
+      "name": "Juego de pinzas Nagar...",
+      "price_crc": 7500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Pinzas"
+    },
+    {
+      "name": "Lifting iconsing versión...",
+      "price_crc": 10000,
+      "brand": "Iconsing",
+      "description": "Lifting acción rapida perm...",
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Lifting y laminado"
+    },
+    {
+      "name": "pulsera para sostener...",
+      "price_crc": 4500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "diy day foxy",
+      "price_crc": 4500,
+      "brand": "DIY DAY",
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "Cabezote más pestaña...",
+      "price_crc": 10000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Pestañas"
+    },
+    {
+      "name": "Laminado 3 pasos",
+      "price_crc": 8000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Lifting y laminado"
+    },
+    {
+      "name": "Abanico eléctrico",
+      "price_crc": 6500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Herramientas y equipo"
+    },
+    {
+      "name": "Organizador",
+      "price_crc": 5200,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "Blister tecnologic...",
+      "price_crc": 4500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "Pinza curva nagar...",
+      "price_crc": 4500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Pinzas"
+    },
+    {
+      "name": "Regla para medir pesta...",
+      "price_crc": 1000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "piedra de jade",
+      "price_crc": 1500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "pestañas 5Dw",
+      "price_crc": 4250,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Pestañas"
+    },
+    {
+      "name": "ANILLO PARA ADHESI...",
+      "price_crc": 1900,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "Bolsas con cierre",
+      "price_crc": 250,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "SERUM ACIDO HIALUR...",
+      "price_crc": 11000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": false,
+      "category_proposed": "Cuidado / serums"
+    },
+    {
+      "name": "Golle tinte",
+      "price_crc": 7000,
+      "brand": "Golle",
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Tintes y henna"
+    },
+    {
+      "name": "lifting 2 en 1",
+      "price_crc": 8900,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Lifting y laminado"
+    },
+    {
+      "name": "Parches sueltos",
+      "price_crc": 200,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "Paquete de 50 go...",
+      "price_crc": 3500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "pinza para cejas 1375",
+      "price_crc": null,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Pinzas"
+    },
+    {
+      "name": "Frasco para conservar ...",
+      "price_crc": 5500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "Cepillos laminado pa...",
+      "price_crc": 2000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Lifting y laminado"
+    },
+    {
+      "name": "primer IB beauty",
+      "price_crc": 6900,
+      "brand": "IB Beauty",
+      "description": "primer para ayudar con la r...",
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Adhesivos y selladores"
+    },
+    {
+      "name": "Kit art lifting",
+      "price_crc": 9000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": false,
+      "category_proposed": "Lifting y laminado"
+    },
+    {
+      "name": "Pinza N-04 Nagaraku",
+      "price_crc": 6500,
+      "brand": "Nagaraku",
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Pinzas"
+    },
+    {
+      "name": "Pinza N06",
+      "price_crc": 7500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Pinzas"
+    },
+    {
+      "name": "Pinza n09",
+      "price_crc": 6500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Pinzas"
+    },
+    {
+      "name": "Kit de lifting iconsing",
+      "price_crc": 7900,
+      "brand": "Iconsing",
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Lifting y laminado"
+    },
+    {
+      "name": "Diy day tecnologica ...",
+      "price_crc": 5500,
+      "brand": "DIY DAY",
+      "description": "Tegnologica desde 4000",
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "Pigmento pasta micro...",
+      "price_crc": 11000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Microblading"
+    },
+    {
+      "name": "Rollo de cinta para prot...",
+      "price_crc": 1250,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": false,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "Blister diy day mix o un...",
+      "price_crc": 3500,
+      "brand": "DIY DAY",
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": false,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": null,
+      "price_crc": 35000,
+      "brand": null,
+      "description": "name cut off at top of screenshot during scroll",
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "tabla con pulsera",
+      "price_crc": 2500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "Juego de pinzas nagar...",
+      "price_crc": 8000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Pinzas"
+    },
+    {
+      "name": "Kit wave",
+      "price_crc": 13900,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": false,
+      "category_proposed": "Kits"
+    },
+    {
+      "name": "Agujas para dermograf...",
+      "price_crc": 1000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Microblading"
+    },
+    {
+      "name": "Pincel aplicador de pig...",
+      "price_crc": 1500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "Pinzas juego",
+      "price_crc": 7000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Pinzas"
+    },
+    {
+      "name": "Kit de práctica",
+      "price_crc": 40000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Kits"
+    },
+    {
+      "name": "Plástico osmotico",
+      "price_crc": 2500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "Paq de 100 toallas",
+      "price_crc": 1500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "Pinza N-02",
+      "price_crc": 5500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Pinzas"
+    },
+    {
+      "name": "Pestañas W 5D o 3D",
+      "price_crc": 6500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Pestañas"
+    },
+    {
+      "name": "Dispensador agua",
+      "price_crc": 1500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": false,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "Bolsas con cierre plásticas",
+      "price_crc": 325,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": false,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "Pieles para práctica",
+      "price_crc": 2900,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "Trasporo delgado paq 4",
+      "price_crc": 1000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "pestañas clasicas diy ...",
+      "price_crc": 3000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Pestañas"
+    },
+    {
+      "name": "paq 50 unidades",
+      "price_crc": 4500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "Brocha lavado peq",
+      "price_crc": 1000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "Adhesivo Todo clima g...",
+      "price_crc": 11500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Adhesivos y selladores"
+    },
+    {
+      "name": "Pestañas de grupos mi...",
+      "price_crc": 1600,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Pestañas"
+    },
+    {
+      "name": "Kit pinzas",
+      "price_crc": 10500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Pinzas"
+    },
+    {
+      "name": "pinzas Diy day unidad",
+      "price_crc": 6000,
+      "brand": "DIY DAY",
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Pinzas"
+    },
+    {
+      "name": "Goma sky",
+      "price_crc": 6500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Adhesivos y selladores"
+    },
+    {
+      "name": "Lente macro",
+      "price_crc": 6500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Herramientas y equipo"
+    },
+    {
+      "name": "Primer",
+      "price_crc": 6900,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Adhesivos y selladores"
+    },
+    {
+      "name": "Laminado iconsing me...",
+      "price_crc": 8500,
+      "brand": "Iconsing",
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Lifting y laminado"
+    },
+    {
+      "name": "Tegnologica L 3D",
+      "price_crc": 5500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "Pieles de práctica con...",
+      "price_crc": 2500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "Goma salon pro enca...",
+      "price_crc": 3000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Adhesivos y selladores"
+    },
+    {
+      "name": "Kit de roll on para depil...",
+      "price_crc": 22500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Kits"
+    },
+    {
+      "name": "3 blister de pestañas ...",
+      "price_crc": 10000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Pestañas"
+    },
+    {
+      "name": "Juego Nagaraku de pin...",
+      "price_crc": 7500,
+      "brand": "Nagaraku",
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": null,
+      "price_crc": 2800,
+      "brand": null,
+      "description": "name cut off at top of screenshot during scroll",
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "Hilo marcaje",
+      "price_crc": 3500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "Pinza N-05 Nagaraku",
+      "price_crc": 6500,
+      "brand": "Nagaraku",
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Pinzas"
+    },
+    {
+      "name": "Tabla de mano",
+      "price_crc": 2500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "Espejo visor",
+      "price_crc": 800,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Herramientas y equipo"
+    },
+    {
+      "name": "SERUM COLÁGENO de...",
+      "price_crc": 11500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": false,
+      "category_proposed": "Cuidado / serums"
+    },
+    {
+      "name": "Agua miscelar 5 en 1",
+      "price_crc": 3500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "Esponjas de practica 1...",
+      "price_crc": 2850,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "pestañas Diy day clasi...",
+      "price_crc": 3000,
+      "brand": "DIY DAY",
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Pestañas"
+    },
+    {
+      "name": "Pinza n01",
+      "price_crc": 5500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Pinzas"
+    },
+    {
+      "name": "pestañas Diy day 3D",
+      "price_crc": 3800,
+      "brand": "DIY DAY",
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Pestañas"
+    },
+    {
+      "name": "SUPER BONDER IB las...",
+      "price_crc": 8000,
+      "brand": "IB Beauty",
+      "description": "Super bonder para mejorar...",
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Adhesivos y selladores"
+    },
+    {
+      "name": "Kit pinzas",
+      "price_crc": 8500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": false,
+      "category_proposed": "Pinzas"
+    },
+    {
+      "name": "Medidor de humedad",
+      "price_crc": 3900,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "diy day autofloracion",
+      "price_crc": 3500,
+      "brand": "DIY DAY",
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "Lapicero blanco",
+      "price_crc": 2600,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Herramientas y equipo"
+    },
+    {
+      "name": "Brochas con tubito ...",
+      "price_crc": 1200,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "100 anillos",
+      "price_crc": 2500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "Caras plásticas para pr...",
+      "price_crc": 2275,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "50 parches",
+      "price_crc": 4500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "Mezclador de pigmentos",
+      "price_crc": 6500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Microblading"
+    },
+    {
+      "name": "180 Toallas Lp",
+      "price_crc": 2600,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "Estuche 55 de cada c...",
+      "price_crc": 14,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "Fijador iconsing",
+      "price_crc": 3800,
+      "brand": "Iconsing",
+      "description": "Fijadora cejas o para utiliz...",
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "Perfilador",
+      "price_crc": 750,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "SERUM COLÁGENO",
+      "price_crc": 10000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": false,
+      "category_proposed": "Cuidado / serums"
+    },
+    {
+      "name": "shampoo pestañas litro",
+      "price_crc": 10000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Pestañas"
+    },
+    {
+      "name": "pestañas 6Dw",
+      "price_crc": 4800,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": "https://wa.me/p/2941900457699249/50670281688",
+      "image_available": true,
+      "category_proposed": "Pestañas"
+    },
+    {
+      "name": "50 Cepillos",
+      "price_crc": 2000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "Anestesia epix",
+      "price_crc": 10000,
+      "brand": "Epix",
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Cuidado / serums"
+    },
+    {
+      "name": "lifting plano para corea...",
+      "price_crc": 2950,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Lifting y laminado"
+    },
+    {
+      "name": "Pigmentos pure labios",
+      "price_crc": 8000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Microblading"
+    },
+    {
+      "name": "Cepillo plastico lifting",
+      "price_crc": 300,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Lifting y laminado"
+    },
+    {
+      "name": "Trío pinzas",
+      "price_crc": 8500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Pinzas"
+    },
+    {
+      "name": "Tarjetas con cinta par...",
+      "price_crc": 2500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "Pinza volumen",
+      "price_crc": 6500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Pinzas"
+    },
+    {
+      "name": "Pestañas de práctica",
+      "price_crc": 2500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Pestañas"
+    },
+    {
+      "name": "lifting camelia",
+      "price_crc": 10000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Lifting y laminado"
+    },
+    {
+      "name": null,
+      "price_crc": 9000,
+      "brand": null,
+      "description": "name cut off at top of screenshot during scroll",
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "Nano mist",
+      "price_crc": 3500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "Lápiz de cera",
+      "price_crc": 1500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "almohadilla plana",
+      "price_crc": 2950,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "Abanico recargable ec...",
+      "price_crc": 4000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Herramientas y equipo"
+    },
+    {
+      "name": "maquina de cera con u...",
+      "price_crc": 10000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Herramientas y equipo"
+    },
+    {
+      "name": "Tinte negro",
+      "price_crc": 6500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Tintes y henna"
+    },
+    {
+      "name": null,
+      "price_crc": 5250,
+      "brand": null,
+      "description": "name cut off at top of screenshot during scroll",
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "Sellador bonder",
+      "price_crc": 9500,
+      "brand": null,
+      "description": "Mejora la retención hasta ...",
+      "whatsapp_product_url": null,
+      "image_available": false,
+      "category_proposed": "Adhesivos y selladores"
+    },
+    {
+      "name": "Paquete",
+      "price_crc": 18500,
+      "brand": null,
+      "description": "Paquete de 10 botella 10 b...",
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "Sellador",
+      "price_crc": 6000,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Adhesivos y selladores"
+    },
+    {
+      "name": "Pulsera de protección",
+      "price_crc": 4500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "serum de crecimiento",
+      "price_crc": 4500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Cuidado / serums"
+    },
+    {
+      "name": "pestañas 4Dw",
+      "price_crc": 3950,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Pestañas"
+    },
+    {
+      "name": null,
+      "price_crc": 8500,
+      "brand": null,
+      "description": "name cut off at top of screenshot during scroll",
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "Shampoo con brocha 6...",
+      "price_crc": 2800,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "Toallas libres de pelus...",
+      "price_crc": 1500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "Anillos paquete de ...",
+      "price_crc": 3500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    },
+    {
+      "name": "Abanicos prearmados",
+      "price_crc": 6500,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Herramientas y equipo"
+    },
+    {
+      "name": "5 pares de pads de lifti...",
+      "price_crc": 2900,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Sin categorizar"
+    },
+    {
+      "name": "Dapen",
+      "price_crc": 1250,
+      "brand": null,
+      "description": null,
+      "whatsapp_product_url": null,
+      "image_available": true,
+      "category_proposed": "Consumibles y accesorios"
+    }
+  ]
+}

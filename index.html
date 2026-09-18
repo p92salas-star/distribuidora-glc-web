@@ -264,6 +264,22 @@
     box-shadow: var(--shadow-soft);
   }
 
+  .nav-more { position: relative; }
+  .nav-more__caret { display: inline-block; font-size: 10px; transition: transform 0.25s var(--ease-lux); }
+  .nav-more.is-open .nav-more__caret { transform: rotate(180deg); }
+  .nav-more__menu {
+    position: absolute; top: calc(100% + 8px); right: 0; z-index: 25; min-width: 170px;
+    background: var(--paper); border: 1px solid var(--line); border-radius: 14px;
+    box-shadow: var(--shadow-hover); padding: 8px; display: none; flex-direction: column; gap: 2px;
+  }
+  .nav-more.is-open .nav-more__menu { display: flex; }
+  .nav-more__menu a {
+    display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 9px;
+    font-size: 13.5px; font-weight: 600; color: var(--ink); transition: background 0.2s ease;
+  }
+  .nav-more__menu a:hover { background: var(--blush); }
+  .nav-more__menu .icon { color: var(--gold); }
+
   @media (max-width: 860px) {
     .header-row {
       flex-wrap: wrap;
@@ -281,54 +297,102 @@
   /* ---------- Hero ---------- */
 
   .hero {
-    padding: 64px 0 56px;
+    padding: 40px 0 44px;
   }
   .hero .wrap {
     display: flex;
     flex-wrap: wrap;
-    gap: 48px;
+    gap: 40px;
     align-items: center;
   }
   .hero-copy { flex: 1 1 420px; }
   .hero-art { flex: 1 1 260px; }
   .hero h1 {
-    font-size: clamp(34px, 5vw, 52px);
+    font-size: clamp(32px, 4.6vw, 48px);
     max-width: 12ch;
   }
   .hero .lede {
-    margin-top: 20px;
+    margin-top: 18px;
     max-width: 42ch;
     color: var(--ink-soft);
-    font-size: 17.5px;
+    font-size: 17px;
   }
   .hero .ctas {
-    margin-top: 30px;
+    margin-top: 26px;
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: 22px;
     flex-wrap: wrap;
   }
-  .hero-art {
-    display: flex;
-    justify-content: center;
+  .hero-signature { margin-top: 18px; font-family: 'Caveat', cursive; font-size: 19px; color: var(--gold); }
+
+  /* ---- Composición editorial: fotografía real de producto, no el logo ampliado ---- */
+  .hero-art { display: flex; justify-content: center; }
+  .hero-collage { position: relative; width: 100%; max-width: 360px; aspect-ratio: 10 / 11; }
+  .hero-collage__main, .hero-collage__secondary {
+    position: absolute; border-radius: 20px; overflow: hidden;
+    background: var(--card); border: 1px solid var(--line); box-shadow: var(--shadow-hover);
   }
-  .hero-art img {
-    width: 100%;
-    max-width: 380px;
-    aspect-ratio: 4 / 5;
-    object-fit: cover;
-    border-radius: 24px;
-    background: var(--card);
-    border: 1px solid var(--line);
-    box-shadow: var(--shadow-hover);
-    transition: transform 0.5s var(--ease-lux);
+  .hero-collage__main { right: 0; top: 4%; width: 74%; aspect-ratio: 4 / 5; z-index: 1; }
+  .hero-collage__secondary { left: 0; bottom: 0; width: 50%; aspect-ratio: 4 / 5; border: 3px solid var(--paper); z-index: 2; }
+  .hero-collage__main img, .hero-collage__secondary img {
+    width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.7s var(--ease-lux);
   }
-  .hero-art img:hover { transform: scale(1.015); }
+  .hero-collage__main:hover img, .hero-collage__secondary:hover img { transform: scale(1.045); }
+  .hero-collage__main::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(to top, rgba(17,17,17,0.45) 0%, transparent 48%);
+  }
+  .hero-collage__main figcaption {
+    position: absolute; left: 16px; bottom: 14px; margin: 0; color: #FBF6F0;
+    font-size: 11.5px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+  }
+  .hero-collage__seal {
+    position: absolute; left: 20%; top: -6%; width: 74px; height: 74px; border-radius: 999px;
+    border: 3px solid var(--paper); box-shadow: var(--shadow-soft); z-index: 3;
+    background-image: url("img/hero-glc.jpg");
+    background-repeat: no-repeat; background-size: 322%; background-position: 50% 22%;
+  }
+
+  /* ---------- Franja cinematográfica: fotografía real, sin video falso ---------- */
+  .cine { position: relative; background: #14110F; padding: 60px 0 52px; overflow: hidden; }
+  .cine__grain {
+    position: absolute; inset: 0; pointer-events: none; opacity: 0.5; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .cine__caption { position: relative; text-align: center; max-width: 46ch; margin: 0 auto 36px; }
+  .cine__kicker { font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 10px; }
+  .cine__caption h2 { color: #FBF6F0; font-size: clamp(23px, 3.2vw, 32px); }
+  .cine__strip {
+    position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%);
+  }
+  .cine__frame { position: relative; aspect-ratio: 3 / 4; overflow: hidden; margin: 0; }
+  .cine__frame img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transform: scale(1.1); transition: transform 6s var(--ease-lux);
+  }
+  .cine__strip.is-visible .cine__frame img { transform: scale(1); }
+  .cine__frame:hover img { transform: scale(1.06); transition-duration: 0.8s; }
+  .cine__frame figcaption {
+    position: absolute; left: 0; right: 0; bottom: 0; margin: 0; padding: 16px 12px 12px;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    color: #FBF6F0; font-size: 11px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+  }
+  @media (max-width: 700px) {
+    .cine { padding: 44px 0 40px; }
+    .cine__strip { grid-template-columns: repeat(2, 1fr); gap: 4px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cine__frame img { transition: none; transform: none; }
+    .cine__frame:hover img { transform: none; }
+  }
 
   /* ---------- Sections ---------- */
 
-  section { padding: 60px 0; }
-  .section-head { max-width: 46ch; margin-bottom: 36px; }
+  section { padding: 50px 0; }
+  .section-head { max-width: 46ch; margin-bottom: 30px; }
   .section-head h2 { font-size: clamp(26px, 3.4vw, 34px); }
   .section-head p.kicker {
     font-size: 14px;
@@ -366,6 +430,15 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
     gap: 22px;
+  }
+  /* ---- Rail editorial: una categoría destacada (más movimiento) + el resto en
+     formato compacto -- nunca 12 tarjetas idénticas en fila. ---- */
+  .cat-grid--editorial { grid-template-columns: repeat(4, 1fr); }
+  .cat-grid--editorial .cat-card--feature { grid-column: span 2; }
+  .cat-grid--editorial .cat-card--feature .cat-card__photo { aspect-ratio: 16 / 9; }
+  .cat-grid--editorial .cat-card--feature h3 { font-size: 22px; }
+  @media (max-width: 700px) {
+    .cat-grid--editorial { grid-template-columns: repeat(2, 1fr); }
   }
   .cat-card {
     display: block;
@@ -495,6 +568,13 @@
   .entrega-cta { margin-top: 36px; }
   .entrega-cta .btn-primary { padding: 13px 24px; font-size: 15px; }
 
+  /* ---------- Seguinos (social) ---------- */
+  .social-follow { background: var(--blush); padding: 46px 0; }
+  .social-follow__inner { text-align: center; max-width: 52ch; margin: 0 auto; }
+  .social-follow__inner h2 { font-size: clamp(22px, 2.8vw, 28px); margin-top: 8px; }
+  .social-follow__links { margin-top: 22px; display: flex; justify-content: center; flex-wrap: wrap; gap: 14px; }
+  .social-follow .btn-ghost { border-bottom-color: var(--berry); }
+
   /* Personal shopper */
   .shopper {
     background: var(--ink);
@@ -537,27 +617,17 @@
   .shopper .ctas { margin-top: 32px; }
   .shopper .btn-primary { background: var(--blush); color: var(--ink); }
   .shopper .btn-primary:hover { background: #EEC9BA; }
-
-  /* ---------- Cuerpo medio en dos columnas + Sidebar Personal Shopper ---------- */
-
-  .mid-cols {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 44px;
-    align-items: flex-start;
-  }
-  .mid-cols__main { flex: 1 1 440px; min-width: 0; }
-  .mid-cols__side { flex: 1 1 300px; }
+  .shopper__by { font-family: 'Caveat', cursive; font-size: 19px; color: var(--gold-light); margin-top: 4px; }
+  .shopper__grid { display: flex; flex-wrap: wrap; gap: 44px; align-items: flex-start; margin-top: 30px; }
+  .shopper__intro { flex: 1 1 380px; }
+  .shopper__form-card { flex: 1 1 340px; }
 
   .shopper-card {
-    position: sticky;
-    top: 84px;
-    background: var(--ink);
+    background: rgba(251,246,240,0.05);
     color: #F2E9E2;
-    border: 1px solid rgba(173,138,78,0.25);
+    border: 1px solid rgba(173,138,78,0.28);
     border-radius: 16px;
-    padding: 28px 24px;
-    box-shadow: var(--shadow-soft);
+    padding: 26px 24px;
   }
   .shopper-card__title {
     font-family: 'Fraunces', serif;
@@ -618,10 +688,7 @@
   .shopper-form__submit:hover { background: #C79E5C; transform: translateY(-1px); }
 
   @media (max-width: 820px) {
-    .mid-cols { gap: 32px; }
-    .mid-cols__main,
-    .mid-cols__side { flex-basis: 100%; }
-    .shopper-card { position: static; }
+    .shopper__grid { gap: 32px; }
   }
 
   /* ---------- Agendar citas (cejas, pestañas y microblading) ---------- */
@@ -1499,7 +1566,12 @@
       <a class="btn btn-nav" href="pedido.html"><svg class="icon" aria-hidden="true"><use href="#i-bag"/></svg> Pedidos</a>
       <a class="btn btn-nav" href="#agendar-citas"><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg> Citas</a>
       <a class="btn btn-nav" href="#personal-shopper"><svg class="icon" aria-hidden="true"><use href="#i-plane"/></svg> Personal Shopper</a>
-      <a class="btn btn-nav" href="recompensas.html"><svg class="icon" aria-hidden="true"><use href="#i-gift"/></svg> Recompensas</a>
+      <div class="nav-more">
+        <button type="button" class="btn btn-nav" id="navMoreBtn" aria-haspopup="true" aria-expanded="false">Más <span class="nav-more__caret" aria-hidden="true">▾</span></button>
+        <div class="nav-more__menu" id="navMoreMenu">
+          <a href="recompensas.html"><svg class="icon" aria-hidden="true"><use href="#i-gift"/></svg> Recompensas</a>
+        </div>
+      </div>
       <a class="btn btn-primary" href="https://wa.me/50670281688" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg> WhatsApp</a>
     </nav>
   </div>
@@ -1513,87 +1585,53 @@
       <p class="lede">Extensiones, pinzas, pegamentos y kits profesionales para técnicas de pestañas y cejas — con entrega en el Valle Central y envíos a todo Costa Rica.</p>
       <div class="ctas">
         <a class="btn btn-primary" href="https://wa.me/50670281688" target="_blank" rel="noopener">Pedir por WhatsApp</a>
-        <a class="btn btn-ghost" href="#catalogo">Ver qué vendemos</a>
+        <a class="btn btn-ghost" href="#catalogo-real">Ver qué vendemos</a>
         <a class="btn btn-ghost" href="#agendar-citas">Agendar cita</a>
       </div>
+      <p class="hero-signature">by Gaudi Lara</p>
     </div>
     <div class="hero-art reveal" style="transition-delay:0.12s">
-      <img src="img/hero-glc.jpg" width="959" height="960" alt="Logo de Distribuidora GLC by Gaudi Lara: ilustración de ceja y pestañas sobre fondo rosa palo" loading="eager" fetchpriority="high">
+      <div class="hero-collage">
+        <div class="hero-collage__seal" aria-hidden="true"></div>
+        <figure class="hero-collage__main">
+          <img src="img/catalog/maquina-de-cera.jpg" alt="Máquina de cera profesional, foto real del catálogo Distribuidora GLC" loading="eager" fetchpriority="high">
+          <figcaption>Herramientas y Equipos</figcaption>
+        </figure>
+        <figure class="hero-collage__secondary">
+          <img src="img/catalog/tinte-pestanas.jpg" alt="Tinte de pestañas, foto real del catálogo Distribuidora GLC" loading="eager">
+        </figure>
+      </div>
     </div>
   </div>
 </section>
 
-<section id="como-comprar">
+<section class="cine" id="cine">
+  <div class="cine__grain" aria-hidden="true"></div>
   <div class="wrap">
-    <div class="section-head reveal">
-      <p class="kicker">Cómo comprar</p>
-      <h2>Pedir es tan simple como escribir un mensaje.</h2>
+    <div class="cine__caption reveal">
+      <p class="cine__kicker">Distribuidora GLC</p>
+      <h2>Productos reales para profesionales reales.</h2>
     </div>
-    <div class="steps reveal-stagger">
-      <div class="step">
-        <span class="num">1</span>
-        <h3>Escribís</h3>
-        <p>Nos contás qué necesitás por WhatsApp — una pieza o tu pedido completo del mes.</p>
-      </div>
-      <div class="step">
-        <span class="num">2</span>
-        <h3>Confirmamos</h3>
-        <p>Te respondemos con disponibilidad y precio al momento, sin vueltas.</p>
-      </div>
-      <div class="step">
-        <span class="num">3</span>
-        <h3>Recibís</h3>
-        <p>Con mensajero en Alajuela, Heredia y San José, o por correo a cualquier parte del país.</p>
-      </div>
+    <div class="cine__strip reveal-stagger">
+      <figure class="cine__frame">
+        <img src="img/catalog/agujas-microblanding.jpg" alt="Agujas de microblading, foto real del catálogo Distribuidora GLC" loading="lazy">
+        <figcaption>Microblading</figcaption>
+      </figure>
+      <figure class="cine__frame">
+        <img src="img/catalog/tinte-pestanas.jpg" alt="Tinte de pestañas, foto real del catálogo Distribuidora GLC" loading="lazy">
+        <figcaption>Pestañas</figcaption>
+      </figure>
+      <figure class="cine__frame">
+        <img src="img/catalog/maquina-de-cera.jpg" alt="Máquina de cera, foto real del catálogo Distribuidora GLC" loading="lazy">
+        <figcaption>Herramientas y Equipos</figcaption>
+      </figure>
+      <figure class="cine__frame">
+        <img src="img/catalog/vitamina-ayd.jpg" alt="Vitamina AyD, foto real del catálogo Distribuidora GLC" loading="lazy">
+        <figcaption>Cuidado y Preparación</figcaption>
+      </figure>
     </div>
   </div>
 </section>
-
-<div class="catalog-wrap" id="catalogo">
-  <section>
-    <div class="wrap">
-     <div class="mid-cols">
-      <div class="mid-cols__main">
-      <div class="section-head reveal">
-        <p class="kicker">Categorías</p>
-        <h2>Explorá por categoría</h2>
-        <p style="margin-top:10px;color:var(--ink-soft);font-size:15.5px;">Las categorías con más movimiento en nuestro catálogo real. Elegí una para ver todos sus productos y precios.</p>
-      </div>
-      <div class="cat-grid reveal-stagger" id="categoryGrid">
-        <!-- Generadas por JS desde data/glc-catalog.js: categorías reales, nunca inventadas -->
-      </div>
-      </div>
-
-      <aside class="mid-cols__side">
-        <div class="shopper-card">
-          <h3 class="shopper-card__title"><svg class="icon" aria-hidden="true"><use href="#i-plane"/></svg> Personal Shopper USA por Gaudi Lara</h3>
-          <p class="shopper-card__desc">
-            Gaudi viaja directamente a Estados Unidos para traerte lo que buscás:
-            tecnología, ropa, belleza y regalos, comprados en tiendas de confianza
-            y entregados en mano en Costa Rica. Contanos qué necesitás y te
-            preparamos una cotización.
-          </p>
-          <form class="shopper-form" id="shopperForm" novalidate>
-            <label class="shopper-form__field">
-              <span>Nombre Completo</span>
-              <input type="text" name="nombre" autocomplete="name" required>
-            </label>
-            <label class="shopper-form__field">
-              <span>WhatsApp de contacto</span>
-              <input type="tel" name="whatsapp" autocomplete="tel" required>
-            </label>
-            <label class="shopper-form__field">
-              <span>¿Qué producto deseas cotizar? (Enlace o descripción)</span>
-              <textarea name="producto" rows="5" required></textarea>
-            </label>
-            <button type="submit" class="btn shopper-form__submit">Enviar Solicitud</button>
-          </form>
-        </div>
-      </aside>
-     </div>
-    </div>
-  </section>
-</div>
 
 <div class="real-catalog" id="catalogo-real">
   <section>
@@ -1622,6 +1660,47 @@
   </section>
 </div>
 
+<div class="catalog-wrap" id="catalogo">
+  <section>
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="kicker">Categorías</p>
+        <h2>Explorá por categoría</h2>
+        <p style="margin-top:10px;color:var(--ink-soft);font-size:15.5px;">Las categorías con más movimiento en nuestro catálogo real. Elegí una para ver todos sus productos y precios.</p>
+      </div>
+      <div class="cat-grid reveal-stagger" id="categoryGrid">
+        <!-- Generadas por JS desde data/glc-catalog.js: categorías reales, nunca inventadas -->
+      </div>
+    </div>
+  </section>
+</div>
+
+<section id="como-comprar">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="kicker">Cómo comprar</p>
+      <h2>Pedir es tan simple como escribir un mensaje.</h2>
+    </div>
+    <div class="steps reveal-stagger">
+      <div class="step">
+        <span class="num">1</span>
+        <h3>Escribís</h3>
+        <p>Nos contás qué necesitás por WhatsApp — una pieza o tu pedido completo del mes.</p>
+      </div>
+      <div class="step">
+        <span class="num">2</span>
+        <h3>Confirmamos</h3>
+        <p>Te respondemos con disponibilidad y precio al momento, sin vueltas.</p>
+      </div>
+      <div class="step">
+        <span class="num">3</span>
+        <h3>Recibís</h3>
+        <p>Con mensajero en Alajuela, Heredia y San José, o por correo a cualquier parte del país.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="entrega">
   <div class="wrap">
     <div class="section-head reveal">
@@ -1647,6 +1726,65 @@
     </div>
     <div class="entrega-cta">
       <a class="btn btn-primary" href="pedido.html"><svg class="icon" aria-hidden="true"><use href="#i-bag"/></svg> Realizar Pedido / Datos de Envío</a>
+    </div>
+  </div>
+</section>
+
+<section class="social-follow" id="seguinos">
+  <div class="wrap">
+    <div class="social-follow__inner reveal">
+      <p class="kicker">Seguinos</p>
+      <h2>Novedades y catálogo al día en redes.</h2>
+      <div class="social-follow__links">
+        <a class="btn btn-primary" href="https://www.instagram.com/distribuidoraglc" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg> @distribuidoraglc</a>
+        <a class="btn btn-ghost" href="https://www.facebook.com/share/1HtPLkXZZc/" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-facebook"/></svg> Facebook</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="shopper" id="personal-shopper">
+  <div class="wrap">
+    <span class="badge">Próximamente</span>
+    <h2>Personal Shopper USA</h2>
+    <p class="shopper__by">por Gaudi Lara</p>
+    <div class="shopper__grid">
+      <div class="shopper__intro">
+        <p class="lede">Estaremos viajando próximamente en octubre a Estados Unidos para traer los encargos de todos nuestros clientes. Aproveche y realice sus pedidos para navidad y final de año! — desde tecnología hasta ropa, belleza y regalos, comprados en tiendas de confianza.</p>
+        <div class="store-row">
+          <span class="chip">Amazon</span>
+          <span class="chip">Best Buy</span>
+          <span class="chip">Apple</span>
+          <span class="chip">Home Depot</span>
+          <span class="chip">Walmart</span>
+          <span class="chip">Disney Store</span>
+          <span class="chip">Adidas</span>
+          <span class="chip">Nike</span>
+          <span class="chip">y más</span>
+        </div>
+        <div class="ctas">
+          <a class="btn btn-primary" href="https://wa.me/50670281688?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20sobre%20el%20Personal%20Shopper%20USA" target="_blank" rel="noopener">Quiero enterarme primero</a>
+        </div>
+      </div>
+      <div class="shopper__form-card shopper-card">
+        <h3 class="shopper-card__title">Reservá tu espacio en el viaje</h3>
+        <p class="shopper-card__desc">Contanos qué necesitás y te preparamos una cotización antes del viaje de octubre.</p>
+        <form class="shopper-form" id="shopperForm" novalidate>
+          <label class="shopper-form__field">
+            <span>Nombre Completo</span>
+            <input type="text" name="nombre" autocomplete="name" required>
+          </label>
+          <label class="shopper-form__field">
+            <span>WhatsApp de contacto</span>
+            <input type="tel" name="whatsapp" autocomplete="tel" required>
+          </label>
+          <label class="shopper-form__field">
+            <span>¿Qué producto deseas cotizar? (Enlace o descripción)</span>
+            <textarea name="producto" rows="4" required></textarea>
+          </label>
+          <button type="submit" class="btn shopper-form__submit">Enviar Solicitud</button>
+        </form>
+      </div>
     </div>
   </div>
 </section>
@@ -1767,28 +1905,6 @@
     </div>
   </div>
 </div>
-
-<section class="shopper" id="personal-shopper">
-  <div class="wrap">
-    <span class="badge">Próximamente</span>
-    <h2>Personal Shopper USA</h2>
-    <p class="lede">Estaremos viajando próximamente en octubre a Estados Unidos para traer los encargos de todos nuestros clientes, Aproveche y realice sus pedidos para navidad y final de año! — desde tecnología hasta ropa, belleza y regalos, comprados en tiendas de confianza.</p>
-    <div class="store-row">
-      <span class="chip">Amazon</span>
-      <span class="chip">Best Buy</span>
-      <span class="chip">Apple</span>
-      <span class="chip">Home Depot</span>
-      <span class="chip">Walmart</span>
-      <span class="chip">Disney Store</span>
-      <span class="chip">Adidas</span>
-      <span class="chip">Nike</span>
-      <span class="chip">y más</span>
-    </div>
-    <div class="ctas">
-      <a class="btn btn-primary" href="https://wa.me/50670281688?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20sobre%20el%20Personal%20Shopper%20USA" target="_blank" rel="noopener">Quiero enterarme primero</a>
-    </div>
-  </div>
-</section>
 
 <section id="programas">
   <div class="wrap">
@@ -2061,10 +2177,11 @@
 
     // ---- Grilla editorial: las categorías principales, como puerta de entrada visual ----
     if (catGrid) {
-      cats.slice(0, 6).forEach(function (c) {
+      catGrid.classList.add('cat-grid--editorial');
+      cats.slice(0, 6).forEach(function (c, i) {
         var ph = buildPlaceholder(c);
         var card = document.createElement('a');
-        card.className = 'cat-card';
+        card.className = 'cat-card' + (i === 0 ? ' cat-card--feature' : '');
         card.href = 'catalogo.html?cat=' + encodeURIComponent(c);
 
         var photo = document.createElement('div');
@@ -2152,6 +2269,27 @@
         grid.appendChild(card);
       });
     }
+  })();
+
+  (function () {
+    var wrap = document.querySelector('.nav-more');
+    var btn = document.getElementById('navMoreBtn');
+    if (!wrap || !btn) return;
+    function close() {
+      wrap.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = wrap.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    document.addEventListener('click', function (e) {
+      if (!wrap.contains(e.target)) close();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') close();
+    });
   })();
 
   (function () {

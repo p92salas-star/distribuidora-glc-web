@@ -386,7 +386,8 @@
     box-shadow: var(--shadow-hover);
     border-color: rgba(173,138,78,0.35);
   }
-  .cat-card__photo {
+  .cat-card__photo,
+  .feat-card__photo {
     position: relative;
     width: 100%;
     aspect-ratio: 4 / 5;
@@ -400,7 +401,9 @@
     align-items: center;
     justify-content: center;
   }
-  .cat-card__photo img {
+  .feat-card__photo { aspect-ratio: 4 / 5; margin-bottom: 0; border-radius: 0; }
+  .cat-card__photo img,
+  .feat-card__photo img {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -409,12 +412,37 @@
     display: block;
     transition: transform 0.6s var(--ease-lux);
   }
-  .cat-card:hover .cat-card__photo img { transform: scale(1.08); }
+  .cat-card:hover .cat-card__photo img,
+  .feat-card:hover .feat-card__photo img { transform: scale(1.08); }
+
+  /* ---- Estado sin foto: identidad por categoría (tinte + ícono + monograma),
+     compartida con el catálogo completo -- nunca el mismo ícono genérico
+     repetido en todas las tarjetas. ---- */
+  .cat-card__photo[data-tint="gold"], .feat-card__photo[data-tint="gold"] { background: radial-gradient(circle at 30% 18%, rgba(255,255,255,0.85), transparent 55%), linear-gradient(150deg, var(--gold-light) 0%, var(--blush) 55%, #FFFDF9 100%); }
+  .cat-card__photo[data-tint="berry"], .feat-card__photo[data-tint="berry"] { background: radial-gradient(circle at 30% 18%, rgba(255,255,255,0.85), transparent 55%), linear-gradient(150deg, rgba(139,58,70,0.24) 0%, var(--blush) 55%, #FFFDF9 100%); }
+  .cat-card__photo[data-tint="neutral"], .feat-card__photo[data-tint="neutral"] { background: radial-gradient(circle at 30% 18%, rgba(255,255,255,0.9), transparent 55%), linear-gradient(150deg, var(--blush) 0%, #FDF8F4 60%, #FFFFFF 100%); }
+  .cat-card__photo[data-tint="ink"], .feat-card__photo[data-tint="ink"] { background: radial-gradient(circle at 30% 18%, rgba(255,255,255,0.85), transparent 55%), linear-gradient(150deg, rgba(17,17,17,0.1) 0%, #F4F1ED 55%, #FFFFFF 100%); }
+  .cat-card__photo::before, .feat-card__photo::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image: repeating-linear-gradient(135deg, rgba(17,17,17,0.035) 0, rgba(17,17,17,0.035) 1px, transparent 1px, transparent 13px);
+    opacity: 0.6;
+  }
+  .cat-card__photo.has-photo::before, .feat-card__photo.has-photo::before { display: none; }
+  .ph-mono {
+    position: absolute; top: -0.05em; left: 50%; transform: translateX(-50%);
+    font-family: 'Fraunces', serif; font-weight: 500; font-size: 92px; line-height: 1;
+    color: rgba(17,17,17,0.055); pointer-events: none; user-select: none;
+  }
+  .cat-card__photo[data-tint="gold"] .ph-mono, .feat-card__photo[data-tint="gold"] .ph-mono { color: rgba(173,138,78,0.14); }
+  .cat-card__photo[data-tint="berry"] .ph-mono, .feat-card__photo[data-tint="berry"] .ph-mono { color: rgba(139,58,70,0.13); }
   .cat-card__placeholder {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    padding: 0 16px;
+    text-align: center;
   }
   .cat-card__icon {
     width: 46px;
@@ -423,10 +451,14 @@
     align-items: center;
     justify-content: center;
     border-radius: 999px;
-    background: rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.7);
     border: 1px solid rgba(173,138,78,0.3);
     color: var(--gold);
+    transition: transform 0.4s var(--ease-lux);
   }
+  .cat-card:hover .cat-card__icon, .feat-card:hover .cat-card__icon { transform: scale(1.06); }
+  .cat-card__photo[data-tint="berry"] .cat-card__icon, .feat-card__photo[data-tint="berry"] .cat-card__icon { color: var(--berry); border-color: rgba(139,58,70,0.35); }
+  .cat-card__photo[data-tint="ink"] .cat-card__icon, .feat-card__photo[data-tint="ink"] .cat-card__icon { color: var(--ink-soft); border-color: rgba(17,17,17,0.16); }
   .cat-card__icon .icon { width: 20px; height: 20px; }
   .cat-card__placeholder span {
     font-size: 11.5px;
@@ -434,18 +466,15 @@
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: var(--ink-soft);
-    opacity: 0.7;
+    opacity: 0.85;
   }
-  /* La <img> real es position:absolute;inset:0 y cubre visualmente este
-     marcador de posición en cuanto carga -- no hace falta JS extra. Si
-     la foto no existe todavía, su propio onerror la oculta (ver markup)
-     y el marcador de posición, que sigue en el flujo normal, queda a la
-     vista de forma natural. */
   .cat-card .mark {
     width: 34px; height: 2px; background: var(--berry); margin-bottom: 16px;
   }
   .cat-card h3 { font-size: 18px; margin-bottom: 6px; }
   .cat-card p { color: var(--ink-soft); font-size: 14.5px; }
+  .cat-card__count { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; font-size: 13px; font-weight: 600; color: var(--gold); }
+  .cat-card__count .icon { width: 13px; height: 13px; }
 
   /* Entrega / pagos */
   .info-grid {
@@ -970,6 +999,10 @@
     background: var(--blush);
   }
 
+  .feat-label {
+    font-size: 12.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--berry); margin: 0 0 16px;
+  }
   .featured-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -986,19 +1019,8 @@
     transition: transform 0.4s var(--ease-lux), box-shadow 0.4s var(--ease-lux);
   }
   .feat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
-  .feat-card__photo {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 4 / 5;
-    background:
-      radial-gradient(circle at 30% 20%, rgba(255,255,255,0.9), transparent 55%),
-      linear-gradient(150deg, var(--blush) 0%, #FDF8F4 60%, #FFFFFF 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .feat-card__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
   .feat-card__photo .cat-card__icon { width: 38px; height: 38px; }
+  .feat-card__photo .ph-mono { font-size: 78px; }
   .feat-card__photo .cat-card__icon .icon { width: 17px; height: 17px; }
   .feat-card__body { padding: 14px 16px 18px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
   .feat-card__cat { font-size: 11px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--gold); }
@@ -1532,95 +1554,12 @@
      <div class="mid-cols">
       <div class="mid-cols__main">
       <div class="section-head reveal">
-        <p class="kicker">Catálogo</p>
-        <h2>Lo que encontrás en Distribuidora GLC</h2>
+        <p class="kicker">Categorías</p>
+        <h2>Explorá por categoría</h2>
+        <p style="margin-top:10px;color:var(--ink-soft);font-size:15.5px;">Las categorías con más movimiento en nuestro catálogo real. Elegí una para ver todos sus productos y precios.</p>
       </div>
-      <div class="cat-grid reveal-stagger">
-        <button type="button" class="cat-card"
-                data-cat-title="Extensiones de pestañas"
-                data-cat-desc="Bandejas mixtas, volumen y clásicas, en distintos grosores y curvaturas.">
-          <div class="cat-card__photo">
-            <span class="cat-card__placeholder"><span class="cat-card__icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-image"/></svg></span><span>Foto próximamente</span></span>
-            <!-- FOTO REAL: colocar el archivo en img/extensiones.jpg (foto de estudio,
-                 fondo neutro claro, proporción vertical 4:5). Si el archivo no existe
-                 todavía, esta imagen se oculta sola y se ve el marco de respaldo. -->
-            <img src="img/extensiones.jpg" alt="Bandejas de extensiones de pestañas Distribuidora GLC" loading="lazy" onerror="this.style.display='none'">
-          </div>
-          <div class="mark"></div>
-          <h3>Extensiones de pestañas</h3>
-          <p>Bandejas mixtas, volumen y clásicas, en distintos grosores y curvaturas.</p>
-        </button>
-        <button type="button" class="cat-card"
-                data-cat-title="Pinzas y herramientas"
-                data-cat-desc="Rectas, curvas y de volumen, para cada técnica de aplicación.">
-          <div class="cat-card__photo">
-            <span class="cat-card__placeholder"><span class="cat-card__icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-image"/></svg></span><span>Foto próximamente</span></span>
-            <!-- FOTO REAL: colocar el archivo en img/pinzas.jpg (foto de producto sobre
-                 superficie clara, proporción vertical 4:5). Si el archivo no existe
-                 todavía, esta imagen se oculta sola y se ve el marco de respaldo. -->
-            <img src="img/pinzas.jpg" alt="Pinzas profesionales para pestañas Distribuidora GLC" loading="lazy" onerror="this.style.display='none'">
-          </div>
-          <div class="mark"></div>
-          <h3>Pinzas y herramientas</h3>
-          <p>Rectas, curvas y de volumen, para cada técnica de aplicación.</p>
-        </button>
-        <button type="button" class="cat-card"
-                data-cat-title="Pegamentos y removedores"
-                data-cat-desc="Para extensión y retiro seguro, de secado rápido o lento.">
-          <div class="cat-card__photo">
-            <span class="cat-card__placeholder"><span class="cat-card__icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-image"/></svg></span><span>Foto próximamente</span></span>
-            <!-- FOTO REAL: colocar el archivo en img/pegamentos.jpg (foto de producto
-                 sobre superficie clara, proporción vertical 4:5). Si el archivo no
-                 existe todavía, esta imagen se oculta sola y se ve el marco de respaldo. -->
-            <img src="img/pegamentos.jpg" alt="Pegamentos y removedores para pestañas Distribuidora GLC" loading="lazy" onerror="this.style.display='none'">
-          </div>
-          <div class="mark"></div>
-          <h3>Pegamentos y removedores</h3>
-          <p>Para extensión y retiro seguro, de secado rápido o lento.</p>
-        </button>
-        <button type="button" class="cat-card"
-                data-cat-title="Cuidado y limpieza"
-                data-cat-desc="Lash shampoo, espuma limpiadora y accesorios de mantenimiento.">
-          <div class="cat-card__photo">
-            <span class="cat-card__placeholder"><span class="cat-card__icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-image"/></svg></span><span>Foto próximamente</span></span>
-            <!-- FOTO REAL: colocar el archivo en img/limpieza.jpg (foto de producto
-                 sobre superficie clara, proporción vertical 4:5). Si el archivo no
-                 existe todavía, esta imagen se oculta sola y se ve el marco de respaldo. -->
-            <img src="img/limpieza.jpg" alt="Productos de cuidado y limpieza de pestañas Distribuidora GLC" loading="lazy" onerror="this.style.display='none'">
-          </div>
-          <div class="mark"></div>
-          <h3>Cuidado y limpieza</h3>
-          <p>Lash shampoo, espuma limpiadora y accesorios de mantenimiento.</p>
-        </button>
-        <button type="button" class="cat-card"
-                data-cat-title="Lash lift &amp; brow lift"
-                data-cat-desc="Kits completos para levantado de pestañas y cejas.">
-          <div class="cat-card__photo">
-            <span class="cat-card__placeholder"><span class="cat-card__icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-image"/></svg></span><span>Foto próximamente</span></span>
-            <!-- FOTO REAL: colocar el archivo en img/lifting.jpg (foto de resultado o
-                 kit, proporción vertical 4:5). Si el archivo no existe todavía, esta
-                 imagen se oculta sola y se ve el marco de respaldo. -->
-            <img src="img/lifting.jpg" alt="Kit de lash lift y brow lift Distribuidora GLC" loading="lazy" onerror="this.style.display='none'">
-          </div>
-          <div class="mark"></div>
-          <h3>Lash lift &amp; brow lift</h3>
-          <p>Kits completos para levantado de pestañas y cejas.</p>
-        </button>
-        <button type="button" class="cat-card"
-                data-cat-title="Kits de inicio y microblading"
-                data-cat-desc="Todo para quienes están empezando en el oficio.">
-          <div class="cat-card__photo">
-            <span class="cat-card__placeholder"><span class="cat-card__icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-image"/></svg></span><span>Foto próximamente</span></span>
-            <!-- FOTO REAL: colocar el archivo en img/microblading.jpg (foto de
-                 producto/kit sobre superficie clara, proporción vertical 4:5). Si el
-                 archivo no existe todavía, esta imagen se oculta sola y se ve el
-                 marco de respaldo. -->
-            <img src="img/microblading.jpg" alt="Kit de inicio y microblading Distribuidora GLC" loading="lazy" onerror="this.style.display='none'">
-          </div>
-          <div class="mark"></div>
-          <h3>Kits de inicio y microblading</h3>
-          <p>Todo para quienes están empezando en el oficio.</p>
-        </button>
+      <div class="cat-grid reveal-stagger" id="categoryGrid">
+        <!-- Generadas por JS desde data/glc-catalog.js: categorías reales, nunca inventadas -->
       </div>
       </div>
 
@@ -1660,7 +1599,7 @@
     <div class="wrap">
       <div class="section-head real-catalog__head reveal">
         <p class="kicker">Catálogo real</p>
-        <h2>167 productos, directo de nuestro catálogo de WhatsApp.</h2>
+        <h2>162 productos, directo de nuestro catálogo de WhatsApp.</h2>
         <p style="margin-top:14px;color:var(--ink-soft);font-size:15.5px;">Esta es una muestra real: mismos productos, mismos precios que manejamos en WhatsApp. Explorá todo, filtrá por categoría o buscá por nombre.</p>
         <p class="snapshot-badge"><svg class="icon" aria-hidden="true"><use href="#i-tag"/></svg> Precio de catálogo · snapshot del 17/09/2026 · confirmamos disponibilidad y precio final por WhatsApp</p>
       </div>
@@ -1669,34 +1608,17 @@
         <!-- Generadas por JS desde data/glc-catalog.js (ver script al final del body) -->
       </nav>
 
+      <p class="feat-label reveal">Selección GLC</p>
       <div class="featured-grid reveal-stagger" id="featuredGrid">
         <!-- Generadas por JS desde data/glc-catalog.js -->
       </div>
 
       <div class="real-catalog__cta-row reveal">
-        <a class="btn btn-primary" href="catalogo.html"><svg class="icon" aria-hidden="true"><use href="#i-grid"/></svg> Ver catálogo completo (167 productos)</a>
+        <a class="btn btn-primary" href="catalogo.html"><svg class="icon" aria-hidden="true"><use href="#i-grid"/></svg> Ver catálogo completo (162 productos)</a>
         <a class="btn btn-ghost" href="https://wa.me/50670281688" target="_blank" rel="noopener">Prefiero preguntar por WhatsApp</a>
       </div>
     </div>
   </section>
-</div>
-
-<div class="lux-overlay" id="modalCatalogo" aria-hidden="true">
-  <div class="lux-modal" role="dialog" aria-modal="true" aria-labelledby="modalCatalogoTitle">
-    <button type="button" class="lux-modal__close" aria-label="Cerrar ventana de catálogo">&times;</button>
-    <div class="lux-modal__photo" data-modal-photo>
-      <!-- FOTO REAL AQUÍ: vista ampliada de la categoría seleccionada. Cuando existan
-           fotos reales del catálogo, esta caja puede recibir un <img> por categoría. -->
-      <span class="lux-modal__icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-sparkle"/></svg></span>
-    </div>
-    <p class="lux-modal__kicker">Catálogo Distribuidora GLC</p>
-    <h3 id="modalCatalogoTitle" data-modal-title>—</h3>
-    <p class="lux-modal__desc" data-modal-desc>—</p>
-    <div class="lux-modal__ctas">
-      <a class="btn btn-primary" href="pedido.html"><svg class="icon" aria-hidden="true"><use href="#i-bag"/></svg> Pedir esta categoría</a>
-      <a class="btn btn-ghost" href="https://wa.me/50670281688" target="_blank" rel="noopener">Consultar por WhatsApp</a>
-    </div>
-  </div>
 </div>
 
 <section id="entrega">
@@ -2083,13 +2005,14 @@
     return limpio;
   }
 
-  /* ---------- Catálogo real: destacados + categorías (datos desde data/glc-catalog.js) ---------- */
+  /* ---------- Catálogo real: categorías + destacados (datos desde data/glc-catalog.js) ---------- */
   (function () {
+    var catGrid = document.getElementById('categoryGrid');
     var grid = document.getElementById('featuredGrid');
     var chipRail = document.getElementById('homeCatChips');
-    if (!grid || !chipRail || !Array.isArray(window.GLC_CATALOG)) return;
+    if (!Array.isArray(window.GLC_CATALOG)) return;
 
-    var catalog = window.GLC_CATALOG;
+    var catalog = window.GLC_CATALOG.filter(function (p) { return !!p.name; });
 
     function formatCRC(n) {
       if (typeof n !== 'number') return null;
@@ -2101,75 +2024,133 @@
       return 'https://wa.me/50670281688?text=' + encodeURIComponent(msg);
     }
 
-    // ---- Destacados (elegidos de forma determinística en data/glc-catalog.json, no al azar) ----
-    var featured = catalog.filter(function (p) { return p.featured; });
-    featured.forEach(function (p) {
-      var card = document.createElement('article');
-      card.className = 'feat-card';
+    // ---- Identidad visual por categoría (compartida con catalogo.html): un
+    // tinte y un ícono ya existentes en el sitio, nunca inventados. ----
+    var CATEGORY_STYLE = {
+      'Microblading': { tint: 'gold', icon: 'i-sparkle' },
+      'Pestañas': { tint: 'gold', icon: 'i-sparkle' },
+      'Lifting y Laminado': { tint: 'gold', icon: 'i-sparkle' },
+      'Tintes y Henna': { tint: 'gold', icon: 'i-tag' },
+      'Pinzas': { tint: 'berry', icon: 'i-sliders' },
+      'Herramientas y Equipos': { tint: 'berry', icon: 'i-sliders' },
+      'Pegamentos y Adhesivos': { tint: 'berry', icon: 'i-tag' },
+      'Cuidado y Preparación': { tint: 'neutral', icon: 'i-tag' },
+      'Consumibles': { tint: 'neutral', icon: 'i-bag' },
+      'Accesorios': { tint: 'neutral', icon: 'i-bag' },
+      'Kits': { tint: 'neutral', icon: 'i-gift' },
+      'Sin categorizar': { tint: 'ink', icon: 'i-tag' }
+    };
+    function styleFor(category) { return CATEGORY_STYLE[category] || { tint: 'neutral', icon: 'i-tag' }; }
 
-      var photo = document.createElement('div');
-      photo.className = 'feat-card__photo';
-      photo.innerHTML = '<span class="cat-card__placeholder"><span class="cat-card__icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-image"/></svg></span></span>';
-      var img = document.createElement('img');
-      img.src = p.image;
-      img.alt = p.name;
-      img.loading = 'lazy';
-      img.style.position = 'absolute';
-      img.style.inset = '0';
-      img.style.width = '100%';
-      img.style.height = '100%';
-      img.style.objectFit = 'cover';
-      img.onerror = function () { img.style.display = 'none'; };
-      photo.appendChild(img);
-      card.appendChild(photo);
+    function buildPlaceholder(category) {
+      var style = styleFor(category);
+      return {
+        tint: style.tint,
+        html:
+          '<span class="ph-mono" aria-hidden="true">' + (category || '?').charAt(0) + '</span>' +
+          '<span class="cat-card__placeholder"><span class="cat-card__icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#' + style.icon + '"/></svg></span></span>'
+      };
+    }
 
-      var body = document.createElement('div');
-      body.className = 'feat-card__body';
-
-      var cat = document.createElement('span');
-      cat.className = 'feat-card__cat';
-      cat.textContent = p.category;
-      body.appendChild(cat);
-
-      var name = document.createElement('h3');
-      name.className = 'feat-card__name';
-      name.textContent = p.name;
-      body.appendChild(name);
-
-      var price = document.createElement('p');
-      price.className = 'feat-card__price';
-      var crc = formatCRC(p.price_crc);
-      price.innerHTML = (crc ? crc : 'Precio a confirmar') + '<small>Precio de catálogo</small>';
-      body.appendChild(price);
-
-      var cta = document.createElement('a');
-      cta.className = 'feat-card__cta';
-      cta.href = waLink(p.name);
-      cta.target = '_blank';
-      cta.rel = 'noopener';
-      cta.innerHTML = '<svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg> Quiero este producto';
-      body.appendChild(cta);
-
-      card.appendChild(body);
-      grid.appendChild(card);
-    });
-
-    // ---- Categorías reales (con conteo), como entrada al catálogo completo ----
+    // ---- Categorías reales (con conteo) ----
     var counts = {};
-    catalog.forEach(function (p) {
-      if (!p.name) return; // no listamos filas sin nombre legible
-      counts[p.category] = (counts[p.category] || 0) + 1;
-    });
+    catalog.forEach(function (p) { counts[p.category] = (counts[p.category] || 0) + 1; });
     var cats = Object.keys(counts).filter(function (c) { return c !== 'Sin categorizar'; })
       .sort(function (a, b) { return counts[b] - counts[a]; });
 
-    cats.forEach(function (c) {
-      var chip = document.createElement('a');
-      chip.className = 'cat-chip';
-      chip.href = 'catalogo.html?cat=' + encodeURIComponent(c);
-      chip.innerHTML = '<svg class="icon" aria-hidden="true"><use href="#i-tag"/></svg> ' + c + ' (' + counts[c] + ')';
-      chipRail.appendChild(chip);
-    });
+    // ---- Grilla editorial: las categorías principales, como puerta de entrada visual ----
+    if (catGrid) {
+      cats.slice(0, 6).forEach(function (c) {
+        var ph = buildPlaceholder(c);
+        var card = document.createElement('a');
+        card.className = 'cat-card';
+        card.href = 'catalogo.html?cat=' + encodeURIComponent(c);
+
+        var photo = document.createElement('div');
+        photo.className = 'cat-card__photo';
+        photo.setAttribute('data-tint', ph.tint);
+        photo.innerHTML = ph.html;
+        card.appendChild(photo);
+
+        var mark = document.createElement('div');
+        mark.className = 'mark';
+        card.appendChild(mark);
+
+        var h3 = document.createElement('h3');
+        h3.textContent = c;
+        card.appendChild(h3);
+
+        var count = document.createElement('span');
+        count.className = 'cat-card__count';
+        count.innerHTML = counts[c] + ' producto' + (counts[c] === 1 ? '' : 's') + ' <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg>';
+        card.appendChild(count);
+
+        catGrid.appendChild(card);
+      });
+    }
+
+    if (chipRail) {
+      cats.forEach(function (c) {
+        var chip = document.createElement('a');
+        chip.className = 'cat-chip';
+        chip.href = 'catalogo.html?cat=' + encodeURIComponent(c);
+        chip.innerHTML = '<svg class="icon" aria-hidden="true"><use href="#i-tag"/></svg> ' + c + ' (' + counts[c] + ')';
+        chipRail.appendChild(chip);
+      });
+    }
+
+    // ---- Destacados (elegidos de forma determinística en data/glc-catalog.json, no al azar) ----
+    if (grid) {
+      var featured = catalog.filter(function (p) { return p.featured; });
+      featured.forEach(function (p) {
+        var card = document.createElement('article');
+        card.className = 'feat-card';
+
+        var ph = buildPlaceholder(p.category);
+        var photo = document.createElement('div');
+        photo.className = 'feat-card__photo';
+        photo.setAttribute('data-tint', ph.tint);
+        photo.innerHTML = ph.html;
+        var img = document.createElement('img');
+        img.src = p.image;
+        img.alt = p.name;
+        img.loading = 'lazy';
+        img.onload = function () { photo.classList.add('has-photo'); };
+        img.onerror = function () { img.style.display = 'none'; };
+        photo.appendChild(img);
+        card.appendChild(photo);
+
+        var body = document.createElement('div');
+        body.className = 'feat-card__body';
+
+        var cat = document.createElement('span');
+        cat.className = 'feat-card__cat';
+        cat.textContent = p.category;
+        body.appendChild(cat);
+
+        var name = document.createElement('h3');
+        name.className = 'feat-card__name';
+        name.textContent = p.name;
+        body.appendChild(name);
+
+        var price = document.createElement('p');
+        price.className = 'feat-card__price';
+        var crc = formatCRC(p.price_crc);
+        price.innerHTML = (crc ? crc : 'Precio a confirmar') + '<small>Precio de catálogo</small>';
+        body.appendChild(price);
+
+        var cta = document.createElement('a');
+        cta.className = 'feat-card__cta';
+        cta.href = waLink(p.name);
+        cta.target = '_blank';
+        cta.rel = 'noopener';
+        cta.innerHTML = '<svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg> Quiero este producto';
+        body.appendChild(cta);
+
+        card.appendChild(body);
+        grid.appendChild(card);
+      });
+    }
   })();
 
   (function () {
@@ -2371,20 +2352,6 @@
         document.querySelectorAll('.lux-overlay.is-open').forEach(closeModal);
       }
     });
-
-    /* Catálogo: cada tarjeta abre el modal con su propio título y descripción */
-    var modalCatalogo = document.getElementById('modalCatalogo');
-    if (modalCatalogo) {
-      var mTitle = modalCatalogo.querySelector('[data-modal-title]');
-      var mDesc = modalCatalogo.querySelector('[data-modal-desc]');
-      document.querySelectorAll('.cat-card').forEach(function (card) {
-        card.addEventListener('click', function () {
-          if (mTitle) { mTitle.textContent = card.getAttribute('data-cat-title') || ''; }
-          if (mDesc) { mDesc.textContent = card.getAttribute('data-cat-desc') || ''; }
-          openModal(modalCatalogo);
-        });
-      });
-    }
   })();
 
   /* ---------- Membresía Estudiante Profesional → Google Sheets (Apps Script) ---------- */

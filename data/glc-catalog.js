@@ -76,7 +76,7 @@ window.GLC_CATALOG = [
     "image": "img/catalog/boquilla-para-adhesivo.jpg",
     "source_had_image": true,
     "whatsapp_product_url": null,
-    "featured": true,
+    "featured": false,
     "source": "whatsapp_catalog_snapshot_2026-09-17",
     "review_required": false
   },
@@ -90,7 +90,7 @@ window.GLC_CATALOG = [
     "image": "img/catalog/vitamina-ayd.jpg",
     "source_had_image": true,
     "whatsapp_product_url": null,
-    "featured": false,
+    "featured": true,
     "source": "whatsapp_catalog_snapshot_2026-09-17",
     "review_required": false
   },
@@ -454,7 +454,7 @@ window.GLC_CATALOG = [
     "image": "img/catalog/kit-de-20-de-cada-dese.jpg",
     "source_had_image": true,
     "whatsapp_product_url": null,
-    "featured": true,
+    "featured": false,
     "source": "whatsapp_catalog_snapshot_2026-09-17",
     "review_required": false
   },

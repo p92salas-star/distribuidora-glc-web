@@ -569,8 +569,20 @@
     qvOverlay.classList.add('is-open');
     qvOverlay.setAttribute('aria-hidden', 'false');
     document.body.classList.add('lux-lock');
-    var closeBtn = qvOverlay.querySelector('.lux-modal__close');
-    if (closeBtn) closeBtn.focus();
+    // Focusing synchronously here loses to the browser's native "focus the
+    // clicked button" step, which reasserts itself on the trigger right after
+    // this click handler returns. A macrotask delay (not rAF -- rAF never
+    // runs in a background/inactive tab) lets that native step finish first,
+    // so our focus move into the dialog is the one that sticks.
+    setTimeout(function () {
+      if (qvOverlay.classList.contains('is-open') && qvCloseBtn) qvCloseBtn.focus();
+    }, 0);
+  }
+
+  function qvFocusables() {
+    return Array.prototype.slice.call(
+      qvOverlay.querySelectorAll('a[href], button:not([disabled])')
+    );
   }
 
   function closeQuickView() {
@@ -590,7 +602,22 @@
     var qvCloseAlt = qvOverlay.querySelector('[data-qv-close-alt]');
     if (qvCloseAlt) qvCloseAlt.addEventListener('click', closeQuickView);
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && qvOverlay.classList.contains('is-open')) closeQuickView();
+      if (!qvOverlay.classList.contains('is-open')) return;
+      if (e.key === 'Escape') { closeQuickView(); return; }
+      if (e.key === 'Tab') {
+        var focusables = qvFocusables();
+        if (!focusables.length) return;
+        var first = focusables[0], last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault(); last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault(); first.focus();
+        } else if (focusables.indexOf(document.activeElement) === -1) {
+          // El foco quedó fuera del diálogo (p. ej. por el foco nativo del
+          // botón que abrió la vista rápida) -- lo devolvemos adentro.
+          e.preventDefault(); first.focus();
+        }
+      }
     });
   }
 
@@ -770,6 +797,11 @@
     body.appendChild(price);
 
     view.appendChild(body);
+    // Sin esto, el foco nativo que el navegador le da a este botón al
+    // hacer clic gana la carrera contra el foco que movemos al diálogo
+    // (ver openQuickView) y la vista rápida se abre pero el teclado se
+    // queda "afuera", sobre la tarjeta.
+    view.addEventListener('mousedown', function (e) { e.preventDefault(); });
     view.addEventListener('click', function () { openQuickView(p); });
     card.appendChild(view);
 

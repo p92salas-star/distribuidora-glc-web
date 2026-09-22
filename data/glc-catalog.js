@@ -2377,3 +2377,6 @@ window.GLC_CATALOG = [
     "review_required": false
   }
 ];
+
+// Only these local photos are available; render existing placeholders otherwise.
+window.GLC_IMAGE_PATHS = ["img/catalog/agujas-microblanding.jpg","img/catalog/tinte-pestanas.jpg","img/catalog/vitamina-ayd.jpg","img/catalog/maquina-de-cera.jpg"];

@@ -84,16 +84,18 @@
   .foot-links a { color: var(--ink-soft); border-bottom: 1px solid var(--line); padding-bottom: 2px; }
 
   @media (max-width: 560px) { h1 { font-size: 25px; } }
+.return-home { max-width:1080px; margin:0 auto; padding:14px 24px; font-size:14px; } .return-home a { display:inline-flex; align-items:center; min-height:44px; text-decoration:underline; text-underline-offset:4px; }
 </style>
 </head>
 <body>
 
 <header class="site">
   <div class="header-row">
-    <div class="wordmark">Distribuidora <span>GLC</span></div>
+    <a class="wordmark" href="index.html">Distribuidora <span>GLC</span></a>
     <a class="back-link" href="index.html">← Volver al inicio</a>
   </div>
 </header>
+<nav aria-label="Regreso a Inicio" class="return-home"><a href="index.html">&larr; Volver al inicio</a></nav>
 
 <main>
   <div class="wrap">

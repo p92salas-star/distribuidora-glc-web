@@ -296,62 +296,59 @@
 
   /* ---------- Hero ---------- */
 
-  .hero {
-    padding: 40px 0 44px;
-  }
+  .hero { padding: 76px 0 72px; background: #FAF8F5; }
   .hero .wrap {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 40px;
-    align-items: center;
+    display: grid; grid-template-columns: 1.12fr 1fr;
+    gap: clamp(32px, 5vw, 72px); align-items: center;
   }
-  .hero-copy { flex: 1 1 420px; }
-  .hero-art { flex: 1 1 260px; }
+  .hero-copy, .hero-art { min-width: 0; }
+  .hero-eyebrow {
+    margin: 0 0 22px; font-size: 11px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--berry);
+  }
   .hero h1 {
-    font-size: clamp(32px, 4.6vw, 48px);
-    max-width: 12ch;
+    font-size: clamp(38px, 4.8vw, 58px); line-height: 1.08;
+    letter-spacing: -0.035em; max-width: 15ch; text-wrap: balance;
   }
+  .hero h1 span { color: var(--berry); }
   .hero .lede {
-    margin-top: 18px;
-    max-width: 42ch;
-    color: var(--ink-soft);
-    font-size: 17px;
+    margin-top: 24px; max-width: 43ch; color: var(--ink-soft);
+    font-size: 16px; line-height: 1.75;
   }
   .hero .ctas {
-    margin-top: 26px;
-    display: flex;
-    align-items: center;
-    gap: 22px;
-    flex-wrap: wrap;
+    margin-top: 30px; display: flex; align-items: center;
+    gap: 20px; flex-wrap: wrap;
   }
-  .hero-signature { margin-top: 18px; font-family: 'Caveat', cursive; font-size: 19px; color: var(--gold); }
-
-  /* ---- Composición editorial: fotografía real de producto, no el logo ampliado ---- */
-  .hero-art { display: flex; justify-content: center; }
-  .hero-collage { position: relative; width: 100%; max-width: 360px; aspect-ratio: 10 / 11; }
-  .hero-collage__main, .hero-collage__secondary {
-    position: absolute; border-radius: 20px; overflow: hidden;
-    background: var(--card); border: 1px solid var(--line); box-shadow: var(--shadow-hover);
+  .hero .btn-primary {
+    min-height: 48px; padding: 14px 22px; border-radius: 6px;
+    white-space: normal; justify-content: center;
   }
-  .hero-collage__main { right: 0; top: 4%; width: 74%; aspect-ratio: 4 / 5; z-index: 1; }
-  .hero-collage__secondary { left: 0; bottom: 0; width: 50%; aspect-ratio: 4 / 5; border: 3px solid var(--paper); z-index: 2; }
-  .hero-collage__main img, .hero-collage__secondary img {
-    width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.7s var(--ease-lux);
+  .hero .btn-primary:hover { transform: none; box-shadow: none; }
+  .hero .btn-ghost { min-height: 44px; font-size: 14px; }
+  .hero-delivery {
+    margin-top: 24px; max-width: 40ch; color: var(--ink-soft);
+    font-size: 12px; line-height: 1.65;
   }
-  .hero-collage__main:hover img, .hero-collage__secondary:hover img { transform: scale(1.045); }
-  .hero-collage__main::after {
-    content: ""; position: absolute; inset: 0; pointer-events: none;
-    background: linear-gradient(to top, rgba(17,17,17,0.45) 0%, transparent 48%);
+  .hero .wrap { grid-template-columns: 1fr; }
+  .hero-copy { width: 100%; max-width: 780px; margin: 0 auto; }
+  .hero.has-image .wrap { grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); }
+  .hero-media { margin: 0; min-width: 0; }
+  .hero-media img { display: block; width: 100%; height: auto; aspect-ratio: 6 / 5; object-fit: cover; object-position: 52% 48%; }
+  @media (max-width: 820px) {
+    .hero { padding: 44px 0 40px; }
+    .hero .wrap { grid-template-columns: 1fr; gap: 0; }
+    .hero h1 { max-width: 18ch; }
+    .hero-copy { max-width: none; }
+    .hero.has-image .wrap { grid-template-columns: 1fr; }
+    .hero-media img { max-height: 62vh; aspect-ratio: 4 / 3; object-position: 50% 48%; }
   }
-  .hero-collage__main figcaption {
-    position: absolute; left: 16px; bottom: 14px; margin: 0; color: #FBF6F0;
-    font-size: 11.5px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
-  }
-  .hero-collage__seal {
-    position: absolute; left: 20%; top: -6%; width: 74px; height: 74px; border-radius: 999px;
-    border: 3px solid var(--paper); box-shadow: var(--shadow-soft); z-index: 3;
-    background-image: url("img/hero-glc.jpg");
-    background-repeat: no-repeat; background-size: 322%; background-position: 50% 22%;
+  @media (max-width: 480px) {
+    .hero .wrap { padding-inline: 20px; }
+    .hero-eyebrow { font-size: 10px; letter-spacing: 0.1em; margin-bottom: 18px; }
+    .hero .lede { margin-top: 20px; font-size: 15px; }
+    .hero .ctas { flex-direction: column; align-items: stretch; gap: 10px; }
+    .hero .btn-ghost { align-self: center; }
+    .hero-delivery { margin-top: 18px; }
   }
 
   /* ---------- Franja cinematográfica: fotografía real, sin video falso ---------- */
@@ -756,6 +753,10 @@
     text-transform: uppercase;
     color: #EED9CC;
   }
+  .cita-field__label {
+    margin: 0; font-size: 12px; font-weight: 600;
+    letter-spacing: 0.04em; text-transform: uppercase; color: #EED9CC;
+  }
   .cita-field .req { color: var(--gold); margin-left: 3px; }
   .cita-form input,
   .cita-form select,
@@ -1126,8 +1127,6 @@
 
   /* Responsive */
   @media (max-width: 820px) {
-    .hero-art { order: -1; }
-    .hero-art img { max-width: 220px; aspect-ratio: 4 / 5; }
     .hero .lede { max-width: none; }
     .step { flex-basis: 100%; }
     .info-grid > div { flex-basis: 100%; }
@@ -1135,7 +1134,6 @@
   }
   @media (max-width: 480px) {
     .cat-grid { grid-template-columns: 1fr; }
-    .hero .ctas { flex-direction: column; align-items: flex-start; gap: 16px; }
     .real-catalog__cta-row .btn-primary { white-space: normal; max-width: 100%; text-align: left; }
   }
 
@@ -1183,22 +1181,20 @@
      duplicar el flotante ahí sería redundante e invasivo. */
   @media (min-width: 861px) { .whatsapp-float { display: none !important; } }
 
-  /* ---------- Revelado al hacer scroll (motion con propósito) ---------- */
-  /* Cada .reveal empieza oculto/desplazado y se asienta cuando
-     IntersectionObserver le añade .is-visible (ver <script>). Comunica
-     jerarquía y secuencia de lectura, nunca decoración porque sí. */
+  /* El contenido permanece visible; IntersectionObserver añade is-visible
+     solo como mejora visual y nunca debe reservar bloques transparentes. */
   .reveal {
-    opacity: 0;
-    transform: translateY(22px);
+    opacity: 1;
+    transform: none;
     transition: opacity 0.7s var(--ease-lux), transform 0.7s var(--ease-lux);
   }
   .reveal.is-visible { opacity: 1; transform: translateY(0); }
   .reveal-stagger > * {
-    opacity: 0;
-    transform: translateY(18px);
+    opacity: 1;
+    transform: none;
     transition: opacity 0.6s var(--ease-lux), transform 0.6s var(--ease-lux);
   }
-  .reveal-stagger.is-visible > * { opacity: 1; transform: translateY(0); }
+  .reveal-stagger.is-visible > * { opacity: 1; transform: none; }
   .reveal-stagger.is-visible > *:nth-child(1) { transition-delay: 0.02s; }
   .reveal-stagger.is-visible > *:nth-child(2) { transition-delay: 0.08s; }
   .reveal-stagger.is-visible > *:nth-child(3) { transition-delay: 0.14s; }
@@ -1519,6 +1515,285 @@
     text-align: center;
     margin-top: 2px;
   }
+  /* Compact navigation and readable small-screen commerce. */
+  header.site { background: #fff; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  [id] { scroll-margin-top: 90px; }
+  .mobile-menu-toggle, .mobile-whatsapp { display: none; }
+  .feat-card { min-width: 0; }
+  .feat-card__cta { border-radius: 6px; text-align: center; line-height: 1.4; }
+  .feat-card__cat { color: var(--ink-soft); }
+  .cat-card h3, .feat-card__name { overflow-wrap: anywhere; }
+  @media (max-width: 860px) {
+    .header-row { padding: 8px 16px; display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 8px; }
+    .header-row .wordmark { font-size: 17px; margin-right: auto; }
+    .mobile-menu-toggle { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 10px; border: 1px solid var(--line); border-radius: 5px; background: #fff; color: var(--ink); font: 500 13px 'Work Sans', sans-serif; cursor: pointer; }
+    .mobile-whatsapp { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 5px; background: var(--berry); color: #fff; }
+    .mobile-whatsapp .icon { width: 22px; height: 22px; }
+    .header-nav { display: none; width: 100%; padding: 8px 0; max-height: 65dvh; overflow-y: auto; }
+    .header-nav.is-open { display: flex; flex-direction: column; align-items: stretch; gap: 0; }
+    .header-nav .btn { justify-content: flex-start; border: 0; border-radius: 0; min-height: 44px; background: #fff; color: var(--ink); padding: 10px 8px; }
+    .header-nav > .btn-primary, .header-nav #navMoreBtn { display: none; }
+    .header-nav .nav-more__menu { position: static; display: flex; padding: 0; border: 0; box-shadow: none; }
+    .header-nav .nav-more__menu a { padding: 10px 8px; min-height: 44px; }
+    .whatsapp-float { width: 48px; height: 48px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); box-shadow: 0 3px 12px rgba(0,0,0,.15); }
+    .whatsapp-float.is-obstructing { visibility: hidden; pointer-events: none; }
+    footer { padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
+  }
+  @media (max-width: 480px) {
+    .featured-grid { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+    .feat-card__photo { aspect-ratio: 4 / 3; }
+    .feat-card__photo img { object-fit: contain; background: #fff; }
+    .feat-card__body { padding: 18px; gap: 7px; }
+    .feat-card__name { font-size: 20px; }
+    .feat-card__price { font-size: 17px; }
+    .feat-card__cta { min-height: 46px; white-space: nowrap; padding-inline: 10px; }
+    .cat-grid.cat-grid--editorial { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+    .cat-grid--editorial .cat-card--feature { grid-column: auto; }
+    .cat-grid--editorial .cat-card .cat-card__photo { aspect-ratio: 16 / 9; }
+    .cat-card { padding: 18px; }
+    .cat-chip { max-width: 100%; font-size: 12px; }
+    .snapshot-badge { border-radius: 8px; }
+    .hero h1 { font-size: clamp(34px, 9.5vw, 42px); }
+    .cine { padding: 40px 0; }
+    .cine__frame figcaption { font-size: 10px; padding: 12px 8px 8px; }
+    .btn { white-space: normal; }
+  }
+  .mobile-home { display: none; }
+  .home-service { max-width: 1032px; margin: 0 auto; border-bottom: 1px solid var(--line); }
+  .home-service__heading { padding: 18px 24px 0; font: 500 21px/1.2 'Fraunces', serif; }
+  .home-service > section { padding: 12px 0 32px; }
+  .final-contact { text-align: center; padding: 40px 0; }
+  #catalogo .cat-card__photo { display: none; }
+  #catalogo .cat-card { padding: 20px; }
+  #catalogo .cat-card--feature { grid-column: auto; }
+  #catalogo .cat-card h3 { font-size: 19px; }
+  #catalogo .cat-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .featured-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @media(max-width:860px) { .header-nav .mobile-home { display: flex; } }
+  @media(max-width:600px) { #catalogo .cat-grid { grid-template-columns: minmax(0,1fr); gap: 10px; } .featured-grid { grid-template-columns: minmax(0,1fr); } }
+.cine__frame.is-placeholder { background: linear-gradient(145deg,#27211f,#503b3d); }
+  .cine__frame.is-placeholder::before { content: "GLC"; position:absolute; inset:0; display:grid; place-items:center; color:rgba(255,255,255,.16); font:500 clamp(22px,4vw,44px) 'Fraunces',serif; letter-spacing:.12em; }
+  /* Editorial photo polish: visible photography, equal category weight, compact brand lockup. */
+  .brand-lockup { display:inline-flex; align-items:center; gap:8px; min-width:0; color:var(--ink); text-decoration:none; }
+  .brand-lockup img { display:block; width:112px; height:78px; object-fit:contain; }
+  .brand-lockup span { font:500 12px/1.15 'Work Sans',sans-serif; white-space:nowrap; }
+  .brand-lockup strong { display:block; color:var(--berry); font:600 20px/1.05 'Fraunces',serif; letter-spacing:.04em; }
+  .cat-grid--editorial { grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+  .cat-grid--editorial .cat-card--feature { grid-column:auto; }
+  #catalogo .cat-card__photo { display:flex; }
+  .cat-grid--editorial .cat-card { padding:8px 8px 12px; border-radius:6px; background:#fff; box-shadow:none; }
+  .cat-grid--editorial .cat-card__photo { aspect-ratio:4/5; margin-bottom:10px; border-radius:3px; }
+  .cat-grid--editorial .cat-card__photo.has-photo .cat-card__placeholder,
+  .cat-grid--editorial .cat-card__photo.has-photo .ph-mono { display:none; }
+  .cat-grid--editorial .cat-card h3 { font:500 17px/1.2 'Fraunces',serif; }
+  .cat-grid--editorial .cat-card__count { margin-top:6px; font-size:11px; }
+  .cat-grid--editorial .cat-card:hover,.cat-grid--editorial .cat-card:focus-visible { transform:none; box-shadow:none; border-color:var(--berry); }
+  .cine__strip { gap:12px; -webkit-mask-image:none; mask-image:none; }
+  .cine__frame { background:#24201e; border:1px solid rgba(255,255,255,.12); }
+  .cine__frame img { aspect-ratio:4/5; object-fit:cover; transform:none; transition:transform 200ms ease; }
+  .cine__frame:hover img { transform:scale(1.03); transition-duration:200ms; }
+  .cine__frame figcaption { padding:28px 14px 13px; font-size:12px; letter-spacing:.07em; }
+  .brand-lockup:focus-visible,.powered-by a:focus-visible { outline:2px solid var(--berry); outline-offset:3px; }
+  .foot-brand { display:flex; align-items:center; gap:12px; }
+  .foot-brand .brand-lockup img { width:105px; height:74px; }
+  .powered-by { margin-top:26px; padding-top:14px; border-top:1px solid var(--line); text-align:right; color:var(--ink-soft); font-size:11px; }
+  .powered-by a { margin-left:4px; color:var(--ink); font-size:12px; font-weight:600; text-decoration:none; transition:color 180ms ease; }
+  .powered-by a:hover { color:var(--berry); }
+  .citas__teaser-photo { position:relative; overflow:hidden; aspect-ratio:4/3; background:#282321; }
+  .citas__teaser-photo img { display:block; width:100%; height:100%; object-fit:cover; object-position:center 42%; }
+  @media(max-width:860px) { .brand-lockup img { width:94px; height:66px; } }
+  @media(max-width:700px) { .cine__strip { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+  @media(max-width:480px) {
+    .header-row .brand-lockup { gap:4px; }
+    .brand-lockup img { width:75px; height:54px; }
+    .brand-lockup span { font-size:10px; }
+    .brand-lockup strong { font-size:17px; }
+    .cat-grid.cat-grid--editorial { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+    .cat-grid--editorial .cat-card .cat-card__photo { aspect-ratio:4/5; }
+    .cat-grid--editorial .cat-card { padding:6px 6px 10px; }
+    .cat-grid--editorial .cat-card h3 { font-size:15px; }
+    .cine__strip { gap:7px; }
+    .cine__frame figcaption { font-size:10px; padding:24px 8px 9px; }
+    .foot-brand .brand-lockup img { width:82px; height:58px; }
+    .powered-by { text-align:center; }
+  }
+  @media(prefers-reduced-motion:reduce) { .cine__frame img,.cat-grid--editorial .cat-card__photo img,.powered-by a { transition:none; } }
+  /* Final reference pass: quiet navigation, tighter editorial rhythm, six compact categories. */
+  :root { --paper:#faf7f2; --card:#fffdfa; }
+  .promo-banner { background:#191613; border-bottom-color:rgba(173,138,78,.24); }
+  .promo-banner__inner { padding-block:7px; }
+  .promo-banner__text { font-size:12px; }
+  .header-row { max-width:1200px; padding-block:8px; }
+  .header-nav { gap:clamp(8px,1.5vw,20px); }
+  .btn-nav { padding:7px 3px; color:#332d29; background:transparent; border:0; border-radius:0; font-size:13px; }
+  .btn-nav:hover { color:var(--berry); background:transparent; border-color:transparent; transform:none; box-shadow:none; }
+  .header-nav > .btn-primary { background:var(--berry); color:#fff; border-radius:5px; padding:10px 15px; }
+  .header-nav > .btn-primary:hover { background:var(--berry-dark); }
+  .hero { padding-block:clamp(28px,4vw,48px); }
+  .hero.has-image .wrap { max-width:1200px; grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); gap:clamp(24px,4vw,54px); }
+  .hero h1 { font-size:clamp(42px,5.2vw,68px); line-height:1.01; letter-spacing:-.045em; }
+  .hero .lede { margin-top:18px; line-height:1.62; }
+  .hero .ctas { margin-top:22px; gap:16px; }
+  .hero-media img { aspect-ratio:1.18; object-position:52% 48%; }
+  .hero .btn-primary { background:var(--berry); color:#fff; }
+  .hero .btn-primary:hover { background:var(--berry-dark); }
+  .catalog-wrap section,.real-catalog section { padding-block:clamp(26px,3.1vw,40px); }
+  .section-head { margin-bottom:20px; }
+  #catalogo .cat-grid--editorial { grid-template-columns:repeat(6,minmax(0,1fr)); gap:10px; }
+  #catalogo .cat-grid--editorial .cat-card { padding:6px 6px 9px; }
+  #catalogo .cat-grid--editorial .cat-card__photo { aspect-ratio:5/3; margin-bottom:8px; }
+  #catalogo .cat-grid--editorial .cat-card__photo img { object-fit:cover; }
+  #catalogo .cat-grid--editorial .cat-card[data-category="Consumibles"] .cat-card__photo img { transform:scale(1.22); }
+  #catalogo .cat-grid--editorial .cat-card h3 { font-size:15px; }
+  #catalogo .cat-grid--editorial .cat-card__count { font-size:10.5px; }
+  .cat-grid--editorial .cat-card .mark { width:18px; height:2px; margin-bottom:5px; background:var(--gold); }
+  .real-catalog .section-head.real-catalog__head { max-width:58ch; }
+  .real-catalog__head h2 { font-size:clamp(26px,3vw,34px); }
+  .featured-grid { gap:16px; }
+  .feat-card { border-radius:6px; box-shadow:none; }
+  .feat-card__body { padding:16px; }
+  .cine { padding-block:clamp(38px,4vw,54px); }
+  .cine__caption { margin-bottom:24px; }
+  #como-comprar > section,#entrega > section,#seguinos > section { padding-block:22px 28px; }
+  #como-comprar .section-head,#entrega .section-head { margin-bottom:18px; }
+  #como-comprar .step { padding-top:12px; }
+  #entrega .info-grid { gap:24px; }
+  .shopper-service .shopper .wrap { padding-block:clamp(32px,4vw,52px); }
+  .home-service.shopper-service { max-width:none; border-bottom:0; }
+  .shopper-service > .shopper { padding:0; }
+  .shopper__grid { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); align-items:center; gap:clamp(24px,5vw,68px); margin:0; }
+  .shopper__visual { margin:0; width:100%; aspect-ratio:5/4; overflow:hidden; background:#292522; }
+  .shopper__visual img { display:block; width:100%; height:100%; object-fit:cover; object-position:50% 52%; }
+  .shopper-lookbook { position:relative; min-width:0; }
+  .shopper-lookbook__frame { margin:0; width:100%; aspect-ratio:4/3; overflow:hidden; background:#292522; }
+  .shopper-lookbook__frame img { display:block; width:100%; height:100%; object-fit:cover; object-position:center; }
+  .shopper-lookbook__controls { display:flex; justify-content:flex-end; align-items:center; gap:12px; padding-top:10px; color:#f2e9e2; }
+  .shopper-lookbook__count { min-width:48px; text-align:center; font-size:12px; font-variant-numeric:tabular-nums; color:#d8c9bf; }
+  .shopper-lookbook__button { display:inline-grid; place-items:center; width:36px; height:36px; border:1px solid rgba(242,233,226,.35); border-radius:50%; background:transparent; color:inherit; cursor:pointer; }
+  .shopper-lookbook__button:hover { border-color:var(--gold-light); color:var(--gold-light); }
+  .shopper-lookbook__button:focus-visible { outline:2px solid var(--gold-light); outline-offset:3px; }
+  .shopper__intro { min-width:0; }
+  .shopper__eyebrow { margin:0 0 10px; color:var(--gold-light); font-size:11px; letter-spacing:.13em; text-transform:uppercase; }
+  .shopper .shopper__intro h2 { max-width:13ch; font-size:clamp(32px,4vw,48px); line-height:1.04; }
+  .shopper .lede { margin-top:14px; font-size:15px; line-height:1.65; }
+  .shopper-request { margin-top:22px; }
+  .shopper-request summary { display:inline-flex; align-items:center; justify-content:space-between; gap:24px; min-height:48px; padding:12px 17px; list-style:none; cursor:pointer; background:var(--berry); color:#fff; border-radius:5px; font-size:14px; }
+  .shopper-request summary::-webkit-details-marker { display:none; }
+  .shopper-request summary::marker { content:""; }
+  .shopper-request summary:hover { background:var(--berry-dark); }
+  .shopper-request summary .icon { transition:transform 180ms ease; }
+  .shopper-request[open] summary .icon { transform:rotate(90deg); }
+  .shopper-request:focus-within summary { outline:2px solid var(--gold-light); outline-offset:3px; }
+  .shopper-card { margin-top:16px; padding:20px; border-radius:6px; }
+  .shopper-card .store-row { margin:0 0 18px; gap:7px; }
+  .shopper-card .chip { padding:5px 9px; font-size:12px; border-radius:3px; }
+  .social-follow { background:var(--paper); border-block:1px solid var(--line); padding-block:32px; }
+  .social-follow__inner { text-align:left; max-width:1200px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
+  .social-follow__inner .kicker { margin:0; color:var(--gold); }
+  .social-follow__inner h2 { margin:0; font-size:clamp(20px,2.5vw,27px); }
+  .social-follow__links { margin:0; gap:9px; }
+  .social-follow__link { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:42px; padding:9px 14px; border:1px solid rgba(41,34,31,.18); border-radius:4px; background:transparent; color:#332d29; font:500 13px 'Work Sans',sans-serif; text-decoration:none; }
+  .social-follow__link:hover { border-color:var(--berry); color:var(--berry); }
+  .social-follow__link:focus-visible { outline:2px solid var(--berry); outline-offset:3px; }
+  .social-follow__link.is-unavailable { color:var(--ink-soft); border-style:dashed; }
+  footer { background:#f5f1eb; }
+  .foot-brand .brand-lockup img { object-fit:contain; }
+  @media(max-width:1100px) { #catalogo .cat-grid--editorial { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+  @media(max-width:860px) {
+    .header-row { padding-block:6px; }
+    .header-nav .btn-nav { padding:10px 8px; }
+    .hero.has-image .wrap { grid-template-columns:1fr; gap:20px; }
+    .hero-media img { aspect-ratio:4/3; }
+    .shopper__grid { gap:28px; }
+    .social-follow__inner { flex-wrap:wrap; }
+  }
+  @media(max-width:700px) { #catalogo .cat-grid--editorial { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+  @media(max-width:600px) {
+    #catalogo .cat-grid--editorial { grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; }
+    #catalogo .cat-grid--editorial .cat-card { padding:5px 5px 8px; }
+    #catalogo .cat-grid--editorial .cat-card .cat-card__photo { aspect-ratio:5/3; }
+    #catalogo .cat-grid--editorial .cat-card h3 { font-size:14px; }
+    .cat-grid--editorial .cat-card__count { font-size:10px; }
+    .hero.has-image .wrap { gap:16px; }
+    .hero .ctas { margin-top:18px; }
+    .shopper__grid { grid-template-columns:1fr; gap:20px; }
+    .shopper__visual { aspect-ratio:4/3; }
+    .shopper .shopper__intro h2 { max-width:none; }
+    .social-follow__inner { display:block; text-align:center; }
+    .social-follow__inner h2 { margin-top:6px; }
+    .social-follow__links { margin-top:16px; }
+  }
+  @media(prefers-reduced-motion:reduce) { .shopper-request summary .icon { transition:none; } }
+  @media(min-width:861px) {
+    .header-nav .btn-nav,.header-nav > .btn-primary { min-height:40px; padding:9px 11px; border-radius:4px; font-size:13px; line-height:20px; }
+    .header-nav .btn-nav { border:1px solid rgba(41,34,31,.14); background:#fffdfa; }
+    .header-nav .btn-nav:hover { border-color:var(--berry); background:#f7f0ec; color:var(--berry); }
+    .header-nav > .btn-primary { border:1px solid var(--berry); background:var(--berry); color:#fff; }
+    .header-nav > .btn-primary:hover { border-color:var(--berry-dark); background:var(--berry-dark); }
+  }
+  #catalogo .cat-grid--editorial { grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+  #catalogo .cat-grid--editorial .cat-card__photo { aspect-ratio:5/3; }
+  #catalogo .cat-grid--editorial .cat-card[data-category="Consumibles"] .cat-card__photo img { transform:scale(1.22); }
+  .shopper__grid { grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr); max-width:1120px; gap:clamp(24px,4vw,56px); margin-inline:auto; }
+  .shopper__intro { max-width:70ch; }
+  #seguinos.home-service { max-width:none; border-bottom:0; }
+  #seguinos .social-follow { background:#191613; color:#f6f1eb; padding-block:clamp(36px,5vw,64px); }
+  #seguinos .social-follow__inner { display:block; max-width:1200px; text-align:left; }
+  #seguinos .social-follow__inner .kicker { margin:0 0 8px; color:var(--gold-light); font-size:11px; letter-spacing:.14em; }
+  #seguinos .social-follow__inner h2 { margin:0; color:#f6f1eb; font-size:clamp(30px,4vw,44px); line-height:1.08; max-width:22ch; }
+  #seguinos .social-follow__links { justify-content:flex-start; margin-top:24px; gap:10px; }
+  #seguinos .social-follow__link { min-width:142px; min-height:48px; padding:12px 18px; border:1px solid var(--berry); border-radius:4px; background:var(--berry); color:#fff; font-size:14px; font-weight:600; }
+  #seguinos .social-follow__link:hover { border-color:#a84b57; background:#a84b57; color:#fff; }
+  #seguinos .social-follow__link:focus-visible { outline-color:var(--gold-light); }
+  #seguinos .social-follow__link.is-unavailable { cursor:default; }
+  .powered-by { font-size:13px; }
+  .powered-by a { font-size:15px; }
+  @media(max-width:700px) { #catalogo .cat-grid--editorial { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+  @media(max-width:600px) {
+    .header-row .brand-lockup img { width:94px; height:67px; }
+    #catalogo .cat-grid--editorial .cat-card__photo { aspect-ratio:5/3; }
+    #seguinos .social-follow__inner { text-align:left; }
+    #seguinos .social-follow__links { justify-content:flex-start; }
+    #seguinos .social-follow__link { min-width:0; flex:1 1 130px; }
+    .powered-by { font-size:12px; }
+    .powered-by a { font-size:14px; }
+  }
+  /* Header desktop: navegación como grupo centrado, sin marca lateral. */
+  @media(min-width:861px) {
+    .header-row { justify-content:center; }
+    .header-row > .brand-lockup { display:none; }
+    .header-nav { justify-content:center; }
+  }
+  /* Hero integrado: fotografía completa, copy y marca en un panel editorial. */
+  .hero.has-image { position:relative; overflow:hidden; padding:0; background:#292522; }
+  .hero.has-image .wrap { display:flex; align-items:center; justify-content:flex-start; max-width:1280px; min-height:480px; padding-block:36px; }
+  .hero-media { position:absolute; z-index:0; inset:0; width:100%; height:100%; margin:0; overflow:hidden; }
+  .hero-media img { display:block; width:100%; height:100%; max-height:none; aspect-ratio:auto; object-fit:cover; object-position:50% 56%; }
+  .hero-copy { position:relative; z-index:1; flex:0 1 53%; width:53%; max-width:670px; margin:0; padding:clamp(26px,3vw,36px); border:1px solid rgba(56,45,39,.08); border-radius:8px; background:rgba(250,248,245,.92); box-shadow:0 8px 28px rgba(25,20,18,.08); }
+  .hero-copy__top { display:block; }
+  .hero-copy__message { min-width:0; }
+  .hero-copy__logo { display:none; }
+  .hero-brand-panel { position:absolute; z-index:1; top:50%; right:calc(clamp(5%,8vw,11%) - 28px); width:clamp(280px,22vw,390px); max-width:calc(100% - 32px); padding:18px 28px; transform:translateY(-50%); border:1px solid rgba(56,45,39,.06); border-radius:8px; background:rgba(250,248,245,.83); }
+  .hero-brand-mark { display:block; width:100%; max-width:330px; height:auto; object-fit:contain; opacity:1; }
+  .hero .ctas { justify-content:center; margin-top:22px; gap:16px; }
+  .hero-delivery { margin:14px auto 0; text-align:center; }
+  .shopper-lookbook__frame { max-height:500px; }
+  .shopper-lookbook__frame img { transition:opacity 220ms ease; }
+  .shopper-lookbook__frame img.is-changing { opacity:.65; }
+  @media(max-width:860px) {
+    .hero.has-image .wrap { display:flex; flex-direction:column; align-items:stretch; min-height:0; padding-block:22px; }
+    .hero-copy { flex-basis:100%; width:100%; max-width:none; padding:clamp(22px,6vw,30px); }
+    .hero-brand-panel { position:relative; top:auto; right:auto; align-self:center; order:0; width:min(190px,calc(100vw - 48px)); max-width:calc(100% - 24px); margin:0 auto 12px; padding:8px 14px; transform:none; }
+    .hero-brand-mark { width:100%; max-width:none; }
+    .hero-copy { order:1; }
+    .hero-copy__top { display:block; }
+    .hero .ctas { margin-top:18px; }
+    .hero-delivery { margin-top:14px; }
+    .hero-media img { max-height:none; aspect-ratio:auto; object-position:52% 52%; }
+    .shopper__grid { grid-template-columns:minmax(0,1fr); max-width:720px; gap:20px; }
+    .shopper-lookbook__frame { max-height:360px; aspect-ratio:4/3; }
+  }
+  @media(prefers-reduced-motion:reduce) { .shopper-lookbook__frame img { transition:none; } }
 </style>
 </head>
 <body>
@@ -1560,8 +1835,11 @@
 
 <header class="site">
   <div class="header-row">
-    <div class="wordmark">Distribuidora <span>GLC</span></div>
-    <nav class="header-nav">
+    <a class="brand-lockup" href="index.html" aria-label="Distribuidora GLC by Gaudi Lara, inicio"><img src="img/editorial/glc-logo-transparent.png" alt="Distribuidora GLC by Gaudi Lara" width="800" height="570"></a>
+    <button class="mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="primaryNav">Menú</button>
+    <a class="mobile-whatsapp" href="https://wa.me/50670281688" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg></a>
+    <nav class="header-nav" id="primaryNav" aria-label="Navegación principal">
+      <a class="btn btn-nav mobile-home" href="index.html">Inicio</a>
       <a class="btn btn-nav" href="catalogo.html"><svg class="icon" aria-hidden="true"><use href="#i-grid"/></svg> Catálogo</a>
       <a class="btn btn-nav" href="pedido.html"><svg class="icon" aria-hidden="true"><use href="#i-bag"/></svg> Pedidos</a>
       <a class="btn btn-nav" href="#agendar-citas"><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg> Citas</a>
@@ -1569,6 +1847,8 @@
       <div class="nav-more">
         <button type="button" class="btn btn-nav" id="navMoreBtn" aria-haspopup="true" aria-expanded="false">Más <span class="nav-more__caret" aria-hidden="true">▾</span></button>
         <div class="nav-more__menu" id="navMoreMenu">
+          <a href="#programas">Programas profesionales</a>
+          <a href="#entrega">Entregas y pagos</a>
           <a href="recompensas.html"><svg class="icon" aria-hidden="true"><use href="#i-gift"/></svg> Recompensas</a>
         </div>
       </div>
@@ -1578,74 +1858,57 @@
 </header>
 
 <main id="main-content">
-<section class="hero">
+<section class="hero has-image" aria-labelledby="hero-title">
   <div class="wrap">
-    <div class="hero-copy reveal">
-      <h1>Todo lo que tu trabajo de pestañas necesita.</h1>
-      <p class="lede">Extensiones, pinzas, pegamentos y kits profesionales para técnicas de pestañas y cejas — con entrega en el Valle Central y envíos a todo Costa Rica.</p>
+    <div class="hero-copy">
+      <div class="hero-copy__top">
+        <div class="hero-copy__message">
+          <p class="hero-eyebrow">Distribuidora GLC · Costa Rica</p>
+          <h1 id="hero-title">Tu técnica.<br>Tu estilo.<br><span>Tus esenciales.</span></h1>
+          <p class="lede">Insumos profesionales para pestañas, cejas y microblading. Encontrá extensiones, pinzas, adhesivos y kits para tu trabajo de cada día.</p>
+        </div>
+      </div>
       <div class="ctas">
-        <a class="btn btn-primary" href="https://wa.me/50670281688" target="_blank" rel="noopener">Pedir por WhatsApp</a>
-        <a class="btn btn-ghost" href="#catalogo-real">Ver qué vendemos</a>
-        <a class="btn btn-ghost" href="#agendar-citas">Agendar cita</a>
+        <a class="btn btn-primary" href="https://wa.me/50670281688" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg> Pedir por WhatsApp</a>
+        <a class="btn btn-ghost" href="catalogo.html">Explorar el catálogo</a>
       </div>
-      <p class="hero-signature">by Gaudi Lara</p>
+      <p class="hero-delivery">Entrega en el Valle Central y envíos a todo Costa Rica.</p>
     </div>
-    <div class="hero-art reveal" style="transition-delay:0.12s">
-      <div class="hero-collage">
-        <div class="hero-collage__seal" aria-hidden="true"></div>
-        <figure class="hero-collage__main">
-          <img src="img/catalog/maquina-de-cera.jpg" alt="Máquina de cera profesional, foto real del catálogo Distribuidora GLC" loading="eager" fetchpriority="high">
-          <figcaption>Herramientas y Equipos</figcaption>
-        </figure>
-        <figure class="hero-collage__secondary">
-          <img src="img/catalog/tinte-pestanas.jpg" alt="Tinte de pestañas, foto real del catálogo Distribuidora GLC" loading="eager">
-        </figure>
-      </div>
-    </div>
+    <div class="hero-brand-panel"><img class="hero-brand-mark" src="img/editorial/glc-logo-transparent.png" alt="Distribuidora GLC by Gaudi Lara" width="800" height="570" decoding="async"></div>
+    <figure class="hero-media">
+      <img src="img/hero-lash-application.jpg" alt="Aplicación profesional de extensiones de pestañas con pinzas y aislamiento" width="2000" height="1333" sizes="(max-width: 820px) 100vw, 55vw" loading="eager" fetchpriority="high">
+    </figure>
   </div>
 </section>
 
-<section class="cine" id="cine">
-  <div class="cine__grain" aria-hidden="true"></div>
-  <div class="wrap">
-    <div class="cine__caption reveal">
-      <p class="cine__kicker">Distribuidora GLC</p>
-      <h2>Productos reales para profesionales reales.</h2>
+<div class="catalog-wrap" id="catalogo">
+  <section>
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="kicker">Categorías</p>
+        <h2>Explorá por categoría</h2>
+      <p style="margin-top:10px;color:var(--ink-soft);font-size:15.5px;">Las categorías con más movimiento en nuestro catálogo. Elegí una para ver todos sus productos y precios.</p>
+      </div>
+      <div class="cat-grid reveal-stagger" id="categoryGrid">
+        <!-- Generadas por JS desde data/glc-catalog.js: categorías reales, nunca inventadas -->
+      </div>
+      <div class="real-catalog__cta-row reveal">
+        <a class="btn btn-ghost" href="catalogo.html">Ver todas las categorías</a>
+      </div>
     </div>
-    <div class="cine__strip reveal-stagger">
-      <figure class="cine__frame">
-        <img src="img/catalog/agujas-microblanding.jpg" alt="Agujas de microblading, foto real del catálogo Distribuidora GLC" loading="lazy">
-        <figcaption>Microblading</figcaption>
-      </figure>
-      <figure class="cine__frame">
-        <img src="img/catalog/tinte-pestanas.jpg" alt="Tinte de pestañas, foto real del catálogo Distribuidora GLC" loading="lazy">
-        <figcaption>Pestañas</figcaption>
-      </figure>
-      <figure class="cine__frame">
-        <img src="img/catalog/maquina-de-cera.jpg" alt="Máquina de cera, foto real del catálogo Distribuidora GLC" loading="lazy">
-        <figcaption>Herramientas y Equipos</figcaption>
-      </figure>
-      <figure class="cine__frame">
-        <img src="img/catalog/vitamina-ayd.jpg" alt="Vitamina AyD, foto real del catálogo Distribuidora GLC" loading="lazy">
-        <figcaption>Cuidado y Preparación</figcaption>
-      </figure>
-    </div>
-  </div>
-</section>
+  </section>
+</div>
 
 <div class="real-catalog" id="catalogo-real">
   <section>
     <div class="wrap">
       <div class="section-head real-catalog__head reveal">
-        <p class="kicker">Catálogo real</p>
         <h2>162 productos, directo de nuestro catálogo de WhatsApp.</h2>
         <p style="margin-top:14px;color:var(--ink-soft);font-size:15.5px;">Esta es una muestra real: mismos productos, mismos precios que manejamos en WhatsApp. Explorá todo, filtrá por categoría o buscá por nombre.</p>
         <p class="snapshot-badge"><svg class="icon" aria-hidden="true"><use href="#i-tag"/></svg> Precio de catálogo · snapshot del 17/09/2026 · confirmamos disponibilidad y precio final por WhatsApp</p>
       </div>
 
-      <nav class="cat-chip-rail reveal-stagger" aria-label="Categorías del catálogo" id="homeCatChips">
-        <!-- Generadas por JS desde data/glc-catalog.js (ver script al final del body) -->
-      </nav>
+
 
       <p class="feat-label reveal">Selección GLC</p>
       <div class="featured-grid reveal-stagger" id="featuredGrid">
@@ -1660,173 +1923,43 @@
   </section>
 </div>
 
-<div class="catalog-wrap" id="catalogo">
-  <section>
-    <div class="wrap">
-      <div class="section-head reveal">
-        <p class="kicker">Categorías</p>
-        <h2>Explorá por categoría</h2>
-        <p style="margin-top:10px;color:var(--ink-soft);font-size:15.5px;">Las categorías con más movimiento en nuestro catálogo real. Elegí una para ver todos sus productos y precios.</p>
-      </div>
-      <div class="cat-grid reveal-stagger" id="categoryGrid">
-        <!-- Generadas por JS desde data/glc-catalog.js: categorías reales, nunca inventadas -->
-      </div>
-    </div>
-  </section>
-</div>
-
-<section id="como-comprar">
+<section class="cine" id="cine">
+  <div class="cine__grain" aria-hidden="true"></div>
   <div class="wrap">
-    <div class="section-head reveal">
-      <p class="kicker">Cómo comprar</p>
-      <h2>Pedir es tan simple como escribir un mensaje.</h2>
+    <div class="cine__caption reveal">
+      <p class="cine__kicker">Distribuidora GLC</p>
+      <h2>Productos reales para profesionales reales.</h2>
     </div>
-    <div class="steps reveal-stagger">
-      <div class="step">
-        <span class="num">1</span>
-        <h3>Escribís</h3>
-        <p>Nos contás qué necesitás por WhatsApp — una pieza o tu pedido completo del mes.</p>
-      </div>
-      <div class="step">
-        <span class="num">2</span>
-        <h3>Confirmamos</h3>
-        <p>Te respondemos con disponibilidad y precio al momento, sin vueltas.</p>
-      </div>
-      <div class="step">
-        <span class="num">3</span>
-        <h3>Recibís</h3>
-        <p>Con mensajero en Alajuela, Heredia y San José, o por correo a cualquier parte del país.</p>
-      </div>
+    <div class="cine__strip reveal-stagger">
+      <figure class="cine__frame">
+        <img src="img/editorial/brows.jpg" alt="Procedimiento profesional de diseño de cejas" width="1500" height="1000" loading="lazy">
+        <figcaption>Microblading</figcaption>
+      </figure>
+      <figure class="cine__frame">
+        <img src="img/editorial/lashes.jpg" alt="Detalle de pestañas en un procedimiento profesional" width="995" height="1500" loading="lazy">
+        <figcaption>Pestañas</figcaption>
+      </figure>
+      <figure class="cine__frame">
+        <img src="img/editorial/tools.jpg" alt="Herramientas para servicios profesionales de belleza" width="1500" height="1000" loading="lazy">
+        <figcaption>Herramientas y Equipos</figcaption>
+      </figure>
+      <figure class="cine__frame">
+        <img src="img/editorial/preparation.jpg" alt="Preparación profesional de pestañas para un servicio beauty" width="1500" height="1125" loading="lazy">
+        <figcaption>Cuidado y Preparación</figcaption>
+      </figure>
     </div>
   </div>
 </section>
 
-<section id="entrega">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <p class="kicker">Entrega y pagos</p>
-      <h2>Recibí donde estés.</h2>
-    </div>
-    <div class="info-grid">
-      <div>
-        <h3>Zonas de entrega</h3>
-        <ul>
-          <li><strong>Alajuela, Heredia y San José</strong> — entrega con mensajero, pago contra entrega.</li>
-          <li><strong>Resto del país</strong> — envíos por Correos de Costa Rica o encomiendas.</li>
-        </ul>
-      </div>
-      <div>
-        <h3>Métodos de pago</h3>
-        <ul>
-          <li><strong>Efectivo</strong> al recibir tu pedido.</li>
-          <li><strong>SINPE Móvil</strong>, fácil y directo.</li>
-          <li><strong>Tarjeta</strong> de crédito o débito.</li>
-        </ul>
-      </div>
-    </div>
-    <div class="entrega-cta">
-      <a class="btn btn-primary" href="pedido.html"><svg class="icon" aria-hidden="true"><use href="#i-bag"/></svg> Realizar Pedido / Datos de Envío</a>
-    </div>
-  </div>
-</section>
 
-<section class="social-follow" id="seguinos">
-  <div class="wrap">
-    <div class="social-follow__inner reveal">
-      <p class="kicker">Seguinos</p>
-      <h2>Novedades y catálogo al día en redes.</h2>
-      <div class="social-follow__links">
-        <a class="btn btn-primary" href="https://www.instagram.com/distribuidoraglc" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg> @distribuidoraglc</a>
-        <a class="btn btn-ghost" href="https://www.facebook.com/share/1HtPLkXZZc/" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-facebook"/></svg> Facebook</a>
-      </div>
-    </div>
-  </div>
-</section>
 
-<section class="shopper" id="personal-shopper">
-  <div class="wrap">
-    <span class="badge">Próximamente</span>
-    <h2>Personal Shopper USA</h2>
-    <p class="shopper__by">por Gaudi Lara</p>
-    <div class="shopper__grid">
-      <div class="shopper__intro">
-        <p class="lede">Estaremos viajando próximamente en octubre a Estados Unidos para traer los encargos de todos nuestros clientes. Aproveche y realice sus pedidos para navidad y final de año! — desde tecnología hasta ropa, belleza y regalos, comprados en tiendas de confianza.</p>
-        <div class="store-row">
-          <span class="chip">Amazon</span>
-          <span class="chip">Best Buy</span>
-          <span class="chip">Apple</span>
-          <span class="chip">Home Depot</span>
-          <span class="chip">Walmart</span>
-          <span class="chip">Disney Store</span>
-          <span class="chip">Adidas</span>
-          <span class="chip">Nike</span>
-          <span class="chip">y más</span>
-        </div>
-        <div class="ctas">
-          <a class="btn btn-primary" href="https://wa.me/50670281688?text=Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20sobre%20el%20Personal%20Shopper%20USA" target="_blank" rel="noopener">Quiero enterarme primero</a>
-        </div>
-      </div>
-      <div class="shopper__form-card shopper-card">
-        <h3 class="shopper-card__title">Reservá tu espacio en el viaje</h3>
-        <p class="shopper-card__desc">Contanos qué necesitás y te preparamos una cotización antes del viaje de octubre.</p>
-        <form class="shopper-form" id="shopperForm" novalidate>
-          <label class="shopper-form__field">
-            <span>Nombre Completo</span>
-            <input type="text" name="nombre" autocomplete="name" required>
-          </label>
-          <label class="shopper-form__field">
-            <span>WhatsApp de contacto</span>
-            <input type="tel" name="whatsapp" autocomplete="tel" required>
-          </label>
-          <label class="shopper-form__field">
-            <span>¿Qué producto deseas cotizar? (Enlace o descripción)</span>
-            <textarea name="producto" rows="4" required></textarea>
-          </label>
-          <button type="submit" class="btn shopper-form__submit">Enviar Solicitud</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
 
-<section class="citas" id="agendar-citas">
-  <div class="wrap">
-    <p class="kicker">Agendá tu cita</p>
-    <h2>Cejas, pestañas y microblading</h2>
-    <p class="citas__lede">Reservá tu espacio para diseño de cejas, extensiones y lifting de pestañas o microblading. Elegí el servicio, la fecha y la franja horaria que te queden mejor y te confirmamos por WhatsApp.</p>
 
-    <div class="citas__grid">
-      <div class="citas__info">
-        <h3>Servicios disponibles</h3>
-        <ul>
-          <li><strong>Cejas</strong> — diseño y depilación, laminado</li>
-          <li><strong>Pestañas</strong> — clásicas, volumen, lash lift</li>
-          <li><strong>Microblading</strong> — sesión completa y retoque</li>
-        </ul>
-        <h3>Cómo funciona</h3>
-        <ul>
-          <li>Enviás la solicitud con tu fecha y franja preferida.</li>
-          <li>Te escribimos por WhatsApp para confirmar el horario exacto.</li>
-          <li>Tu solicitud queda registrada al instante.</li>
-        </ul>
-      </div>
 
-      <div class="cita-card citas__teaser">
-        <div class="citas__teaser-photo">
-          <span class="cat-card__placeholder"><span class="cat-card__icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-sparkle"/></svg></span><span>Foto próximamente</span></span>
-          <!-- FOTO REAL: colocar el archivo en img/cejas-pestanas.jpg (foto de
-               antes/después o resultado final, proporción vertical 4:5). Si el
-               archivo no existe todavía, esta imagen se oculta sola y se ve el
-               marco de respaldo. -->
-          <img src="img/cejas-pestanas.jpg" alt="Resultado de cejas y pestañas Distribuidora GLC" loading="lazy" onerror="this.style.display='none'">
-        </div>
-        <h3>Reservá en menos de un minuto</h3>
-        <p>Elegí el servicio, la fecha y la franja horaria que te queden mejor. Confirmamos tu espacio por WhatsApp.</p>
-        <button type="button" class="btn btn-primary citas__teaser-btn" data-modal-open="#modalCitas"><svg class="icon" aria-hidden="true"><use href="#i-calendar-check"/></svg> Agendar mi cita</button>
-      </div>
-    </div>
-  </div>
-</section>
+
+
+
+
 
 <div class="lux-overlay" id="modalCitas" aria-hidden="true">
   <div class="lux-modal lux-modal--dark" role="dialog" aria-modal="true" aria-labelledby="modalCitasTitle">
@@ -1930,6 +2063,144 @@
     </div>
   </div>
 </section>
+<section class="home-service" id="como-comprar"><section>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Cómo comprar</h2>
+    </div>
+    <div class="steps reveal-stagger">
+      <div class="step">
+        <span class="num">1</span>
+        <h3>Escribís</h3>
+        <p>Nos contás qué necesitás por WhatsApp — una pieza o tu pedido completo del mes.</p>
+      </div>
+      <div class="step">
+        <span class="num">2</span>
+        <h3>Confirmamos</h3>
+        <p>Te respondemos con disponibilidad y precio al momento, sin vueltas.</p>
+      </div>
+      <div class="step">
+        <span class="num">3</span>
+        <h3>Recibís</h3>
+        <p>Con mensajero en Alajuela, Heredia y San José, o por correo a cualquier parte del país.</p>
+      </div>
+    </div>
+  </div>
+</section></section>
+<section class="home-service" id="entrega"><section>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Entregas y pagos</h2>
+    </div>
+    <div class="info-grid">
+      <div>
+        <h3>Zonas de entrega</h3>
+        <ul>
+          <li><strong>Alajuela, Heredia y San José</strong> — entrega con mensajero, pago contra entrega.</li>
+          <li><strong>Resto del país</strong> — envíos por Correos de Costa Rica o encomiendas.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Métodos de pago</h3>
+        <ul>
+          <li><strong>Efectivo</strong> al recibir tu pedido.</li>
+          <li><strong>SINPE Móvil</strong>, fácil y directo.</li>
+          <li><strong>Tarjeta</strong> de crédito o débito.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="entrega-cta">
+      <a class="btn btn-primary" href="pedido.html"><svg class="icon" aria-hidden="true"><use href="#i-bag"/></svg> Realizar Pedido / Datos de Envío</a>
+    </div>
+  </div>
+</section></section>
+
+<section class="home-service shopper-service" id="personal-shopper"><section class="shopper">
+  <div class="wrap">
+    <div class="shopper__grid">
+      <div class="shopper-lookbook" data-shopper-lookbook aria-label="Fotografías de experiencias de compra">
+        <figure class="shopper-lookbook__frame">
+          <img data-shopper-image src="img/editorial/shopper-lookbook/01-retail-display.jpg" alt="Exhibición de artículos en una tienda" width="4" height="3" loading="lazy" decoding="async">
+        </figure>
+        <div class="shopper-lookbook__controls">
+          <span class="shopper-lookbook__count" data-shopper-count aria-live="polite">01 / 12</span>
+          <button class="shopper-lookbook__button" type="button" data-shopper-prev aria-label="Fotografía anterior">‹</button>
+          <button class="shopper-lookbook__button" type="button" data-shopper-next aria-label="Fotografía siguiente">›</button>
+        </div>
+      </div>
+      <div class="shopper__intro">
+        <p class="shopper__eyebrow">Personal Shopper · USA</p>
+        <h2>Personal Shopper USA</h2>
+        <p class="shopper__by">por Gaudi Lara</p>
+        <p class="lede">Estaremos viajando en octubre a Estados Unidos para traer los encargos de todos nuestros clientes. Aproveche y realice sus pedidos para navidad y final de año! — desde tecnología hasta ropa, belleza y regalos, comprados en tiendas de confianza.</p>
+        <details class="shopper-request">
+          <summary class="btn btn-primary"><span>Quiero enterarme primero</span><svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></summary>
+          <div class="shopper__form-card shopper-card">
+            <h3 class="shopper-card__title">Reservá tu espacio en el viaje</h3>
+            <p class="shopper-card__desc">Contanos qué necesitás y te preparamos una cotización antes del viaje de octubre.</p>
+            <div class="store-row">
+              <span class="chip">Amazon</span><span class="chip">Best Buy</span><span class="chip">Apple</span>
+              <span class="chip">Home Depot</span><span class="chip">Walmart</span><span class="chip">Disney Store</span>
+              <span class="chip">Adidas</span><span class="chip">Nike</span><span class="chip">y más</span>
+            </div>
+            <form class="shopper-form" id="shopperForm" novalidate>
+              <label class="shopper-form__field"><span>Nombre Completo</span><input type="text" name="nombre" autocomplete="name" required></label>
+              <label class="shopper-form__field"><span>WhatsApp de contacto</span><input type="tel" name="whatsapp" autocomplete="tel" required></label>
+              <label class="shopper-form__field"><span>¿Qué producto deseas cotizar? (Enlace o descripción)</span><textarea name="producto" rows="4" required></textarea></label>
+              <button type="submit" class="btn shopper-form__submit">Enviar Solicitud</button>
+            </form>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section></section>
+<section class="home-service" id="agendar-citas"><h2 class="home-service__heading">Citas: cejas, pestañas y microblading</h2><section class="citas">
+  <div class="wrap">
+    <p class="kicker">Agendá tu cita</p>
+    <h2>Cejas, pestañas y microblading</h2>
+    <p class="citas__lede">Reservá tu espacio para diseño de cejas, extensiones y lifting de pestañas o microblading. Elegí el servicio, la fecha y la franja horaria que te queden mejor y te confirmamos por WhatsApp.</p>
+
+    <div class="citas__grid">
+      <div class="citas__info">
+        <h3>Servicios disponibles</h3>
+        <ul>
+          <li><strong>Cejas</strong> — diseño y depilación, laminado</li>
+          <li><strong>Pestañas</strong> — clásicas, volumen, lash lift</li>
+          <li><strong>Microblading</strong> — sesión completa y retoque</li>
+        </ul>
+        <h3>Cómo funciona</h3>
+        <ul>
+          <li>Enviás la solicitud con tu fecha y franja preferida.</li>
+          <li>Te escribimos por WhatsApp para confirmar el horario exacto.</li>
+          <li>Tu solicitud queda registrada al instante.</li>
+        </ul>
+      </div>
+
+      <div class="cita-card citas__teaser">
+        <div class="citas__teaser-photo">
+          <img src="img/editorial/appointments.jpg" alt="Profesional realizando un servicio de pestañas" width="1500" height="1000" loading="lazy">
+        </div>
+        <h3>Reservá en menos de un minuto</h3>
+        <p>Elegí el servicio, la fecha y la franja horaria que te queden mejor. Confirmamos tu espacio por WhatsApp.</p>
+        <button type="button" class="btn btn-primary citas__teaser-btn" data-modal-open="#modalCitas"><svg class="icon" aria-hidden="true"><use href="#i-calendar-check"/></svg> Agendar mi cita</button>
+      </div>
+    </div>
+  </div>
+</section></section>
+<section class="home-service" id="seguinos"><section class="social-follow">
+  <div class="wrap">
+    <div class="social-follow__inner reveal">
+      <p class="kicker">SÍGUENOS EN REDES</p>
+      <h2>Novedades y catálogo al día en redes.</h2>
+      <div class="social-follow__links">
+        <a class="social-follow__link" href="https://www.instagram.com/distribuidoraglc" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg> Instagram</a>
+        <a class="social-follow__link" href="https://www.facebook.com/share/1HtPLkXZZc/" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-facebook"/></svg> Facebook</a>
+        <span class="social-follow__link is-unavailable" aria-label="TikTok; enlace no configurado">TikTok</span>
+      </div>
+    </div>
+  </div>
+</section></section>
 
 <div class="lux-overlay" id="modalEstudiante" aria-hidden="true">
   <div class="lux-modal" role="dialog" aria-modal="true" aria-labelledby="modalEstudianteTitle">
@@ -2021,8 +2292,8 @@
         </div>
 
         <div class="cita-field">
-          <label>¿Qué necesitás? <span class="req">*</span></label>
-          <div class="necesidad-choices" role="radiogroup" aria-label="¿Qué necesitás?">
+          <p class="cita-field__label" id="empNecesidadLabel">¿Qué necesitás? <span class="req">*</span></p>
+          <div class="necesidad-choices" role="radiogroup" aria-labelledby="empNecesidadLabel">
             <label class="necesidad-choice">
               <input type="radio" name="necesidad" value="Cotización al por mayor" required>
               <span>Cotización al por mayor</span>
@@ -2061,13 +2332,14 @@
     </div>
   </div>
 </div>
+<section class="final-contact"><div class="wrap"><a class="btn btn-primary" href="https://wa.me/50670281688" target="_blank" rel="noopener">Pedir por WhatsApp</a></div></section>
 </main>
 
 <footer>
   <div class="wrap">
     <div class="foot-row">
       <div class="foot-left">
-        <div class="wordmark">Distribuidora <span style="color:var(--gold)">GLC</span></div>
+        <div class="foot-brand"><a class="brand-lockup" href="index.html" aria-label="Distribuidora GLC by Gaudi Lara, inicio"><img src="img/editorial/glc-logo.jpg" alt="Distribuidora GLC by Gaudi Lara" width="800" height="570"></a></div>
         <p class="place">Desamparados, Costa Rica</p>
         <p class="foot-signature">by Gaudi Lara</p>
       </div>
@@ -2090,6 +2362,7 @@
       </p>
       <button type="button" class="btn btn-primary cookie-bar__accept" id="cookieAccept">Aceptar</button>
     </div>
+    <div class="powered-by">Powered by <a href="https://www.lukytribe.com/" target="_blank" rel="noopener noreferrer">LuKy Tribe ↗</a></div>
   </div>
 </footer>
 
@@ -2099,6 +2372,48 @@
 
 <script src="data/glc-catalog.js"></script>
 <script>
+  (function () {
+    function openDestination() {
+      var id; try { id = decodeURIComponent(location.hash.slice(1)); } catch (e) { return; }
+      var target = document.getElementById(id);
+      if (target && target.matches('details')) { target.open = true; requestAnimationFrame(function () { target.scrollIntoView(); }); }
+    }
+    addEventListener('hashchange', openDestination);
+    openDestination();
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest('a[href^="#"]');
+      if (!a) return;
+      var target = document.getElementById(a.getAttribute('href').slice(1));
+      if (target && target.matches('details')) target.open = true;
+    });
+    document.querySelectorAll('.cine__frame img[data-image]').forEach(function (img) {
+      if (window.GLC_IMAGE_PATHS.indexOf(img.dataset.image) !== -1) img.src = img.dataset.image;
+      else { img.remove(); img.closest('.cine__frame').classList.add('is-placeholder'); }
+    });
+    var toggle = document.querySelector('.mobile-menu-toggle');
+    var nav = document.getElementById('primaryNav');
+    function closeMenu() { nav.classList.remove('is-open'); toggle.setAttribute('aria-expanded', 'false'); }
+    toggle.addEventListener('click', function () { var open = nav.classList.toggle('is-open'); toggle.setAttribute('aria-expanded', String(open)); });
+    nav.addEventListener('click', function (e) { if (e.target.closest('a')) closeMenu(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && nav.classList.contains('is-open')) { closeMenu(); toggle.focus(); } });
+    document.addEventListener('click', function (e) { if (!e.target.closest('header.site')) closeMenu(); });
+    var floating = document.getElementById('whatsappFloat');
+    var queued = false;
+    function avoidCards() {
+      queued = false;
+      var r = floating.getBoundingClientRect();
+      var blocked = Array.from(document.querySelectorAll('.feat-card, .cat-card, form, .lux-overlay.is-open')).some(function (el) {
+        var b = el.getBoundingClientRect();
+        return b.width && b.height && b.left < r.right + 8 && b.right > r.left - 8 && b.top < r.bottom + 8 && b.bottom > r.top - 8;
+      });
+      floating.classList.toggle('is-obstructing', blocked);
+    }
+    function schedule() { if (!queued) { queued = true; requestAnimationFrame(avoidCards); } }
+    addEventListener('scroll', schedule, { passive: true });
+    addEventListener('resize', schedule);
+    addEventListener('load', schedule);
+    new MutationObserver(schedule).observe(document.querySelector('main'), { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
+  })();
   // SEGURIDAD (RULE-02/RULE-03) — Sanitización anti-inyección (XSS): neutraliza los
   // caracteres/patrones usados para inyectar HTML o JS antes de cualquier fetch().
   // Es una capa extra; el escape definitivo debe hacerse también en el
@@ -2169,6 +2484,15 @@
       };
     }
 
+    var CATEGORY_PHOTOS = {
+      'Consumibles': { src: 'img/editorial/consumables.jpg', width: 1000, height: 1500 },
+      'Accesorios': { src: 'img/editorial/preparation.jpg', width: 1500, height: 1125 },
+      'Pestañas': { src: 'img/editorial/lashes.jpg', width: 995, height: 1500 },
+      'Pinzas': { src: 'img/editorial/brows.jpg', width: 1500, height: 1000 },
+      'Pegamentos y Adhesivos': { src: 'img/editorial/appointments.jpg', width: 1500, height: 1000 },
+      'Herramientas y Equipos': { src: 'img/editorial/tools.jpg', width: 1500, height: 1000 }
+    };
+
     // ---- Categorías reales (con conteo) ----
     var counts = {};
     catalog.forEach(function (p) { counts[p.category] = (counts[p.category] || 0) + 1; });
@@ -2182,12 +2506,23 @@
         var ph = buildPlaceholder(c);
         var card = document.createElement('a');
         card.className = 'cat-card' + (i === 0 ? ' cat-card--feature' : '');
+        card.dataset.category = c;
         card.href = 'catalogo.html?cat=' + encodeURIComponent(c);
 
         var photo = document.createElement('div');
         photo.className = 'cat-card__photo';
         photo.setAttribute('data-tint', ph.tint);
         photo.innerHTML = ph.html;
+        if (CATEGORY_PHOTOS[c]) {
+          var categoryImage = document.createElement('img');
+          categoryImage.src = CATEGORY_PHOTOS[c].src;
+          categoryImage.alt = 'Imagen editorial para la categoría ' + c;
+          categoryImage.loading = 'lazy';
+          categoryImage.width = CATEGORY_PHOTOS[c].width;
+          categoryImage.height = CATEGORY_PHOTOS[c].height;
+          photo.appendChild(categoryImage);
+          photo.classList.add('has-photo');
+        }
         card.appendChild(photo);
 
         var mark = document.createElement('div');
@@ -2219,7 +2554,7 @@
 
     // ---- Destacados (elegidos de forma determinística en data/glc-catalog.json, no al azar) ----
     if (grid) {
-      var featured = catalog.filter(function (p) { return p.featured; });
+      var featured = catalog.filter(function (p) { return p.featured && window.GLC_IMAGE_PATHS.indexOf(p.image) !== -1; }).slice(0, 3);
       featured.forEach(function (p) {
         var card = document.createElement('article');
         card.className = 'feat-card';
@@ -2229,6 +2564,7 @@
         photo.className = 'feat-card__photo';
         photo.setAttribute('data-tint', ph.tint);
         photo.innerHTML = ph.html;
+        if (window.GLC_IMAGE_PATHS.indexOf(p.image) !== -1) {
         var img = document.createElement('img');
         img.src = p.image;
         img.alt = p.name;
@@ -2236,6 +2572,7 @@
         img.onload = function () { photo.classList.add('has-photo'); };
         img.onerror = function () { img.style.display = 'none'; };
         photo.appendChild(img);
+        }
         card.appendChild(photo);
 
         var body = document.createElement('div');
@@ -2669,6 +3006,55 @@
       status.className = 'cita-status';
       status.textContent = 'Enviando propuesta…';
     });
+  })();
+
+  /* ---------- Personal Shopper USA → WhatsApp ---------- */
+  (function () {
+    var gallery = document.querySelector('[data-shopper-lookbook]');
+    if (!gallery) return;
+    var image = gallery.querySelector('[data-shopper-image]');
+    var count = gallery.querySelector('[data-shopper-count]');
+    var previous = gallery.querySelector('[data-shopper-prev]');
+    var next = gallery.querySelector('[data-shopper-next]');
+    var photos = [
+      ['01-retail-display.jpg', 'Exhibición de artículos en una tienda'],
+      ['02-cosmetics-shelves.jpg', 'Exhibición de cosméticos en tienda'],
+      ['03-shopping-display.jpg', 'Accesorio exhibido en una tienda'],
+      ['04-retail-apparel.jpg', 'Área de ropa en tienda'],
+      ['05-store-interior.jpg', 'Vista interior de un comercio'],
+      ['06-beauty-products.jpg', 'Productos de belleza en tienda'],
+      ['07-retail-storefront.jpg', 'Fachada de un comercio'],
+      ['08-shopping-mall.jpg', 'Pasillo de centro comercial'],
+      ['09-store-interior.jpg', 'Interior de una tienda'],
+      ['10-shopping-center.jpg', 'Vista de un centro comercial'],
+      ['11-retail-bags.jpg', 'Artículos exhibidos en una tienda'],
+      ['12-retail-apparel.jpg', 'Ropa exhibida en una tienda']
+    ];
+    var index = 0;
+    var timer = 0;
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    function showPhoto(nextIndex) {
+      index = (nextIndex + photos.length) % photos.length;
+      image.addEventListener('load', function () { image.classList.remove('is-changing'); }, { once: true });
+      image.classList.add('is-changing');
+      image.src = 'img/editorial/shopper-lookbook/' + photos[index][0];
+      image.alt = photos[index][1];
+      count.textContent = String(index + 1).padStart(2, '0') + ' / ' + String(photos.length).padStart(2, '0');
+    }
+    function stop() { window.clearInterval(timer); timer = 0; }
+    function start() {
+      stop();
+      if (!reduceMotion.matches && !document.hidden) timer = window.setInterval(function () { showPhoto(index + 1); }, 4500);
+    }
+    previous.addEventListener('click', function () { showPhoto(index - 1); start(); });
+    next.addEventListener('click', function () { showPhoto(index + 1); start(); });
+    gallery.addEventListener('mouseenter', stop);
+    gallery.addEventListener('mouseleave', start);
+    gallery.addEventListener('focusin', stop);
+    gallery.addEventListener('focusout', function (event) { if (!gallery.contains(event.relatedTarget)) start(); });
+    document.addEventListener('visibilitychange', start);
+    if (reduceMotion.addEventListener) reduceMotion.addEventListener('change', start);
+    start();
   })();
 
   /* ---------- Personal Shopper USA → WhatsApp ---------- */

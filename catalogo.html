@@ -379,6 +379,8 @@
   @media (prefers-reduced-motion: reduce) {
     .lux-overlay, .lux-modal { transition: none !important; }
   }
+.return-home { max-width:1080px; margin:0 auto; padding:14px 24px; font-size:14px; } .return-home a { display:inline-flex; align-items:center; min-height:44px; text-decoration:underline; text-underline-offset:4px; }
+@media(max-width:480px) { .product-grid { grid-template-columns:minmax(0,1fr); } }
 </style>
 </head>
 <body>
@@ -413,6 +415,7 @@
     </nav>
   </div>
 </header>
+<nav aria-label="Regreso a Inicio" class="return-home"><a href="index.html">&larr; Volver al inicio</a></nav>
 
 <main id="main-content">
   <section class="cat-hero">
@@ -467,7 +470,7 @@
   <div class="wrap">
     <div class="foot-row">
       <div class="foot-left">
-        <div class="wordmark">Distribuidora <span style="color:var(--gold)">GLC</span></div>
+        <a class="wordmark" href="index.html">Distribuidora <span style="color:var(--gold)">GLC</span></a>
         <p class="place">Desamparados, Costa Rica</p>
         <p class="foot-signature">by Gaudi Lara</p>
       </div>
@@ -538,11 +541,13 @@
   function openQuickView(p) {
     if (!qvOverlay) return;
     var style = styleFor(p.category);
+    qvPhoto.classList.remove('has-photo');
     qvPhoto.setAttribute('data-tint', style.tint);
     qvPhoto.innerHTML =
       '<span class="ph-mono" aria-hidden="true">' + (p.category || '?').charAt(0) + '</span>' +
       '<span class="ph-content"><span class="ph-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#' + style.icon + '"/></svg></span>' +
       '<span class="ph-label">' + p.category + '</span></span>';
+    if (window.GLC_IMAGE_PATHS.indexOf(p.image) !== -1) {
     var img = document.createElement('img');
     img.src = p.image;
     img.alt = p.name;
@@ -550,6 +555,7 @@
     img.onload = function () { qvPhoto.classList.add('has-photo'); };
     img.onerror = function () { img.style.display = 'none'; };
     qvPhoto.appendChild(img);
+    }
 
     qvCat.textContent = p.category;
     if (p.brand) { qvBrand.textContent = p.brand; qvBrand.hidden = false; } else { qvBrand.hidden = true; }
@@ -734,6 +740,7 @@
       '<span class="ph-mono" aria-hidden="true">' + (p.category || '?').charAt(0) + '</span>' +
       '<span class="ph-content"><span class="ph-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#' + style.icon + '"/></svg></span>' +
       '<span class="ph-label">' + p.category + '</span></span>';
+    if (window.GLC_IMAGE_PATHS.indexOf(p.image) !== -1) {
     var img = document.createElement('img');
     img.src = p.image;
     img.alt = p.name;
@@ -742,6 +749,7 @@
     img.onload = function () { photo.classList.add('has-photo'); };
     img.onerror = function () { img.style.display = 'none'; };
     photo.appendChild(img);
+    }
     return photo;
   }
 

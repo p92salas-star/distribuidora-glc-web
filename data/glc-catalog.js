@@ -260,7 +260,8 @@ window.GLC_CATALOG = [
     "whatsapp_product_url": null,
     "featured": false,
     "source": "whatsapp_catalog_snapshot_2026-09-17",
-    "review_required": false
+    "review_required": false,
+    "variants": ["0.03 C", "0.03 D", "0.05 C", "0.05 D", "0.07 C", "0.07 D", "0.10 C", "0.10 D", "0.15 C", "0.15 D", "0.20 C", "0.20 D"]
   },
   {
     "id": "100-microaplicadores",
@@ -330,7 +331,8 @@ window.GLC_CATALOG = [
     "whatsapp_product_url": null,
     "featured": false,
     "source": "whatsapp_catalog_snapshot_2026-09-17",
-    "review_required": false
+    "review_required": false,
+    "variants": ["S", "M"]
   },
   {
     "id": "maquina-de-cera",
@@ -348,7 +350,7 @@ window.GLC_CATALOG = [
   },
   {
     "id": "pestanas-tecnologicas-3d-4d-5d-6d-7d",
-    "name": "pestañas tecnológicas 3D 4D 5D 6D 7D",
+    "name": "Pestañas tecnológicas mixtas",
     "category": "Pestañas",
     "brand": null,
     "price_crc": 4500,
@@ -358,7 +360,10 @@ window.GLC_CATALOG = [
     "whatsapp_product_url": null,
     "featured": false,
     "source": "whatsapp_catalog_snapshot_2026-09-17",
-    "review_required": false
+    "review_required": false,
+    "variants": [
+      {"label":"YY (C)","price_crc":3500},{"label":"YY (D)","price_crc":3500},{"label":"YY (D) café","price_crc":3800},{"label":"2DY","price_crc":3500},{"label":"3DW (C)","price_crc":3800},{"label":"3DW café","price_crc":3800},{"label":"4DW (C)","price_crc":3950},{"label":"4DW (D)","price_crc":3950},{"label":"5DW (C)","price_crc":4200},{"label":"5DW (D)","price_crc":4200},{"label":"5DW café","price_crc":4500},{"label":"6DW (C)","price_crc":4500},{"label":"6DW (D)","price_crc":4500},{"label":"7DW (C)","price_crc":4900},{"label":"7DW (D)","price_crc":4900},{"label":"8DW (C)","price_crc":5000},{"label":"8DW (D)","price_crc":5000}
+    ]
   },
   {
     "id": "basurero-de-desechos",
@@ -680,7 +685,8 @@ window.GLC_CATALOG = [
     "whatsapp_product_url": null,
     "featured": false,
     "source": "whatsapp_catalog_snapshot_2026-09-17",
-    "review_required": false
+    "review_required": false,
+    "variants": ["YY (D)", "3DW (D)", "5DW (D)"]
   },
   {
     "id": "cabezote-mas-pestana",
@@ -1048,7 +1054,7 @@ window.GLC_CATALOG = [
   },
   {
     "id": "pigmento-pasta-micro",
-    "name": "Pigmento pasta micro...",
+    "name": "Pigmento microblading",
     "category": "Microblading",
     "brand": null,
     "price_crc": 11000,
@@ -1058,7 +1064,8 @@ window.GLC_CATALOG = [
     "whatsapp_product_url": null,
     "featured": false,
     "source": "whatsapp_catalog_snapshot_2026-09-17",
-    "review_required": false
+    "review_required": false,
+    "variants": ["Brown", "Dark Brown", "Honey", "Ligth Ash Brown", "Dark Ash Brown", "Black Brown", "Pale Flesh", "Chocolate", "True Black Ash Brown"]
   },
   {
     "id": "rollo-de-cinta-para-prot",
@@ -1086,7 +1093,8 @@ window.GLC_CATALOG = [
     "whatsapp_product_url": null,
     "featured": false,
     "source": "whatsapp_catalog_snapshot_2026-09-17",
-    "review_required": false
+    "review_required": false,
+    "public": false
   },
   {
     "id": "producto-076",
@@ -1156,7 +1164,8 @@ window.GLC_CATALOG = [
     "whatsapp_product_url": null,
     "featured": false,
     "source": "whatsapp_catalog_snapshot_2026-09-17",
-    "review_required": false
+    "review_required": false,
+    "variants": ["1R", "3R", "5R"]
   },
   {
     "id": "pincel-aplicador-de-pig",
@@ -1482,7 +1491,7 @@ window.GLC_CATALOG = [
   },
   {
     "id": "pieles-de-practica-con",
-    "name": "Pieles de práctica con...",
+    "name": "Pieles para practicar",
     "category": "Accesorios",
     "brand": null,
     "price_crc": 2500,
@@ -1492,7 +1501,8 @@ window.GLC_CATALOG = [
     "whatsapp_product_url": null,
     "featured": false,
     "source": "whatsapp_catalog_snapshot_2026-09-17",
-    "review_required": false
+    "review_required": false,
+    "variants": ["Con diseño", "Sin diseño"]
   },
   {
     "id": "goma-salon-pro-enca",
@@ -1534,7 +1544,8 @@ window.GLC_CATALOG = [
     "whatsapp_product_url": null,
     "featured": false,
     "source": "whatsapp_catalog_snapshot_2026-09-17",
-    "review_required": false
+    "review_required": false,
+    "public": false
   },
   {
     "id": "juego-nagaraku-de-pin",
@@ -1576,7 +1587,8 @@ window.GLC_CATALOG = [
     "whatsapp_product_url": null,
     "featured": false,
     "source": "whatsapp_catalog_snapshot_2026-09-17",
-    "review_required": false
+    "review_required": false,
+    "variants": ["Negro", "Rosado", "Blanco"]
   },
   {
     "id": "pinza-n-05-nagaraku",
@@ -1664,7 +1676,7 @@ window.GLC_CATALOG = [
   },
   {
     "id": "pestanas-diy-day-clasi",
-    "name": "pestañas Diy day clasi...",
+    "name": "Pestañas DIY Day clásicas",
     "category": "Pestañas",
     "brand": "DIY DAY",
     "price_crc": 3000,
@@ -1674,7 +1686,8 @@ window.GLC_CATALOG = [
     "whatsapp_product_url": null,
     "featured": false,
     "source": "whatsapp_catalog_snapshot_2026-09-17",
-    "review_required": false
+    "review_required": false,
+    "variants": ["Mixta · 0.03D", "Mixta · 0.05D", "Mixta · 0.07D", "Mixta · 0.10D", "Mixta · 0.15D", "Una sola medida · 0.05D · 10mm", "Una sola medida · 0.05D · 12mm", "Una sola medida · 0.05D · 13mm", "Una sola medida · 0.05D · 14mm", "Una sola medida · 0.05D · 15mm", "Una sola medida · 0.07D · 10mm", "Una sola medida · 0.07D · 11mm", "Una sola medida · 0.07D · 12mm", "Una sola medida · 0.07D · 13mm", "Una sola medida · 0.07D · 14mm", "Una sola medida · 0.07D · 15mm", "Una sola medida · 0.10D · 10mm", "Una sola medida · 0.10D · 11mm", "Una sola medida · 0.10D · 12mm", "Una sola medida · 0.10D · 13mm", "Una sola medida · 0.10D · 14mm", "Una sola medida · 0.10D · 15mm", "Una sola medida · 0.15D · 10mm", "Una sola medida · 0.15D · 11mm", "Una sola medida · 0.15D · 12mm", "Una sola medida · 0.15D · 13mm", "Una sola medida · 0.15D · 14mm", "Una sola medida · 0.15D · 15mm"]
   },
   {
     "id": "pinza-n01",
@@ -1758,7 +1771,8 @@ window.GLC_CATALOG = [
     "whatsapp_product_url": null,
     "featured": false,
     "source": "whatsapp_catalog_snapshot_2026-09-17",
-    "review_required": false
+    "review_required": false,
+    "variants": ["0.05D", "0.07C", "0.07D"]
   },
   {
     "id": "lapicero-blanco",
@@ -1870,7 +1884,8 @@ window.GLC_CATALOG = [
     "whatsapp_product_url": null,
     "featured": false,
     "source": "whatsapp_catalog_snapshot_2026-09-17",
-    "review_required": false
+    "review_required": false,
+    "public": false
   },
   {
     "id": "fijador-iconsing",
@@ -1912,7 +1927,8 @@ window.GLC_CATALOG = [
     "whatsapp_product_url": null,
     "featured": false,
     "source": "whatsapp_catalog_snapshot_2026-09-17",
-    "review_required": false
+    "review_required": false,
+    "public": false
   },
   {
     "id": "shampoo-pestanas-litro",
@@ -1972,7 +1988,7 @@ window.GLC_CATALOG = [
   },
   {
     "id": "lifting-plano-para-corea",
-    "name": "lifting plano para corea...",
+    "name": "Pad de lifting plano para lifting coreano",
     "category": "Lifting y Laminado",
     "brand": null,
     "price_crc": 2950,
@@ -1996,7 +2012,8 @@ window.GLC_CATALOG = [
     "whatsapp_product_url": null,
     "featured": false,
     "source": "whatsapp_catalog_snapshot_2026-09-17",
-    "review_required": false
+    "review_required": false,
+    "variants": ["Pink", "Chicafo Red", "Rose Pink", "Flamingo", "Cherry"]
   },
   {
     "id": "cepillo-plastico-lifting",
@@ -2122,7 +2139,8 @@ window.GLC_CATALOG = [
     "whatsapp_product_url": null,
     "featured": false,
     "source": "whatsapp_catalog_snapshot_2026-09-17",
-    "review_required": false
+    "review_required": false,
+    "variants": ["Negro", "Café"]
   },
   {
     "id": "almohadilla-plana",
@@ -2346,7 +2364,8 @@ window.GLC_CATALOG = [
     "whatsapp_product_url": null,
     "featured": false,
     "source": "whatsapp_catalog_snapshot_2026-09-17",
-    "review_required": false
+    "review_required": false,
+    "public": false
   },
   {
     "id": "5-pares-de-pads-de-lifti",

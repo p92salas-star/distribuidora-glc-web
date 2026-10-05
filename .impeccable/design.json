@@ -1,0 +1,169 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-05T16:41:32.219Z",
+  "title": "Design System: Distribuidora GLC",
+  "extensions": {
+    "colorMeta": {
+      "berry": {
+        "role": "primary",
+        "displayName": "Burgundy"
+      },
+      "berry-dark": {
+        "role": "primary",
+        "displayName": "Deep burgundy"
+      },
+      "ivory": {
+        "role": "neutral",
+        "displayName": "Warm ivory"
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "White paper"
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Warm ink"
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Muted ink"
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Warm divider"
+      },
+      "blush-panel": {
+        "role": "neutral",
+        "displayName": "Blush panel"
+      },
+      "shopper-paper": {
+        "role": "neutral",
+        "displayName": "Warm service paper"
+      },
+      "gold": {
+        "role": "secondary",
+        "displayName": "Restrained gold"
+      },
+      "gold-light": {
+        "role": "secondary",
+        "displayName": "Light gold"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Editorial display",
+        "purpose": "Restrained home hero hierarchy."
+      },
+      "headline": {
+        "displayName": "Section headline",
+        "purpose": "Clear shopping and service transitions."
+      },
+      "product-title": {
+        "displayName": "Product name",
+        "purpose": "Full names at equal merchandise weight."
+      }
+    },
+    "shadows": [
+      {
+        "name": "quick-view",
+        "value": "0 24px 80px #0004",
+        "purpose": "Existing product dialog only."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-lux",
+        "value": "cubic-bezier(.16,1,.3,1)",
+        "purpose": "Shared movement."
+      },
+      {
+        "name": "home-photo-arrival",
+        "value": "1.1s",
+        "purpose": "Finite clip reveal from inset(0 0 0 5%) to inset(0); disabled for reduced motion."
+      },
+      {
+        "name": "category-image-hover",
+        "value": ".5s cubic-bezier(.16,1,.3,1)",
+        "purpose": "Scale to 1.025; disabled for reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "compact-desktop",
+        "value": "1100px"
+      },
+      {
+        "name": "tablet",
+        "value": "860px"
+      },
+      {
+        "name": "mobile",
+        "value": "600px"
+      }
+    ],
+    "focus": {
+      "outline": "3px solid #ad7446",
+      "offset": "4px",
+      "searchOutline": "2px solid var(--berry)",
+      "searchOffset": "3px"
+    }
+  },
+  "components": [
+    {
+      "name": "Primary action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Flat burgundy home action.",
+      "html": "<button class=\"ds-primary\">Explorar el cat?logo</button>",
+      "css": ".ds-primary{font:500 15px \"Work Sans\",sans-serif;min-height:48px;padding:13px 22px;border:1px solid var(--berry,#781f38);border-radius:2px;background:var(--berry,#781f38);color:var(--paper,#fff);cursor:pointer}.ds-primary:hover{background:var(--berry-dark,#551529);border-color:var(--berry-dark,#551529)}.ds-primary:focus-visible{outline:3px solid #ad7446;outline-offset:4px}"
+    },
+    {
+      "name": "Catalog search",
+      "kind": "input",
+      "description": "White field with an ink baseline and explicit focus ring.",
+      "html": "<label class=\"ds-search\"><input type=\"search\" aria-label=\"Buscar productos\" placeholder=\"Buscar productos\"></label>",
+      "css": ".ds-search{display:block;max-width:580px;border-bottom:1px solid var(--ink,#181516);background:#fff}.ds-search input{width:100%;min-height:46px;padding:12px 42px;border:0;border-radius:0;background:#fff;color:var(--ink,#181516);font:15px \"Work Sans\",sans-serif}.ds-search input::placeholder{color:var(--ink-soft,#60575a);opacity:1}.ds-search:focus-within{outline:2px solid var(--berry,#781f38);outline-offset:3px}.ds-search input:focus-visible{outline:3px solid #ad7446;outline-offset:4px}"
+    },
+    {
+      "name": "Category navigation",
+      "kind": "nav",
+      "description": "Desktop categories use underlined states; phones use the native labeled picker.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Categorías\"><a href=\"#todos\" aria-current=\"page\">Todos</a><a href=\"#pestanas\">Pestañas</a></nav>",
+      "css": ".ds-nav{display:flex;gap:20px;background:#fff}.ds-nav a{display:inline-flex;align-items:center;min-height:44px;padding:10px 0;font:13px \"Work Sans\",sans-serif;color:var(--ink-soft,#60575a);text-decoration:none;border-bottom:2px solid transparent}.ds-nav a:hover{color:var(--berry,#781f38)}.ds-nav a[aria-current]{color:var(--berry,#781f38);font-weight:600;border-color:var(--berry,#781f38)}.ds-primary:focus-visible,.ds-campaign:focus-visible,.ds-link:focus-visible,.ds-nav a:focus-visible,.ds-variant:focus-visible,.ds-rail button:focus-visible{outline:3px solid #ad7446;outline-offset:4px}"
+    },
+    {
+      "name": "Selected variant",
+      "kind": "chip",
+      "refersTo": "variant-selected",
+      "description": "Square variant chip with semantic pressed state and a gold selection edge.",
+      "html": "<button class=\"ds-variant\" aria-pressed=\"true\">Variante seleccionada</button>",
+      "css": ".ds-variant{font:13px \"Work Sans\",sans-serif;min-height:44px;padding:10px 13px;border:1px solid #aa979c;border-radius:0;background:#fff;color:var(--ink,#181516);cursor:pointer}.ds-variant[aria-pressed=true]{background:var(--berry,#781f38);color:#fff;border-color:var(--berry,#781f38);box-shadow:inset 0 -3px 0 var(--gold-light,#e9cb96)}.ds-primary:focus-visible,.ds-campaign:focus-visible,.ds-link:focus-visible,.ds-nav a:focus-visible,.ds-variant:focus-visible,.ds-rail button:focus-visible{outline:3px solid #ad7446;outline-offset:4px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "A curated beauty counter",
+    "overview": "Restrained serif headlines, readable commerce and warm ivory frame equally weighted real products. The official transparent logo remains the header and footer identity.",
+    "keyCharacteristics": [
+      "Equal category and product grids.",
+      "Text-only discovery selection and separate kit invitation.",
+      "Flat tonal surfaces, quiet social links and simple footer."
+    ],
+    "rules": [
+      {
+        "name": "The Contrast Rule",
+        "body": "Dark copy on light hero and service panels; white copy on burgundy reservation surfaces.",
+        "section": "colors"
+      }
+    ],
+    "dos": [
+      "Do preserve the official logo and catalog truth.",
+      "Do retain focus, keyboard and reduced-motion behavior.",
+      "Do record image provenance."
+    ],
+    "donts": [
+      "Do not invent brand lockups or product evidence.",
+      "Do not change commerce behavior or reservation terms.",
+      "Do not restore the superseded photographic discovery panel."
+    ]
+  }
+}

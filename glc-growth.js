@@ -24,7 +24,7 @@
   var motion = window.matchMedia('(prefers-reduced-motion: reduce)');
   var messages = [
     ['PROMOCIONES DE LA SEMANA','THIS WEEK’S PROMOTIONS','catalogo.html'],
-    ['¡Envíos gratis al Valle Central por compras mayores a ₡25,000!','Free Central Valley delivery on orders over ₡25,000!','catalogo.html'],
+    ['¡Envíos gratis al Valle Central por compras desde ₡25,000!','Free Central Valley delivery on orders of ₡25,000 or more!','catalogo.html'],
     ['Ahora contamos con sistema de apartados','You can now reserve products and pay over time','index.html#apartados'],
     ['Apartá desde ₡10,000 y completá tu pago hasta en 3 meses','Reserve from ₡10,000 and complete payment within 3 months','index.html#apartados'],
     ['Explorá nuestros esenciales para profesionales de belleza','Explore our essentials for beauty professionals','index.html#catalogo'],
@@ -58,14 +58,14 @@
   }
 
   var paths = [
-    {id:'classic',es:'Pestañas clásicas',en:'Classic lashes',cat:'Pestañas',image:'img/editorial/lashes.jpg',desc:['Dale forma a tu selección: extensiones, pinzas y aplicadores.','Shape your selection: extensions, tweezers and applicators.'],ids:['pestanas-diy-day-clasi','pestanas-nagaraku-mi','pinza-de-aislar-nariz','pinzas-diy-day-unidad','100-microaplicadores','50-parches']},
-    {id:'volume',es:'Volumen',en:'Volume',cat:'Pestañas',image:'img/editorial/lashes.jpg',desc:['Explorá formatos de pestañas y elegí la variante para tu trabajo.','Explore lash formats and choose the variant for your work.'],ids:['pestanas-tecnologicas-3d-4d-5d-6d-7d','pestanas-diy-day-3d','diy-day-autofloracion','pinza-volumen','100-microaplicadores','50-parches']},
-    {id:'lift',es:'Lifting y laminado',en:'Lifts & lamination',cat:'Lifting y Laminado',image:'img/editorial/appointments.jpg',desc:['Compará opciones de lifting, laminado y herramientas de aplicación.','Compare lifts, lamination and application tools.'],ids:['lifting-golle','kit-de-lifting-iconsing','laminado-3-pasos','cepillos-laminado-pa','cepillo-plastico-lifting','100-microaplicadores']},
-    {id:'brow',es:'Cejas',en:'Brows',cat:'Tintes y Henna',image:'img/editorial/brows.jpg',desc:['Color, marcaje y precisión. Elegí los productos según tu técnica.','Color, mapping and precision. Choose products for your technique.'],ids:['henna-iconsing','golle-tinte','hilo-marcaje','lapicero-blanco','maquina-de-cera','50-aplicadores-sin-pelusa']},
-    {id:'micro',es:'Microblading',en:'Microblading',cat:'Microblading',image:'img/editorial/tools.jpg',desc:['Encontrá agujas, pigmentos y herramientas. Revisá cada opción antes de elegir.','Find needles, pigments and tools. Review each option before choosing.'],ids:['agujas-microblanding','pigmento-pasta-micro','inductor-tebori-doble','mezclador-de-pigmentos','pincel-aplicador-de-pig','50-aplicadores-sin-pelusa']},
-    {id:'tools',es:'Herramientas',en:'Tools',cat:'Herramientas y Equipos',image:'img/editorial/tools.jpg',desc:['Una selección para organizar y equipar tu espacio de trabajo.','A selection to organize and equip your workspace.'],ids:['espejo-visor','abanico-electrico','maquina-de-cera','lapicero-blanco','organizador','pinzas-diy-day-unidad']},
-    {id:'adhesive',es:'Adhesivos',en:'Adhesives',cat:'Pegamentos y Adhesivos',image:'img/hero-lash-application.jpg',desc:['Compará las opciones. Consultanos cuál se ajusta a tu técnica y condiciones de trabajo.','Compare options. Ask us which suits your technique and working conditions.'],ids:['adhesivo-golle-to','adhesivo-super-pl','goma-sky','boquilla-para-adhesivo','super-bonder-ib','primer-ib-beauty']},
-    {id:'supplies',es:'Consumibles',en:'Supplies',cat:'Consumibles',image:'img/editorial/consumables.jpg',desc:['Reponé aplicadores, cepillos y parches sin recorrer todo el catálogo.','Restock applicators, brushes and patches without browsing the entire catalog.'],ids:['100-microaplicadores','50-aplicadores-sin-pelusa','50-cepillos','50-parches','toallas-libres-de-pelus','paq-de-100-toallas']}
+    {id:'classic',es:'Pestañas clásicas',en:'Classic lashes',cat:'Pestañas',image:'img/editorial/preparation.jpg',desc:['Dale forma a tu selección: extensiones, pinzas y aplicadores.','Shape your selection: extensions, tweezers and applicators.'],ids:['pestanas-diy-day-clasi','pestanas-nagaraku-mi','pinza-de-aislar-nariz','pinzas-diy-day-unidad','100-microaplicadores','50-parches']},
+    {id:'volume',es:'Volumen',en:'Volume',cat:'Pestañas',image:'img/curated/diyday-volume-tray.jpg',desc:['Explorá formatos de pestañas y elegí la variante para tu trabajo.','Explore lash formats and choose the variant for your work.'],ids:['pestanas-tecnologicas-3d-4d-5d-6d-7d','pestanas-diy-day-3d','diy-day-autofloracion','pinza-volumen','100-microaplicadores','50-parches']},
+    {id:'lift',es:'Lifting y laminado',en:'Lifts & lamination',cat:'Lifting y Laminado',image:'img/curated/gollee-lift-kit.webp',desc:['Compará opciones de lifting, laminado y herramientas de aplicación.','Compare lifts, lamination and application tools.'],ids:['lifting-golle','kit-de-lifting-iconsing','laminado-3-pasos','cepillos-laminado-pa','cepillo-plastico-lifting','100-microaplicadores']},
+    {id:'brow',es:'Cejas',en:'Brows',cat:'Tintes y Henna',image:'img/editorial/tools.jpg',desc:['Color, marcaje y precisión. Elegí los productos según tu técnica.','Color, mapping and precision. Choose products for your technique.'],ids:['henna-iconsing','golle-tinte','hilo-marcaje','lapicero-blanco','maquina-de-cera','50-aplicadores-sin-pelusa']},
+    {id:'micro',es:'Microblading',en:'Microblading',cat:'Microblading',image:'img/catalog/agujas-microblanding.jpg',desc:['Encontrá agujas, pigmentos y herramientas. Revisá cada opción antes de elegir.','Find needles, pigments and tools. Review each option before choosing.'],ids:['agujas-microblanding','pigmento-pasta-micro','inductor-tebori-doble','mezclador-de-pigmentos','pincel-aplicador-de-pig','50-aplicadores-sin-pelusa']},
+    {id:'tools',es:'Herramientas',en:'Tools',cat:'Herramientas y Equipos',image:'img/curated/gollee-tools.webp',desc:['Una selección para organizar y equipar tu espacio de trabajo.','A selection to organize and equip your workspace.'],ids:['espejo-visor','abanico-electrico','maquina-de-cera','lapicero-blanco','organizador','pinzas-diy-day-unidad']},
+    {id:'adhesive',es:'Adhesivos',en:'Adhesives',cat:'Pegamentos y Adhesivos',image:'img/curated/gollee-adhesive-master.webp',desc:['Compará las opciones. Consultanos cuál se ajusta a tu técnica y condiciones de trabajo.','Compare options. Ask us which suits your technique and working conditions.'],ids:['adhesivo-golle-to','adhesivo-super-pl','goma-sky','boquilla-para-adhesivo','super-bonder-ib','primer-ib-beauty']},
+    {id:'supplies',es:'Consumibles',en:'Supplies',cat:'Consumibles',image:'img/curated/gollee-eye-patches.jpg',desc:['Reponé aplicadores, cepillos y parches sin recorrer todo el catálogo.','Restock applicators, brushes and patches without browsing the entire catalog.'],ids:['100-microaplicadores','50-aplicadores-sin-pelusa','50-cepillos','50-parches','toallas-libres-de-pelus','paq-de-100-toallas']}
   ].filter(function (path) { path.ids = path.ids.filter(function (id) { return byId.has(id); }); return path.ids.length && catalog.some(function (p) { return p.category === path.cat; }); });
   var experience = document.getElementById('discoveryExperience'), active = paths[0], selected = new Map(), kitOpen = false, purpose = 'start', review = false;
   var nav, stage, kit, feedback, kitFromEntrance = false;
@@ -82,8 +82,6 @@
     nav.replaceChildren();
     paths.forEach(function (path) { var b = button('',function () { choosePath(path); },'discovery-path'); var tile=el('img'); tile.src=path.image; tile.alt=''; tile.loading='lazy'; tile.width=400; tile.height=440; b.append(tile,el('span','discovery-path-label',en ? path.en : path.es)); b.setAttribute('aria-pressed',String(path === active)); b.setAttribute('aria-controls','discoveryStage'); nav.appendChild(b); });
     stage.replaceChildren();
-    var photo = el('div','discovery-photo'), img = el('img'); img.src = active.image; img.alt = ''; img.width = 750; img.height = 700; img.loading = 'lazy'; photo.appendChild(img);
-    var caption = el('span','discovery-caption',copy('Tu técnica. Tu selección.','Your technique. Your selection.')); photo.appendChild(caption);
     var detail = el('div','discovery-detail');
     detail.append(el('h3','',en ? active.en : active.es),el('p','discovery-description',active.desc[en ? 1 : 0]));
     var preview = el('ul','discovery-preview');
@@ -92,7 +90,7 @@
     var actions = el('div','discovery-actions');
     var build = button(copy('Armá tu kit','Build your kit'),function () { kitFromEntrance = false; kitOpen = true; review = false; renderKit(); kit.scrollIntoView({behavior:motion.matches?'instant':'smooth',block:'start'}); kit.querySelector('h3').focus({preventScroll:true}); },'btn btn-primary'); build.setAttribute('aria-expanded',String(kitOpen)); build.setAttribute('aria-controls','kitBuilder');
     actions.append(build,link(copy('Ver categoría','View category'),'catalogo.html?cat='+encodeURIComponent(active.cat),'text-link'));
-    detail.appendChild(actions); stage.append(photo,detail);
+    detail.appendChild(actions); stage.append(detail);
   }
   function selectionTotal() { var total=0, unknown=false; selected.forEach(function (index,id) { var price=productPrice(byId.get(id),index); if (typeof price==='number') total+=price; else unknown=true; }); return {total:total,unknown:unknown}; }
   function renderKit() {

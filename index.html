@@ -1997,12 +1997,10 @@
 <div class="catalog-wrap" id="catalogo">
   <section>
     <div class="wrap">
-      <div class="section-head section-head--commerce"><h2>Encontrá tu<br><em>siguiente esencial.</em></h2><p>De la primera preparación al último detalle. Elegí por dónde empezar.</p></div>
-      <div class="cat-grid reveal-stagger" id="categoryGrid">
-        <!-- Generadas por JS desde data/glc-catalog.js: categorías reales, nunca inventadas -->
-      </div>
-      <div class="real-catalog__cta-row reveal">
-        <a class="btn btn-ghost" href="catalogo.html">Ver todas las categorías</a>
+      <div id="discovery" data-growth>
+        <div class="section-head section-head--commerce"><h2 data-en="What are you creating today?">¿Qué ocupás hoy?</h2><p data-en="Tell us what you’re creating. We’ll show you where to start.">Decinos qué vas a crear y te mostramos por dónde empezar.</p></div>
+        <div id="discoveryExperience" hidden></div>
+        <a class="text-link" href="catalogo.html" data-en="Explore all categories">Ver todas las categorías</a>
       </div>
     </div>
   </section>
@@ -2125,6 +2123,19 @@
   </div>
 </div>
 
+<section class="layaway" id="apartados" data-growth aria-labelledby="apartadosTitle">
+  <div class="wrap">
+    <div class="layaway-intro"><h2 id="apartadosTitle" data-en="Reserve now. Pay at your pace.">Sistema de<br><em>apartados.</em></h2><p data-en="Reserve today, secure what you love and pay at your own pace.">Reserva hoy, asegura lo que amas y págalo a tu ritmo.</p></div>
+    <ol class="layaway-steps">
+      <li><span class="layaway-number" aria-hidden="true">01</span><h3 data-en="Choose">Elige</h3><p data-en="Select the products you would like to reserve.">Selecciona los productos que deseas apartar.</p></li>
+      <li><span class="layaway-number" aria-hidden="true">02</span><h3 data-en="Reserve">Aparta</h3><p data-en="Reserve with an initial payment from ₡10,000.">Puedes apartar desde <strong>₡10,000</strong> colones.</p></li>
+      <li><span class="layaway-number" aria-hidden="true">03</span><h3 data-en="Take your time">Tiempo</h3><p data-en="You have 3 months to complete your payment.">Tienes <strong>3 meses</strong> para completar tu apartado.</p></li>
+      <li><span class="layaway-number" aria-hidden="true">04</span><h3 data-en="Collect">Retira</h3><p data-en="Once fully paid, you can collect your products.">Al completar tu pago, puedes retirar tus productos.</p></li>
+    </ol>
+    <div class="layaway-details"><div><h3 data-en="Small payments. Your pace.">Abonos a tu ritmo.</h3><p data-en="You can make payments from ₡5,000 as often as you wish during the 3 months.">Puedes dar abonos desde <strong>₡5,000</strong> colones las veces que desees durante los 3 meses.</p></div><div><h3 data-en="Keep your deadline in mind">Tené presente tu fecha límite</h3><p data-en="Important: if the 3 months expire before payment is completed, the reservation is cancelled and the products can no longer be collected."><strong>Importante:</strong> Si se cumplen los 3 meses y no se ha completado el pago, el apartado se cancela y ya no podrá ser retirado.</p><p class="layaway-note" data-en="Your reservation matters. We recommend keeping track of your payments and deadline.">Tu apartado es importante, por eso te recomendamos llevar un control de tus abonos y fecha límite.</p></div></div>
+    <div class="layaway-actions"><a class="btn btn-primary" id="layawayWhatsapp" href="https://wa.me/50670281688?text=Hola%2C%20quisiera%20consultar%20el%20sistema%20de%20apartados." target="_blank" rel="noopener noreferrer" data-en="Ask about reservations on WhatsApp">Consultar apartados por WhatsApp</a><a class="text-link" href="catalogo.html" data-en="View catalog">Ver catálogo</a></div>
+  </div>
+</section>
 <section id="programas">
   <div class="wrap">
     <div class="section-head reveal">
@@ -2502,7 +2513,7 @@
     function avoidCards() {
       queued = false;
       var r = floating.getBoundingClientRect();
-      var blocked = Array.from(document.querySelectorAll('.feat-card, .cat-card, form, .lux-overlay.is-open')).some(function (el) {
+      var blocked = Array.from(document.querySelectorAll('.feat-card, .cat-card, form, .lux-overlay.is-open, .discovery-preview a, .discovery-actions, .kit-builder, .layaway-actions')).some(function (el) {
         var b = el.getBoundingClientRect();
         return b.width && b.height && b.left < r.right + 8 && b.right > r.left - 8 && b.top < r.bottom + 8 && b.bottom > r.top - 8;
       });
@@ -3211,5 +3222,6 @@
 
 <script src="glc-commerce.js"></script>
 <script src="glc-store.js"></script>
+<script src="glc-growth.js"></script>
 </body>
 </html>

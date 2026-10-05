@@ -60,7 +60,9 @@ Use Fraunces for campaign and section hierarchy, Work Sans for commerce and read
 
 Shared content caps at 1360px with desktop gutters from the tokens; campaign and shopper compositions reach 1440px. Shared breakpoints are 1100px, 860px and 600px; gutters tighten to 28px then the mobile token. Main sections generally use 64–76px vertical padding, reducing to 44–48px on phones.
 
-The home composition uses a full-bleed photographic campaign, six real categories on an asymmetric 12-column spread (first and sixth span six), four verified photographic products, a black editorial interruption, a compact horizontal text-first product rail, and burgundy programs/social. Preserve this varied rhythm when extending it.
+The home composition uses a full-bleed photographic campaign, guided discovery, four verified photographic products, a black editorial interruption, a compact horizontal text-first product rail, an ivory apartados section, and burgundy programs/social. Preserve this varied rhythm when extending it.
+
+Discovery pairs an underlined path selector with authorized editorial photography and an ivory product preview. Its two-column stage stacks at 600px; the eight paths become a two-column text selector. The expandable kit guide uses compact, divided product rows in two columns, then one on phones. Keep simple rows compact and give variant controls full mobile width; display the complete selected variant label below the price. Apartados uses four numbered steps across desktop and a vertical sequence on mobile, followed by payment terms and a clear WhatsApp action.
 
 The white catalog uses four product columns, three at 860px and two at 600px. Mobile categories use a labeled native select; desktop categories use an underlined horizontal rail. The home product rail shows four items, three at 860px and 72%-wide items at 600px, with scrolling and arrow controls.
 
@@ -76,17 +78,31 @@ Cards, image frames, search, selects, chips and quick view are square. Primary b
 
 Buttons: primary berry/white, campaign white/berry with gold-light hover, and simple underlined secondary links. Main actions are at least 48px high; most shopping controls are at least 44px. Keep WhatsApp actions explicit and close to product choices.
 
-Owner correction: the promotion is a commercial headline (roughly 99px desktop / 115px mobile), with 19–25px benefit copy. The header keeps the original logo; the hero uses a straight transparent typographic GLC lockup and Gaudi signature. Social controls pair restrained platform colors with distinct hover states, consistently above and below. Never restore white-on-white social hover rules or tiny category overrides.
+The header keeps the original logo; the hero uses a straight transparent typographic GLC lockup and Gaudi signature. Social controls pair restrained platform colors with distinct hover states, consistently above and below. Never restore white-on-white social hover rules or tiny category overrides.
+
+The rotating promotion keeps a strong, stable-height band with readable linked copy (roughly 19–23px), a position count, pause/resume and next controls, and the existing dismiss action. Reserve space for mobile controls without crowding the message. Rotate every 8.5 seconds; pause while hovered, focused, hidden or explicitly paused. Manual next pauses rotation until resumed. Reduced motion keeps manual navigation and disables autoplay and the brief text entrance; do not announce automatic changes through a live region.
+
+Guided discovery: eight paths cover Pestañas clásicas, Volumen, Lifting y laminado, Cejas, Microblading, Herramientas, Adhesivos and Consumibles. Resolve curated product IDs against named public catalog records, with real names, prices and category links; hide unavailable paths rather than inventing content. Editorial photos establish technique context and are never evidence of a listed product. Keep the full catalog accessible without opening the guide.
+
+Guided commerce: “Armá tu kit” opens an optional technique and exploration/restocking guide. Require an explicit variant before selection; preserve full owner-authored labels and distinguish starting prices from selected prices. Selection stays in memory across technique changes, with no account or server persistence. Review precedes adding one unit of each selected product to the existing cart, where quantities can be edited. Keep unknown prices explicit as a known subtotal. These are individual catalog choices, with no bundle discount, completeness or compatibility promise; WhatsApp confirms availability and suitability.
+
+Apartados: use the existing ivory, berry and restrained gold hierarchy to explain the four steps and keep terms visible beside the action. Preserve the initial amount from ₡10,000, payments from ₡5,000, three-month completion period and cancellation if payment is incomplete at the deadline. The action starts a WhatsApp inquiry; it does not record a reservation or payment online.
 
 Shopping bag: native right-side dialog, quantities 1–99, separate variants, localStorage persistence and an itemized WhatsApp inquiry. Preserve direct WhatsApp purchase. ES/EN translates curated interface text immediately; product names, brands and variant values stay verbatim. Header bag and language controls remain visible on mobile. No backend checkout.
+
+Shipping progress: a slim berry native progress bar and adjacent amount text show the known cart subtotal toward ₡30,000 for Valle Central delivery. Keep the region explicit, unknown-price notices visible and final delivery confirmation with WhatsApp; this is not a nationwide shipping promise.
 
 Images: crop authorized campaign/category/editorial photos with cover; show product photographs with contain and breathing room. Only four approved product images are currently whitelisted. Missing photographs stay compact and text-first, labeled “Fotografía pendiente”; do not substitute campaign or reference images for merchandise.
 
 Quick view: real-photo products use a 1.1fr/1fr image-and-information split (maximum 960px); missing-photo products use one column (maximum 620px) and a 100px information strip. At 600px, quick view stacks, caps at 94dvh, and keeps its close control available. Preserve variant prices, keyboard focus management and WhatsApp ordering.
 
-Motion: finite reveal (800ms, 18px rise), campaign arrival (1.4s), restrained photo scaling, and functional rail controls. Shopper photography crossfades over 420ms, advances every 5s, supports pause/manual navigation, and pauses after manual navigation. Reduced motion disables animation, transitions, smooth scrolling and shopper autoplay.
+Motion: the GLC signature is a finite editorial arrival followed by quiet, functional shopping interactions: reveal (800ms, 18px rise), campaign arrival (1.4s), restrained photo scaling, and functional rail controls. Discovery path changes use a brief fade and 4px rise (300ms); promotional text uses a similar entrance (350ms). Keep product names, prices and choices stable while reading. Shopper photography crossfades over 420ms, advances every 5s, supports pause/manual navigation, and pauses after manual navigation. Reduced motion disables animation, transitions, smooth scrolling and shopper/promotion autoplay. Guide transitions move keyboard focus to the relevant heading or control, with no motion required to understand state.
+
+Future content commerce should connect real, authorized technique demonstrations and product photography to the corresponding catalog choices, preserving this editorial hierarchy. Add demonstrations only when real assets and permission exist; no placeholder players, invented videos or substitute merchandise imagery. Defer recently viewed products to avoid crowding the discovery and shopping flow.
 
 Focus: use the existing visible 3px #ad7446 outline with 4px offset; search uses a 2px berry focus-within outline with 3px offset. Pair color states with outlines, underlines or selected-control semantics. Mobile menus, category selection and dialogs must remain keyboard operable.
+
+Kit disclosure: keep the opening button's `aria-expanded` synchronized with the guide. Opening focuses its heading; closing returns focus to the opening button. The close action keeps a minimum 44px touch target at all widths. Changing technique preserves selections; clearing a required variant removes that product from the selection.
 
 ## Do's and Don'ts
 

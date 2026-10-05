@@ -95,7 +95,7 @@
     return source.replace(/^(\d+) productos$/, '$1 products').replace(/^(\d+) de (\d+) productos$/, '$1 of $2 products').replace(/^(\d+) opciones disponibles$/, '$1 available options').replace(/^Desde /, 'From ').replace(/^Snapshot del catálogo/, 'Catalog snapshot').replace(/^Todos (\d+)$/, 'All $1').replace(/^Ver detalles de /,'View details for ').replace(/^Elegir opciones de /,'Choose options for ').replace(/^Ver producto /,'View product ').replace(/^Pedir /,'Order ').replace(/, variante /,', variant ');
   }
   var originals = new WeakMap(), originalAttributes = new WeakMap();
-  var excluded = 'script,style,svg,.prod-card__name,.merch-card h3,#qvTitle,#qvVariant,.variant-chips,.cart-item__name,.cart-item__variant,.hero-brand-panel';
+  var excluded = 'script,style,svg,[data-growth],.prod-card__name,.merch-card h3,#qvTitle,#qvVariant,.variant-chips,.cart-item__name,.cart-item__variant,.hero-brand-panel';
   function translate(root) {
     if (root.nodeType === 3) { translateText(root); return; }
     if (root.nodeType !== 1 || root.closest(excluded)) return;
@@ -215,6 +215,13 @@
     });
     var total = cart.reduce(function (n,item) { return n + (item.price || 0) * item.quantity; },0), unknown = cart.some(function (item) { return item.price === null; });
     var totalRow = element('p','cart-total'); totalRow.append(element('span','',t(unknown ? 'Subtotal conocido' : 'Subtotal')),element('span','',money(total))); summary.appendChild(totalRow);
+    var shipping = element('div','shipping-progress');
+    var shippingText = total >= 30000
+      ? (language === 'en' ? 'Your order reaches the amount for free Central Valley delivery.' : 'Tu compra alcanza el monto para envío gratis al Valle Central.')
+      : (language === 'en' ? money(30000-total) + ' away from free Central Valley delivery.' : 'Te faltan ' + money(30000-total) + ' para envío gratis al Valle Central.');
+    var shippingLabel = element('p','',shippingText); shippingLabel.id = 'shippingProgressLabel';
+    var progress = element('progress'); progress.max = 30000; progress.value = Math.min(total,30000); progress.setAttribute('aria-labelledby','shippingProgressLabel');
+    shipping.append(shippingLabel,progress); summary.appendChild(shipping);
     summary.appendChild(element('p','',(unknown ? t('Hay productos con precio por confirmar.') + ' ' : '') + t('Confirmamos disponibilidad, envío y precio final por WhatsApp.')));
     var message = language === 'en' ? 'Hello! I would like to check availability for:\n\n' : '¡Hola! Quisiera consultar disponibilidad de:\n\n';
     cart.forEach(function (item) { message += item.quantity + ' × ' + item.name + (item.variant ? ' — ' + item.variant : '') + ' · ' + money(item.price) + (item.price !== null ? ' c/u · ' + money(item.price * item.quantity) : '') + '\n'; });
@@ -233,6 +240,7 @@
     document.documentElement.lang = language;
     languageControl.querySelectorAll('button').forEach(function (control) { control.setAttribute('aria-pressed',String(control.dataset.language === language)); });
     translate(document.body); renderCart();
+    document.dispatchEvent(new CustomEvent('glc:language', {detail:language}));
   }
   applyLanguage();
   // New filtered cards and quick-view prices use the same curated vocabulary.

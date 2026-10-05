@@ -11,7 +11,7 @@
     'Catálogo':'Catalog', 'Pedidos':'Orders', 'Citas':'Appointments', 'Más':'More', 'Menú':'Menu', 'Inicio':'Home',
     'Programas profesionales':'Professional programs', 'Entregas y pagos':'Delivery & payment', 'Recompensas':'Rewards',
     'Promociones de la semana:':'This week’s promotion:', '¡Envíos gratis al Valle Central':'Free Central Valley delivery',
-    'por':'on', 'compras mayores a ₡30,000!':'orders over ₡30,000!',
+    'por':'on', 'compras mayores a ₡25,000!':'orders over ₡25,000!',
     'Tu técnica.':'Your technique.', 'Tu estilo.':'Your style.', 'Tus esenciales.':'Your essentials.',
     'Insumos profesionales para pestañas, cejas y microblading. Encontrá extensiones, pinzas, adhesivos y kits para tu trabajo de cada día.':'Professional supplies for lashes, brows and microblading. Explore extensions, tweezers, adhesives and kits for your everyday work.',
     'Pedir por WhatsApp':'Order on WhatsApp', 'Explorar el catálogo':'Explore the catalog',
@@ -216,11 +216,11 @@
     var total = cart.reduce(function (n,item) { return n + (item.price || 0) * item.quantity; },0), unknown = cart.some(function (item) { return item.price === null; });
     var totalRow = element('p','cart-total'); totalRow.append(element('span','',t(unknown ? 'Subtotal conocido' : 'Subtotal')),element('span','',money(total))); summary.appendChild(totalRow);
     var shipping = element('div','shipping-progress');
-    var shippingText = total >= 30000
-      ? (language === 'en' ? 'Your order reaches the amount for free Central Valley delivery.' : 'Tu compra alcanza el monto para envío gratis al Valle Central.')
-      : (language === 'en' ? money(30000-total) + ' away from free Central Valley delivery.' : 'Te faltan ' + money(30000-total) + ' para envío gratis al Valle Central.');
+    var shippingText = total >= 25000
+      ? (language === 'en' ? '✓ Your order reaches the amount for free Central Valley delivery.' : '✓ Tu compra alcanza el monto para envío gratis al Valle Central.')
+      : (language === 'en' ? '₡' + (25000-total).toLocaleString('en-US') + ' away from free Central Valley delivery.' : 'Te faltan ₡' + (25000-total).toLocaleString('en-US') + ' para envío gratis al Valle Central.');
     var shippingLabel = element('p','',shippingText); shippingLabel.id = 'shippingProgressLabel';
-    var progress = element('progress'); progress.max = 30000; progress.value = Math.min(total,30000); progress.setAttribute('aria-labelledby','shippingProgressLabel');
+    var progress = element('progress'); progress.max = 25000; progress.value = Math.min(total,25000); progress.setAttribute('aria-labelledby','shippingProgressLabel');
     shipping.append(shippingLabel,progress); summary.appendChild(shipping);
     summary.appendChild(element('p','',(unknown ? t('Hay productos con precio por confirmar.') + ' ' : '') + t('Confirmamos disponibilidad, envío y precio final por WhatsApp.')));
     var message = language === 'en' ? 'Hello! I would like to check availability for:\n\n' : '¡Hola! Quisiera consultar disponibilidad de:\n\n';

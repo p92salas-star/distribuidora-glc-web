@@ -60,9 +60,13 @@ Use Fraunces for campaign and section hierarchy, Work Sans for commerce and read
 
 Shared content caps at 1360px with desktop gutters from the tokens; campaign and shopper compositions reach 1440px. Shared breakpoints are 1100px, 860px and 600px; gutters tighten to 28px then the mobile token. Main sections generally use 64–76px vertical padding, reducing to 44–48px on phones.
 
-The home composition uses a full-bleed photographic campaign, guided discovery, four verified photographic products, a black editorial interruption, a compact horizontal text-first product rail, an ivory apartados section, and burgundy programs/social. Preserve this varied rhythm when extending it.
+The Home campaign is a photographic diptych: a large lash-detail photograph, an inset monochrome preparation photograph, an oversized GLC signature and a dark editorial text field. Mobile preserves a large photographic opening before the headline. Photography remains visible without JavaScript; respect reduced motion for the finite mask reveal.
 
-Discovery pairs an underlined path selector with authorized editorial photography and an ivory product preview. Its two-column stage stacks at 600px; the eight paths become a two-column text selector. The expandable kit guide uses compact, divided product rows in two columns, then one on phones. Keep simple rows compact and give variant controls full mobile width; display the complete selected variant label below the price. Apartados uses four numbered steps across desktop and a vertical sequence on mobile, followed by payment terms and a clear WhatsApp action.
+The journey is campaign → oversized real-product selection → dark visual discovery → light editorial image spread → independent photographic kit entrance → lash product rail → burgundy photographic Apartados → programs, services, Personal Shopper and social. Adjacent sections vary in scale, color and structure. The four approved real-product photographs use a mixed-size composition with one oversized product and an image/text product row. Never substitute editorial imagery for a product photograph.
+
+Discovery uses eight photographic destination controls with visible gold selection outlines and real catalog mappings. Four columns become two at mobile sizes; imagery stays at least 200px tall. The selected destination retains a photograph and real product links. The kit lives in its own section, reachable both from discovery and its independent entrance. A technique photograph, three-step progress, exploration/restocking buttons, approved product thumbnails where available, selected states and visual review lead to the existing cart. Preserve variant requirements and selection across techniques.
+
+Apartados pairs large burgundy/white typography, a four-step gold-accented sequence and a large editorial photograph. Terms and WhatsApp remain visible below. On phones, headline, photo, steps and terms form a clear vertical progression. Personal Shopper pairs its existing authorized lookbook with dark readable text on a warm light surface.
 
 The white catalog uses four product columns, three at 860px and two at 600px. Mobile categories use a labeled native select; desktop categories use an underlined horizontal rail. The home product rail shows four items, three at 860px and 72%-wide items at 600px, with scrolling and arrow controls.
 
@@ -90,7 +94,7 @@ Apartados: use the existing ivory, berry and restrained gold hierarchy to explai
 
 Shopping bag: native right-side dialog, quantities 1–99, separate variants, localStorage persistence and an itemized WhatsApp inquiry. Preserve direct WhatsApp purchase. ES/EN translates curated interface text immediately; product names, brands and variant values stay verbatim. Header bag and language controls remain visible on mobile. No backend checkout.
 
-Shipping progress: a slim berry native progress bar and adjacent amount text show the known cart subtotal toward ₡30,000 for Valle Central delivery. Keep the region explicit, unknown-price notices visible and final delivery confirmation with WhatsApp; this is not a nationwide shipping promise.
+Shipping progress: a slim berry native progress bar and adjacent amount text show the known cart subtotal toward ₡25,000 for this week’s Valle Central delivery promotion. Qualification is inclusive at 25000; ₡18,500 leaves ₡6,500. Keep the region explicit, unknown-price notices visible and final delivery confirmation with WhatsApp; this is not a nationwide shipping promise.
 
 Images: crop authorized campaign/category/editorial photos with cover; show product photographs with contain and breathing room. Only four approved product images are currently whitelisted. Missing photographs stay compact and text-first, labeled “Fotografía pendiente”; do not substitute campaign or reference images for merchandise.
 

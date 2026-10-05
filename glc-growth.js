@@ -24,7 +24,7 @@
   var motion = window.matchMedia('(prefers-reduced-motion: reduce)');
   var messages = [
     ['PROMOCIONES DE LA SEMANA','THIS WEEK’S PROMOTIONS','catalogo.html'],
-    ['¡Envíos gratis al Valle Central por compras mayores a ₡30,000!','Free Central Valley delivery on orders over ₡30,000!','catalogo.html'],
+    ['¡Envíos gratis al Valle Central por compras mayores a ₡25,000!','Free Central Valley delivery on orders over ₡25,000!','catalogo.html'],
     ['Ahora contamos con sistema de apartados','You can now reserve products and pay over time','index.html#apartados'],
     ['Apartá desde ₡10,000 y completá tu pago hasta en 3 meses','Reserve from ₡10,000 and complete payment within 3 months','index.html#apartados'],
     ['Explorá nuestros esenciales para profesionales de belleza','Explore our essentials for beauty professionals','index.html#catalogo'],
@@ -68,7 +68,7 @@
     {id:'supplies',es:'Consumibles',en:'Supplies',cat:'Consumibles',image:'img/editorial/consumables.jpg',desc:['Reponé aplicadores, cepillos y parches sin recorrer todo el catálogo.','Restock applicators, brushes and patches without browsing the entire catalog.'],ids:['100-microaplicadores','50-aplicadores-sin-pelusa','50-cepillos','50-parches','toallas-libres-de-pelus','paq-de-100-toallas']}
   ].filter(function (path) { path.ids = path.ids.filter(function (id) { return byId.has(id); }); return path.ids.length && catalog.some(function (p) { return p.category === path.cat; }); });
   var experience = document.getElementById('discoveryExperience'), active = paths[0], selected = new Map(), kitOpen = false, purpose = 'start', review = false;
-  var nav, stage, kit, feedback;
+  var nav, stage, kit, feedback, kitFromEntrance = false;
   function candidates() { return active.ids.map(function (id) { return byId.get(id); }).filter(function (p) { return purpose !== 'refill' || ['Consumibles','Pegamentos y Adhesivos','Pestañas','Tintes y Henna','Lifting y Laminado','Microblading'].indexOf(p.category) !== -1; }); }
   function choosePath(path) {
     var restorePathFocus = nav.contains(document.activeElement);
@@ -80,7 +80,7 @@
   function renderDiscovery() {
     if (!experience) return;
     nav.replaceChildren();
-    paths.forEach(function (path) { var b = button(en ? path.en : path.es,function () { choosePath(path); },'discovery-path'); b.setAttribute('aria-pressed',String(path === active)); b.setAttribute('aria-controls','discoveryStage'); nav.appendChild(b); });
+    paths.forEach(function (path) { var b = button('',function () { choosePath(path); },'discovery-path'); var tile=el('img'); tile.src=path.image; tile.alt=''; tile.loading='lazy'; tile.width=400; tile.height=440; b.append(tile,el('span','discovery-path-label',en ? path.en : path.es)); b.setAttribute('aria-pressed',String(path === active)); b.setAttribute('aria-controls','discoveryStage'); nav.appendChild(b); });
     stage.replaceChildren();
     var photo = el('div','discovery-photo'), img = el('img'); img.src = active.image; img.alt = ''; img.width = 750; img.height = 700; img.loading = 'lazy'; photo.appendChild(img);
     var caption = el('span','discovery-caption',copy('Tu técnica. Tu selección.','Your technique. Your selection.')); photo.appendChild(caption);
@@ -90,33 +90,35 @@
     active.ids.slice(0,3).forEach(function (id) { var p = byId.get(id), item = el('li'); var a = link(p.name,'catalogo.html?product='+encodeURIComponent(id)); a.appendChild(el('span','',priceLabel(p))); item.appendChild(a); preview.appendChild(item); });
     detail.appendChild(preview);
     var actions = el('div','discovery-actions');
-    var build = button(copy('Armá tu kit','Build your kit'),function () { kitOpen = true; review = false; renderKit(); kit.scrollIntoView({behavior:motion.matches?'instant':'smooth',block:'start'}); kit.querySelector('h3').focus({preventScroll:true}); },'btn btn-primary'); build.setAttribute('aria-expanded',String(kitOpen)); build.setAttribute('aria-controls','kitBuilder');
+    var build = button(copy('Armá tu kit','Build your kit'),function () { kitFromEntrance = false; kitOpen = true; review = false; renderKit(); kit.scrollIntoView({behavior:motion.matches?'instant':'smooth',block:'start'}); kit.querySelector('h3').focus({preventScroll:true}); },'btn btn-primary'); build.setAttribute('aria-expanded',String(kitOpen)); build.setAttribute('aria-controls','kitBuilder');
     actions.append(build,link(copy('Ver categoría','View category'),'catalogo.html?cat='+encodeURIComponent(active.cat),'text-link'));
     detail.appendChild(actions); stage.append(photo,detail);
   }
   function selectionTotal() { var total=0, unknown=false; selected.forEach(function (index,id) { var price=productPrice(byId.get(id),index); if (typeof price==='number') total+=price; else unknown=true; }); return {total:total,unknown:unknown}; }
   function renderKit() {
+    var entrance = document.getElementById('openKitStudio');
+    if (entrance) { entrance.setAttribute('aria-expanded',String(kitOpen)); entrance.setAttribute('aria-controls','kitBuilder'); }
     var trigger = stage.querySelector('[aria-controls="kitBuilder"]');
     if (trigger) trigger.setAttribute('aria-expanded',String(kitOpen));
     kit.hidden = !kitOpen; if (!kitOpen) return;
     kit.replaceChildren();
     var top = el('div','kit-heading'), heading = el('h3','',review ? copy('Revisá tu selección','Review your selection') : copy('Armá tu kit','Build your kit')); heading.tabIndex=-1;
-    top.append(heading,button(copy('Cerrar guía','Close guide'),function () { kitOpen=false; kit.hidden=true; renderDiscovery(); stage.querySelector('button').focus(); },'text-link')); kit.appendChild(top);
+    top.append(heading,button(copy('Cerrar guía','Close guide'),function () { kitOpen=false; renderKit(); renderDiscovery(); (kitFromEntrance ? document.getElementById('openKitStudio') : stage.querySelector('button')).focus(); },'text-link')); kit.appendChild(top); var journey=el('ol','kit-journey'); [copy('Tu técnica','Your technique'),copy('Tu selección','Your selection'),copy('Al carrito','To your bag')].forEach(function(label,i){ var step=el('li',i===(review?2:1)?'is-current':'',label); if(i===(review?2:1)) step.setAttribute('aria-current','step'); journey.appendChild(step); }); kit.appendChild(journey); var kitPhoto=el('img','kit-technique-photo'); kitPhoto.src=active.image; kitPhoto.alt=''; kitPhoto.width=800; kitPhoto.height=300; kit.appendChild(kitPhoto);
     kit.appendChild(el('p','kit-intro',copy('Opciones para tu técnica, no un paquete cerrado. Elegí solo lo que ocupás. Confirmamos disponibilidad y compatibilidad por WhatsApp.','Options for your technique, not a fixed bundle. Choose only what you need. Availability and compatibility are confirmed on WhatsApp.')));
     if (!review) {
       var decisions = el('div','kit-decisions');
       var techniqueLabel = el('label','',copy('1. Tu técnica','1. Your technique')), techniques = el('select'); techniques.id='kitTechnique'; techniqueLabel.htmlFor=techniques.id;
       paths.forEach(function (path) { var opt=el('option','',en?path.en:path.es); opt.value=path.id; opt.selected=path===active; techniques.appendChild(opt); });
       techniques.addEventListener('change',function () { choosePath(paths.find(function (p) { return p.id===techniques.value; })); kit.querySelector('#kitTechnique').focus(); }); techniqueLabel.appendChild(techniques);
-      var purposeLabel = el('label','',copy('2. ¿Por dónde empezamos?','2. Where shall we start?')), purposes=el('select'); purposes.id='kitPurpose'; purposeLabel.htmlFor=purposes.id;
-      [['start',copy('Explorar opciones / estoy empezando','Explore options / getting started')],['refill',copy('Reponer productos','Restock products')]].forEach(function (pair) { var opt=el('option','',pair[1]); opt.value=pair[0]; opt.selected=purpose===pair[0]; purposes.appendChild(opt); });
-      purposes.addEventListener('change',function () { purpose=purposes.value; renderKit(); kit.querySelector('#kitPurpose').focus(); }); purposeLabel.appendChild(purposes); decisions.append(techniqueLabel,purposeLabel); kit.appendChild(decisions);
+      var purposeLabel = el('div','kit-purpose',copy('¿Por dónde empezamos?','Where shall we start?')), purposes=el('div','kit-purpose-options'); purposes.setAttribute('role','group'); purposes.setAttribute('aria-label',copy('Objetivo de tu selección','Selection purpose'));
+      [['start',copy('Explorar opciones','Explore options')],['refill',copy('Reponer productos','Restock products')]].forEach(function (pair) { var opt=button(pair[1],function(){purpose=pair[0];renderKit();kit.querySelector('[data-purpose="'+purpose+'"]').focus();}); opt.dataset.purpose=pair[0]; opt.setAttribute('aria-pressed',String(purpose===pair[0])); purposes.appendChild(opt); });
+      purposeLabel.appendChild(purposes); decisions.append(techniqueLabel,purposeLabel); kit.appendChild(decisions);
     }
     var list=el('div','kit-products');
     var items=review ? Array.from(selected.keys()).map(function (id) { return byId.get(id); }) : candidates();
     if (!items.length) list.appendChild(el('p','',copy('No hay opciones en esta vista. Explorá otra técnica o continuá al catálogo.','No options in this view. Explore another technique or continue to the catalog.')));
     items.forEach(function (p) {
-      var row=el('article','kit-product'), title=el('h4'); title.appendChild(link(p.name,'catalogo.html?product='+encodeURIComponent(p.id))); row.appendChild(title);
+      var row=el('article','kit-product'), title=el('h4'); title.appendChild(link(p.name,'catalogo.html?product='+encodeURIComponent(p.id))); row.appendChild(title); if ((window.GLC_IMAGE_PATHS||[]).indexOf(p.image)!==-1) { var thumb=el('img','kit-product-photo'); thumb.src=p.image; thumb.alt=p.name; thumb.width=220; thumb.height=200; thumb.loading='lazy'; row.prepend(thumb); row.classList.add('has-photo'); }
       var variants=p.variants||[], index=selected.has(p.id)?selected.get(p.id):null;
       var price=el('p','kit-price',variants.length && index===null?priceLabel(p):money(productPrice(p,index))); row.appendChild(price);
       var controls=el('div','kit-product-controls'), variantSelect, variantLabel;
@@ -161,7 +163,7 @@
     stage=el('div','discovery-stage'); stage.id='discoveryStage';
     kit=el('div','kit-builder'); kit.id='kitBuilder'; kit.hidden=true;
     feedback=el('p','sr-only'); feedback.setAttribute('role','status');
-    experience.append(nav,stage,kit,feedback);
+    experience.append(nav,stage,feedback); (document.getElementById('kitStudioMount')||experience).appendChild(kit); var kitEntrance=document.getElementById('openKitStudio'); if(kitEntrance) kitEntrance.addEventListener('click',function(event){event.preventDefault(); kitFromEntrance=true; kitOpen=true; review=false; renderKit(); kit.scrollIntoView({behavior:motion.matches?'instant':'smooth',block:'start'}); kit.querySelector('h3').focus({preventScroll:true});});
   }
   function render() { translateStatic(); renderPromo(); if (nav) { nav.setAttribute('aria-label',copy('Elegí tu técnica o producto','Choose your technique or product')); renderDiscovery(); renderKit(); } }
   document.addEventListener('glc:language',function () { en=document.documentElement.lang==='en'; render(); });

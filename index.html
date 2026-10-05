@@ -1901,6 +1901,7 @@
   }
 </style>
 <link rel="stylesheet" href="glc-commerce.css">
+<link rel="stylesheet" href="glc-media.css?v=media-25000">
 </head>
 <body class="home-page">
 
@@ -1935,7 +1936,7 @@
 
 <div class="promo-banner" id="promoBanner">
   <div class="promo-banner__inner">
-    <p class="promo-banner__text"><span class="promo-tag"><svg class="icon" aria-hidden="true"><use href="#i-sparkle"/></svg> Promociones de la semana:</span><span class="promo-benefit"><strong>¡Envíos gratis al Valle Central</strong> por <strong class="promo-threshold">compras mayores a ₡30,000!</strong></span></p>
+    <p class="promo-banner__text"><span class="promo-tag"><svg class="icon" aria-hidden="true"><use href="#i-sparkle"/></svg> Promociones de la semana:</span><span class="promo-benefit"><strong>¡Envíos gratis al Valle Central</strong> por <strong class="promo-threshold">compras mayores a ₡25,000!</strong></span></p>
     <button class="promo-banner__close" type="button" aria-label="Cerrar banner promocional"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button>
   </div>
 </div>
@@ -1970,7 +1971,7 @@
 </header>
 
 <main id="main-content">
-<section class="hero has-image" aria-labelledby="hero-title">
+<section class="hero has-image media-campaign" aria-labelledby="hero-title">
   <div class="wrap">
     <div class="hero-copy">
       <div class="hero-copy__top">
@@ -1987,25 +1988,14 @@
       <p class="hero-delivery">Entrega en el Valle Central y envíos a todo Costa Rica.</p>
     </div>
     <div class="hero-brand-panel" aria-label="Distribuidora GLC by Gaudi Lara"><span class="hero-brand-name">Distribuidora</span><span class="hero-brand-initials">GLC</span><span class="hero-brand-signature">by Gaudi Lara</span></div>
+    <figure class="campaign-detail"><img src="img/editorial/preparation.jpg" alt="Detalle de extensiones de pestañas y aislamiento profesional" width="1500" height="1125" decoding="async"></figure>
     <figure class="hero-media">
-      <img src="img/hero-lash-application.jpg" alt="Aplicación profesional de extensiones de pestañas con pinzas y aislamiento" width="2000" height="1333" loading="eager" fetchpriority="high" decoding="async">
+      <img src="img/editorial/lashes.jpg" alt="Detalle del cepillado de extensiones de pestañas" width="995" height="1500" loading="eager" fetchpriority="high" decoding="async">
     </figure>
   </div>
 </section>
 
 <div class="commerce-band"><span>Tu estudio. Tus herramientas. Tu siguiente creación.</span><a href="catalogo.html">Explorá <span data-public-count>—</span> esenciales de belleza ↗</a></div>
-<div class="catalog-wrap" id="catalogo">
-  <section>
-    <div class="wrap">
-      <div id="discovery" data-growth>
-        <div class="section-head section-head--commerce"><h2 data-en="What are you creating today?">¿Qué ocupás hoy?</h2><p data-en="Tell us what you’re creating. We’ll show you where to start.">Decinos qué vas a crear y te mostramos por dónde empezar.</p></div>
-        <div id="discoveryExperience" hidden></div>
-        <a class="text-link" href="catalogo.html" data-en="Explore all categories">Ver todas las categorías</a>
-      </div>
-    </div>
-  </section>
-</div>
-
 <div class="real-catalog" id="catalogo-real">
   <section>
     <div class="wrap">
@@ -2027,12 +2017,28 @@
   </section>
 </div>
 
+<div class="catalog-wrap" id="catalogo">
+  <section>
+    <div class="wrap">
+      <div id="discovery" data-growth>
+        <div class="section-head section-head--commerce"><h2 data-en="What are you creating today?">¿Qué ocupás hoy?</h2><p data-en="Tell us what you’re creating. We’ll show you where to start.">Decinos qué vas a crear y te mostramos por dónde empezar.</p></div>
+        <div id="discoveryExperience" hidden></div>
+        <a class="text-link" href="catalogo.html" data-en="Explore all categories">Ver todas las categorías</a>
+      </div>
+    </div>
+  </section>
+</div>
+
 <section class="cine" id="cine" aria-labelledby="atelier-title">
   <div class="atelier">
-    <figure class="atelier__image"><img src="img/editorial/lashes.jpg" alt="Detalle de pestañas y trabajo de precisión en un servicio profesional" width="995" height="1500" loading="lazy" decoding="async"></figure>
+    <figure class="atelier__image"><img src="img/hero-lash-application.jpg" alt="Aplicación de pestañas y trabajo de precisión en un servicio profesional" width="2000" height="1333" loading="lazy" decoding="async"></figure>
     <div class="atelier__copy"><h2 id="atelier-title">El detalle<br>lo cambia<br><em>todo.</em></h2><p>Tu mirada profesional hace la diferencia. Encontrá pestañas, pinzas y adhesivos para darle forma a cada técnica.</p><a class="text-link" href="catalogo.html?cat=Pesta%C3%B1as">Explorar pestañas <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a><div class="atelier__detail"><img src="img/editorial/tools.jpg" alt="Herramientas y accesorios de belleza" width="1500" height="1000" loading="lazy" decoding="async"><span>Productos reales.<br>Para profesionales reales.</span></div></div>
   </div>
 </section>
+<section class="kit-invitation" id="kit-studio" data-growth>
+<figure><img src="img/editorial/tools.jpg" alt="Herramientas de trabajo para profesionales de belleza" width="1500" height="1000" loading="lazy"></figure>
+<div class="kit-invitation-copy"><h2 data-en="Your next kit.<br>Chosen by you.">Tu próximo kit.<br><em>Elegido por vos.</em></h2><p data-en="Choose your technique, explore real products and review your selection before adding it to your bag.">Elegí tu técnica, explorá productos reales y revisá tu selección antes de agregarla al carrito.</p><a class="btn btn-primary" href="catalogo.html" id="openKitStudio" data-en="Build your kit">Armá tu kit</a></div>
+<div id="kitStudioMount" class="wrap"></div></section>
 <section class="lash-edit" aria-labelledby="lash-edit-title"><div class="wrap"><div class="lash-edit__heading"><h2 id="lash-edit-title">Una mirada.<br>Muchas posibilidades.</h2><div class="rail-controls"><button type="button" data-rail-prev aria-label="Ver productos anteriores" aria-controls="lashRail"><svg class="icon" aria-hidden="true" style="transform:rotate(180deg)"><use href="#i-arrow-right"/></svg></button><button type="button" data-rail-next aria-label="Ver siguientes productos" aria-controls="lashRail"><svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></button></div></div><div class="product-rail" id="lashRail" tabindex="0" role="region" aria-label="Selección de pestañas y herramientas"></div></div></section>
 
 
@@ -2125,7 +2131,7 @@
 
 <section class="layaway" id="apartados" data-growth aria-labelledby="apartadosTitle">
   <div class="wrap">
-    <div class="layaway-intro"><h2 id="apartadosTitle" data-en="Reserve now. Pay at your pace.">Sistema de<br><em>apartados.</em></h2><p data-en="Reserve today, secure what you love and pay at your own pace.">Reserva hoy, asegura lo que amas y págalo a tu ritmo.</p></div>
+    <figure class="layaway-photo"><img src="img/editorial/consumables.jpg" alt="Materiales para tu espacio de belleza" width="1500" height="1000" loading="lazy"></figure><div class="layaway-intro"><h2 id="apartadosTitle" data-en="Reserve now. Pay at your pace.">Sistema de<br><em>apartados.</em></h2><p data-en="Reserve today, secure what you love and pay at your own pace.">Reserva hoy, asegura lo que amas y págalo a tu ritmo.</p></div>
     <ol class="layaway-steps">
       <li><span class="layaway-number" aria-hidden="true">01</span><h3 data-en="Choose">Elige</h3><p data-en="Select the products you would like to reserve.">Selecciona los productos que deseas apartar.</p></li>
       <li><span class="layaway-number" aria-hidden="true">02</span><h3 data-en="Reserve">Aparta</h3><p data-en="Reserve with an initial payment from ₡10,000.">Puedes apartar desde <strong>₡10,000</strong> colones.</p></li>
@@ -3221,7 +3227,7 @@
 </script>
 
 <script src="glc-commerce.js"></script>
-<script src="glc-store.js"></script>
-<script src="glc-growth.js"></script>
+<script src="glc-store.js?v=media-25000"></script>
+<script src="glc-growth.js?v=media-25000"></script>
 </body>
 </html>

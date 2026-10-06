@@ -63,8 +63,8 @@
       article.appendChild(link); target.appendChild(article);
     });
   }
-  renderMerch(document.getElementById('featuredGrid'), ['tinte-pestanas','maquina-de-cera','agujas-microblanding','vitamina-ayd']);
-  renderMerch(document.getElementById('lashRail'), ['pestanas-diy-day-clasi','pestanas-diy-day-3d','diy-day-foxy','diy-day-autofloracion','tinte-pestanas','pinzas-diy-day-unidad']);
+  renderMerch(document.getElementById('featuredGrid'), ['henna-iconsing','dermapen-tambien','cepillos-con-tubito','50-aplicadores-sin-pelusa']);
+  renderMerch(document.getElementById('lashRail'), ['pestanas-tecnologicas-3d-4d-5d-6d-7d','pestanas-nagaraku-mi','pestanas-en-y','volume-bubble','super-bonder-v2','tijeras-de-pestanas']);
   var rail = document.getElementById('lashRail');
   if (rail) {
     var prev = document.querySelector('[data-rail-prev]'); var next = document.querySelector('[data-rail-next]');

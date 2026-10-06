@@ -1,0 +1,281 @@
+{
+  "source": "Gaudi Lara — authorized product imagery, 2026-10-06",
+  "treatment": "Preserve complete composition and product colors; no retouching. JPEG at maximum 1000px, quality 88 where beneficial; retain original bytes for smaller efficient sources.",
+  "entries": [
+    {
+      "item": 1,
+      "emailIdentity": "Boquilla para adhesivo",
+      "original": "IMG_8313.jpeg",
+      "sourceFile": "01-boquilla-para-adhesivo.jpeg",
+      "productId": "boquilla-para-adhesivo",
+      "catalogName": "Boquilla para adhesivo ...",
+      "status": "matched",
+      "production": "img/catalog/owner/boquilla-para-adhesivo.jpg",
+      "evidence": "Manifest identity, current catalog name/category, and visible product type/packaging reviewed together."
+    },
+    {
+      "item": 2,
+      "emailIdentity": "Frasco para conservar el Adhesivo",
+      "original": "IMG_8314.jpeg",
+      "sourceFile": "02-frasco-para-conservar-adhesivo.jpeg",
+      "productId": "frasco-para-conservar",
+      "catalogName": "Frasco para conservar ...",
+      "status": "matched",
+      "production": "img/catalog/owner/frasco-para-conservar.jpg",
+      "evidence": "Owner explicitly confirms the active CRC 4000 jar record; CRC 5500 record excluded."
+    },
+    {
+      "item": 3,
+      "emailIdentity": "Microporo",
+      "original": "IMG_8315.jpeg",
+      "sourceFile": "03-microporo.jpeg",
+      "productId": "microporo",
+      "catalogName": "Microporo",
+      "status": "matched",
+      "production": "img/catalog/owner/microporo.jpg",
+      "evidence": "Manifest identity, current catalog name/category, and visible product type/packaging reviewed together."
+    },
+    {
+      "item": 4,
+      "emailIdentity": "50 aplicadores sin pelusa",
+      "original": "IMG_8316.jpeg",
+      "sourceFile": "04-50-aplicadores-sin-pelusa.jpeg",
+      "productId": "50-aplicadores-sin-pelusa",
+      "catalogName": "50 aplicadores sin pelusa",
+      "status": "matched",
+      "production": "img/catalog/owner/50-aplicadores-sin-pelusa.jpg",
+      "evidence": "Manifest identity, current catalog name/category, and visible product type/packaging reviewed together."
+    },
+    {
+      "item": 5,
+      "emailIdentity": "lifting Golle",
+      "original": "IMG_8317.jpeg",
+      "sourceFile": "05-lifting-golle.jpeg",
+      "productId": "lifting-golle",
+      "catalogName": "lifting golle",
+      "status": "matched",
+      "production": "img/catalog/owner/lifting-golle.jpg",
+      "evidence": "Manifest identity, current catalog name/category, and visible product type/packaging reviewed together."
+    },
+    {
+      "item": 6,
+      "emailIdentity": "cepillos con tubito",
+      "original": "IMG_8318.jpeg",
+      "sourceFile": "06-cepillos-con-tubito.jpeg",
+      "productId": "cepillos-con-tubito",
+      "catalogName": "Cepillos con tubito",
+      "status": "matched",
+      "production": "img/catalog/owner/cepillos-con-tubito.jpg",
+      "evidence": "Manifest identity, current catalog name/category, and visible product type/packaging reviewed together."
+    },
+    {
+      "item": 7,
+      "emailIdentity": "pestañas en Y",
+      "original": "IMG_8319.jpeg",
+      "sourceFile": "07-pestanas-en-y.jpeg",
+      "productId": "pestanas-en-y",
+      "catalogName": "Pestañas en Y",
+      "status": "matched",
+      "production": "img/catalog/owner/pestanas-en-y.jpg",
+      "evidence": "Manifest identity, current catalog name/category, and visible product type/packaging reviewed together."
+    },
+    {
+      "item": 8,
+      "emailIdentity": "pinza de aislar",
+      "original": "IMG_8320.jpeg",
+      "sourceFile": "08-pinza-de-aislar.jpeg",
+      "productId": "pinza-de-aislar-nariz",
+      "catalogName": "Pinza de aislar nariz...",
+      "status": "matched",
+      "production": "img/catalog/owner/pinza-de-aislar-nariz.jpg",
+      "evidence": "Owner confirms N02 is the isolation tweezer and explicitly assigns photo 8 to pinza-de-aislar-nariz. This supersedes the earlier visual model-label interpretation; price CRC 5500 preserved. N-04 record untouched."
+    },
+    {
+      "item": 9,
+      "emailIdentity": "Dermapen",
+      "original": "IMG_8321.jpeg",
+      "sourceFile": "09-dermapen.jpeg",
+      "productId": "dermapen-tambien",
+      "catalogName": "Dermapen (también...)",
+      "status": "matched",
+      "production": "img/catalog/owner/dermapen-tambien.jpg",
+      "evidence": "Manifest identity, current catalog name/category, and visible product type/packaging reviewed together."
+    },
+    {
+      "item": 10,
+      "emailIdentity": "Henna iconsing",
+      "original": "IMG_8322.jpeg",
+      "sourceFile": "10-henna-iconsing.jpeg",
+      "productId": "henna-iconsing",
+      "catalogName": "Henna iconsing",
+      "status": "matched",
+      "production": "img/catalog/owner/henna-iconsing.jpg",
+      "evidence": "Manifest identity, current catalog name/category, and visible product type/packaging reviewed together."
+    },
+    {
+      "item": 11,
+      "emailIdentity": "tijera",
+      "original": "IMG_8324.jpeg",
+      "sourceFile": "11-tijera.jpeg",
+      "productId": "tijeras-de-pestanas",
+      "catalogName": "Tijeras de pestañas",
+      "status": "matched",
+      "production": "img/catalog/owner/tijeras-de-pestanas.jpg",
+      "evidence": "Manifest identity, current catalog name/category, and visible product type/packaging reviewed together."
+    },
+    {
+      "item": 12,
+      "emailIdentity": "volume bubble",
+      "original": "IMG_8325.jpeg",
+      "sourceFile": "12-volume-bubble.jpeg",
+      "productId": "volume-bubble",
+      "catalogName": "Volume bubble",
+      "status": "matched",
+      "production": "img/catalog/owner/volume-bubble.jpg",
+      "evidence": "Manifest identity, current catalog name/category, and visible product type/packaging reviewed together."
+    },
+    {
+      "item": 13,
+      "emailIdentity": "pestañas nagaraku mixtas",
+      "original": "IMG_8326.jpeg",
+      "sourceFile": "13-pestanas-nagaraku-mixtas.jpeg",
+      "productId": "pestanas-nagaraku-mi",
+      "catalogName": "Pestañas Nagaraku mi...",
+      "status": "matched",
+      "production": "img/catalog/owner/pestanas-nagaraku-mi.jpg",
+      "evidence": "Manifest identity, current catalog name/category, and visible product type/packaging reviewed together."
+    },
+    {
+      "item": 14,
+      "emailIdentity": "microaplicadores",
+      "original": "IMG_1804.jpeg",
+      "sourceFile": "14-microaplicadores.jpeg",
+      "productId": "100-microaplicadores",
+      "catalogName": "100 Microaplicadores",
+      "status": "matched",
+      "production": "img/catalog/owner/100-microaplicadores.jpg",
+      "evidence": "Manifest identity, current catalog name/category, and visible product type/packaging reviewed together."
+    },
+    {
+      "item": 15,
+      "emailIdentity": "organizador para almacenar",
+      "original": "IMG_8328.jpeg",
+      "sourceFile": "15-organizador-para-almacenar.jpeg",
+      "productId": "organizacion-para-almacenar",
+      "catalogName": "Organización para almacenar...",
+      "status": "matched",
+      "production": "img/catalog/owner/organizacion-para-almacenar.jpg",
+      "evidence": "Manifest identity, current catalog name/category, and visible product type/packaging reviewed together."
+    },
+    {
+      "item": 16,
+      "emailIdentity": "almohada",
+      "original": "IMG_8329.jpeg",
+      "sourceFile": "16-almohada.jpeg",
+      "productId": "almohada-rosada-o-negra",
+      "catalogName": "Almohada rosada o negra...",
+      "status": "matched",
+      "production": "img/catalog/owner/almohada-rosada-o-negra.jpg",
+      "evidence": "Manifest identity, current catalog name/category, and visible product type/packaging reviewed together."
+    },
+    {
+      "item": 17,
+      "emailIdentity": "trasporo",
+      "original": "IMG_8330.jpeg",
+      "sourceFile": "17-trasporo.jpeg",
+      "productId": "transporo",
+      "catalogName": "Transporo",
+      "status": "matched",
+      "production": "img/catalog/owner/transporo.jpg",
+      "evidence": "Manifest identity, current catalog name/category, and visible product type/packaging reviewed together."
+    },
+    {
+      "item": 18,
+      "emailIdentity": "anillos",
+      "original": "IMG_8331.jpeg",
+      "sourceFile": "18-anillos.jpeg",
+      "productId": "anillos-paq-100",
+      "catalogName": "Anillos paq 100",
+      "status": "matched",
+      "production": "img/catalog/owner/anillos-paq-100.jpg",
+      "evidence": "Owner confirms canonical anillos-paq-100 with S/M variants and corrected price CRC 2500. Other ring records retained."
+    },
+    {
+      "item": 19,
+      "emailIdentity": "pestañas técnologicas",
+      "original": "IMG_8332.jpeg",
+      "sourceFile": "19-pestanas-tecnologicas.jpeg",
+      "productId": "pestanas-tecnologicas-3d-4d-5d-6d-7d",
+      "catalogName": "Pestañas tecnológicas mixtas",
+      "status": "matched",
+      "production": "img/catalog/owner/pestanas-tecnologicas-3d-4d-5d-6d-7d.jpg",
+      "evidence": "Manifest identity, current catalog name/category, and visible product type/packaging reviewed together."
+    },
+    {
+      "item": 20,
+      "emailIdentity": "basurero",
+      "original": "IMG_8333.jpeg",
+      "sourceFile": "20-basurero.jpeg",
+      "productId": "basurero-de-desechos",
+      "catalogName": "Basurero de desechos",
+      "status": "matched",
+      "production": "img/catalog/owner/basurero-de-desechos.jpg",
+      "evidence": "Manifest identity, current catalog name/category, and visible product type/packaging reviewed together."
+    },
+    {
+      "item": 21,
+      "emailIdentity": "Microagujas",
+      "original": "IMG_8334.jpeg",
+      "sourceFile": "21-microagujas.jpeg",
+      "productId": "microagujas",
+      "catalogName": "Microagujas",
+      "status": "matched",
+      "production": "img/catalog/owner/microagujas.jpg",
+      "evidence": "Manifest identity, current catalog name/category, and visible product type/packaging reviewed together."
+    },
+    {
+      "item": 22,
+      "emailIdentity": "inductor",
+      "original": "IMG_8335.jpeg",
+      "sourceFile": "22-inductor.jpeg",
+      "productId": "inductor-tebori-doble",
+      "catalogName": "Inductor tebori doble",
+      "status": "matched",
+      "production": "img/catalog/owner/inductor-tebori-doble.jpg",
+      "evidence": "Manifest identity, current catalog name/category, and visible product type/packaging reviewed together."
+    },
+    {
+      "item": 23,
+      "emailIdentity": "súper Bonder",
+      "original": "IMG_8336.jpeg",
+      "sourceFile": "23-super-bonder.jpeg",
+      "productId": "super-bonder-v2",
+      "catalogName": "SUPER BONDER V2",
+      "status": "matched",
+      "production": "img/catalog/owner/super-bonder-v2.jpg",
+      "evidence": "Manifest identity, current catalog name/category, and visible product type/packaging reviewed together."
+    },
+    {
+      "item": 24,
+      "emailIdentity": "abanico",
+      "original": "IMG_8337.jpeg",
+      "sourceFile": "24-abanico.jpeg",
+      "productId": "abanico-recargable-par",
+      "catalogName": "Abanico recargable par...",
+      "status": "matched",
+      "production": "img/catalog/owner/abanico-recargable-par.jpg",
+      "evidence": "Owner confirms all three active fan records are rechargeable and CRC 4000. Photo assigned to the primary rechargeable listing abanico-recargable-par; other two records retain their image fields because identical physical models are not established."
+    },
+    {
+      "item": 25,
+      "emailIdentity": "almohada más organizador",
+      "original": "IMG_8338.jpeg",
+      "sourceFile": "25-almohada-mas-organizador.jpeg",
+      "productId": "almohada-lashista-mas",
+      "catalogName": "Almohada lashista más...",
+      "status": "matched",
+      "production": "img/catalog/owner/almohada-lashista-mas.jpg",
+      "evidence": "Manifest identity, current catalog name/category, and visible product type/packaging reviewed together."
+    }
+  ]
+}

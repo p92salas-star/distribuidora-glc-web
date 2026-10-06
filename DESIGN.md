@@ -2,17 +2,17 @@
 name: Distribuidora GLC
 description: An editorial beauty counter with clear techniques and equally weighted merchandise.
 colors:
-  berry: "#781f38"
-  berry-dark: "#551529"
-  ivory: "#f7f3ed"
+  berry: "#653444"
+  berry-dark: "#492633"
+  ivory: "#f7f4ef"
   paper: "#fff"
-  ink: "#241c20"
-  ink-soft: "#665b60"
+  ink: "#2c2727"
+  ink-soft: "#655e5c"
   line: "#ded6d2"
-  blush-panel: "#f3e8e9"
+  blush-panel: "#f0ebe6"
   shopper-paper: "#f0e9e2"
-  gold: "#89632e"
-  gold-light: "#e9cb96"
+  gold: "#806b49"
+  gold-light: "#d9c9ac"
 typography:
   display: {fontFamily: "Fraunces, serif", fontSize: "clamp(52px, 5vw, 72px)", fontWeight: 400, lineHeight: 1.06, letterSpacing: "-.04em"}
   headline: {fontFamily: "Fraunces, serif", fontSize: "clamp(36px, 3.5vw, 50px)", fontWeight: 400, lineHeight: 1.12, letterSpacing: "-.035em"}
@@ -60,9 +60,9 @@ This documents the implemented home replacement: glc-home.css loads after glc-co
 
 ## Colors
 
-Primary: berry anchors actions, selected category underlines and reservations; berry-dark marks hover. Neutral: ivory and paper alternate shopping surfaces; ink and ink-soft separate primary text from supporting copy; line provides quiet dividers. Blush-panel softens the kit and social sections; shopper-paper carries personal shopping. Gold and gold-light remain supporting commerce accents.
+Primary: muted wine anchors actions and selected category underlines; berry-dark marks hover. Reservations use espresso-charcoal (#392e32), preserving contrast while letting the existing beauty photograph supply color. Neutral: ivory and paper alternate shopping surfaces; ink and ink-soft separate primary text from supporting copy; line provides quiet dividers. The warm neutral panel softens the kit and social sections; shopper-paper carries personal shopping. Gold and gold-light remain supporting commerce accents.
 
-**The Contrast Rule.** Keep dark readable copy on the light hero and service panels. Use white copy on the burgundy reservation panel.
+**The Contrast Rule.** Keep dark readable copy on the light hero and service panels. Use white and warm light copy on the espresso-charcoal reservation panel.
 
 ## Typography
 
@@ -76,7 +76,7 @@ Home content caps at (1280px), including gutters; large split compositions cap a
 
 The hero splits ivory copy and one lash photograph evenly with a desktop minimum height of (620px). Mobile places copy before the (330px) photo. Discovery and featured products use four equal columns, becoming two on phones. Discovery images are (4:3), becoming square on phones; product fields stay square with contained product photography. Selected discovery content is a compact text-only ivory panel, split between description/actions and real product links on desktop, stacked on phones.
 
-The kit has a separate two-column invitation, stacking on phones. Services use simpler splits and visible pauses. Reservations keep four steps, photograph, terms and action together. Social links are quiet ruled rows; the ivory footer separates contact, navigation and information. The phone product rail uses (78%) item widths. Do not propagate home overrides to the standalone catalog.
+The kit has a separate two-column invitation, stacking on phones. Services use simpler splits and visible pauses. Reservations keep four steps, photograph, terms and action together. Social links are quiet ruled rows; the ivory footer separates contact, navigation and information. The phone product rail uses (78%) item widths. Keep home layout overrides scoped to Home. Shared palette tokens and truthful owner-image treatment also apply to the standalone catalog.
 
 ## Elevation & Depth
 
@@ -109,3 +109,13 @@ Reservation terms remain unchanged: initial payment from ₡10,000, payments fro
 - Don't restore the superseded diptych, oversized product hierarchy, photographic selection panel or invented hero signature.
 - Don't invent stock, discounts, urgency, testimonials, product records or service claims.
 - Don't alter catalog behavior or reservation terms through a visual refresh.
+
+## Owner photography refinement — 6 October 2026
+
+The approved architecture remains intact. The hero is a single static technique image; there is no hero carousel. No new distributor program was added. The existing B2B inquiry has no connected persistence endpoint.
+
+Owner photographs now lead the four featured products, six-product lash/tool rail, four relevant discovery destinations, and their existing catalog/quick-view/kit entries. Complete source compositions are contained, with no blend mode, grading or recoloring. All 25 owner images are resolved; identity decisions and conservative fan-photo reuse are documented in img/catalog/owner/manifest.json and SOURCES.md.
+
+Product category labels use natural case. Mobile supporting copy is 15px; reservation details are 14px. Reservation steps preserve the two-column sequence with each step’s full width available to its text. Social colors are small icon accents, and catalog header controls now share that restraint. The spacing scale, editorial Fraunces/Work Sans pairing and existing focus/reduced-motion behavior are preserved.
+
+Figma and Adobe tools were unavailable in this session; no external design file or Adobe treatment is claimed. This implemented system remains the design reference.

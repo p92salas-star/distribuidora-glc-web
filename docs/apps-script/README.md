@@ -1,6 +1,6 @@
 # GLC public web backend — manual activation
 
-**Schema diagnostic update ready; live root cause not yet established.** The owner confirms the current public GET works, but order POST returns the former generic `ORDER_SCHEMA_MISMATCH`. Use [glc-web-backend.gs](glc-web-backend.gs) in the project bound to **Control GLC — MASTER**, ID `1QydykhTtaD5HqpB04opPU0MTUTeWxKt3YOQkBJTAMA4`. The older, separate order endpoint returns anonymous POST HTTP 401; do not modify/delete that old deployment or reuse it.
+**Order placement hotfix ready.** The owner confirms live order persistence and idempotent retries now work; the prior schema failure was UTF-8 mojibake introduced by Windows PowerShell clipboard copying, now resolved. The successful order landed at row 301 because `getLastRow()` counted Total formulas through row 300. Use [glc-web-backend.gs](glc-web-backend.gs) in the project bound to **Control GLC — MASTER**, ID `1QydykhTtaD5HqpB04opPU0MTUTeWxKt3YOQkBJTAMA4`. The older, separate order endpoint returns anonymous POST HTTP 401; do not modify/delete that old deployment or reuse it.
 
 The unified file includes the unchanged, tested distributor module. **Do not also paste `distributor-leads.gs` or `master-routing-snippet.gs`**: that would duplicate declarations. The older routing-insertion approach is superseded. This file defines exactly one `doGet` and one `doPost`. All writes open MASTER explicitly; no other workbook or endpoint is used.
 
@@ -8,8 +8,8 @@ The unified file includes the unchanged, tested distributor module. **Do not als
 
 1. In the current MASTER-bound public backend project, replace **all contents of Código.gs** with `glc-web-backend.gs`. Keep exactly one `doGet` and `doPost`; do not add the separately bundled modules. Save.
 2. **Deploy → Manage deployments → select the current public Web app → Edit → New version → Deploy**. Keep the same `/exec`, Execute as Me and access Anyone. Do not create another endpoint or change the spreadsheet.
-3. Anonymous GET on that same `/exec` must return `build: "2026-10-07-schema-fix-1"` with `ok:true`, `service:"glc-web-backend"`, `master:true`. A missing/different build proves this corrected GET is not being served; do not proceed to order writes until it matches. The marker identifies this source revision, not a successful Sheets write.
-4. Retest the controlled valid order, then its identical retry using the same order_id. Expect one persisted row, then duplicate success. If it fails, capture the returned JSON including build/error/column/reason. No raw sheet values are included. A legacy `ORDER_SCHEMA_MISMATCH` response cannot come from this file's corrected order path: check the deployed version/URL and duplicate handler definitions before changing any sheet cells.
+3. Copy directly from the UTF-8 file/editor to avoid the resolved clipboard encoding issue. GET diagnostics and the existing build `2026-10-07-schema-fix-1` are unchanged by this placement-only patch; that marker alone cannot distinguish it from the preceding build. Confirm the saved/newly deployed version contains `glcOrderAvailableRow_` and its call inside the order handler.
+4. Retest with a new controlled order_id: with row 5 occupied and H-only templates below it, expect row 6, then duplicate success on an identical retry. A second new order should use row 7. The prior order at row 301 remains in place and its ID still returns duplicate/conflict appropriately. Do not move/delete that record or clear template formulas.
 
 No Apps Script deployment, Sheets modification or live request was performed by this hotfix.
 
@@ -22,7 +22,7 @@ No Apps Script deployment, Sheets modification or live request was performed by 
 | Fewer than 10 allocated columns or an A:J header differs | `ORDER_BASE_HEADER_MISMATCH` |
 | Fewer than 19 allocated columns or a nonblank K:S header differs | `ORDER_EXTRA_HEADER_MISMATCH` |
 
-The supplied exact row-4 A:S schema plus row-5 example passes local persistence/retry/conflict tests. No deterministic failure was reproduced for that exact structure. The previous raw comparisons **do** reject harmless edge whitespace and canonically equivalent decomposed accents; this fragility is fixed, but it is not proven to be the live cause. Deployment-state ambiguity remains until the marker and precise live response are observed.
+The supplied exact row-4 A:S schema plus row-5 example passes local persistence/retry/conflict tests. The owner has since confirmed the live schema failure was clipboard UTF-8 mojibake, not the MASTER layout. The defensive Unicode normalization and precise diagnostics remain unchanged.
 
 Header comparison uses `String(value).normalize('NFC').trim()` (empty/null values treated as empty). It preserves accents, case, punctuation, internal spacing and column order; zero-width characters or materially renamed headers still fail. It never rewrites matching headers. Insufficient grid width is reported instead of inserting columns.
 
@@ -66,7 +66,7 @@ Success: `{"ok":true,"persisted":true,"order_id":"submitted-uuid"}`. Identical r
 
 Required strings: `source`, `order_id`, `cliente` (3–120), `telefono` (8–15 digits, optional leading +), `provincia` (seven Costa Rican provinces), `canton`/`distrito` (1–120 each), `direccion` (5–1000), `producto` (1–300), `categoria`, `cantidad`, `precio`, `pago`. `telefono_alt` and `email` are optional at the backend; if supplied, phone/email validation applies (email maximum 254). Category/payment values must match the existing order form options. Quantity: integer 1–10,000; unit price: integer ₡0–₡1,000,000,000. These are intake bounds, not price verification or a payment authorization; staff must confirm customer-entered prices. Unknown fields, including a submitted total, are rejected.
 
-Pedidos has its title in row 1, instructions in row 2, a blank row 3, and headers in **row 4** (`GLC_ORDER_HEADER_ROW = 4`). Rows 1–3 remain untouched. Data starts at row 5; new orders append after the last existing data row, and Order ID lookup starts at row 5.
+Pedidos has its title in row 1, instructions in row 2, a blank row 3, and headers in **row 4** (`GLC_ORDER_HEADER_ROW = 4`). Rows 1–4 remain intact. Under the existing lock, new orders use the first available row from row 5: any value or formula in **A:G or I:S** makes a row occupied, including zero, false, whitespace and formulas returning an empty string. H-only Total templates do not occupy an order row. The scan reads bounded batches; only if no available row exists within the used range does it append beyond that range. Order ID lookup still covers the entire used range from row 5, including row 301 and later records.
 
 **A:J on row 4 stays in this exact order:**
 
@@ -74,7 +74,7 @@ Pedidos has its title in row 1, instructions in row 2, a blank row 3, and header
 Fecha | Cliente | Teléfono | Producto | Categoría | Cantidad | Precio unitario (₡) | Total (₡) | Método de pago | Estado
 ```
 
-New website rows use a server Date in A, numeric quantity/price in F:G, server-computed `cantidad × precio` in H, and `Nuevo` in J. No existing A:J headers/data are rewritten.
+New website rows use a server Date in A, numeric quantity/price in F:G, server-computed `cantidad × precio` in H, and `Nuevo` in J. Writing that computed total replaces H's template formula only in the selected available row. Other template formulas, existing actual orders and A:J headers are preserved; there is no global formula clearing or sheet restructuring.
 
 **K:S only:**
 

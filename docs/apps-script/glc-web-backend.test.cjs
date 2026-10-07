@@ -23,8 +23,9 @@ function order(changes = {}) {
 function backend() {
   const flags = {locked: false, opens: 0, flushes: 0}, cache = new Map(), sheets = {};
   function makeSheet(rows = []) {
-    const notes = new Map(), writes = [], sheet = {rows, notes, writes, columns: 19, capacity: 1000,
-      getLastRow: () => rows.findLastIndex(row => row.some(value => value !== '' && value != null)) + 1,
+    const notes = new Map(), formulas = new Map(), writes = [], sheet = {rows, notes, formulas, writes, columns: 19, capacity: 1000,
+      getLastRow: () => Math.max(rows.findLastIndex(row => row && row.some(value => value !== '' && value != null)) + 1,
+        0, ...Array.from(formulas.keys(), key => Number(key.split(':')[0]))),
       getLastColumn: () => Math.max(0, ...rows.map(r => r.length)),
       getMaxRows: () => sheet.capacity, getMaxColumns: () => sheet.columns,
       insertRowsAfter: (after, n) => {sheet.capacity = after + n;}, insertColumnsAfter: (after, n) => {sheet.columns = after + n;}};
@@ -32,6 +33,7 @@ function backend() {
       assert.ok(r > 0 && c > 0 && h > 0 && w > 0 && r + h - 1 <= sheet.capacity && c + w - 1 <= sheet.columns, 'Range must fit the real sheet grid');
       const range = {getRow: () => r, getValue: () => rows[r - 1]?.[c - 1] ?? '',
         getValues: () => Array.from({length: h}, (_, i) => Array.from({length: w}, (_, j) => rows[r + i - 1]?.[c + j - 1] ?? '')),
+        getFormulas: () => Array.from({length: h}, (_, i) => Array.from({length: w}, (_, j) => formulas.get(`${r + i}:${c + j}`) || '')),
         getNote: () => notes.get(`${r}:${c}`) || '',
         setNote(value) {if (flags.noteError) throw Error('private note error'); notes.set(`${r}:${c}`, value); return range;},
         setNumberFormat: () => range,
@@ -40,7 +42,7 @@ function backend() {
           assert.equal(flags.locked, true);
           if (flags.writeError && r > 4) throw Error('private write error');
           writes.push({r, c, values});
-          values.forEach((row, i) => {rows[r + i - 1] ??= []; row.forEach((value, j) => {rows[r + i - 1][c + j - 1] = value;});});
+          values.forEach((row, i) => {rows[r + i - 1] ??= []; row.forEach((value, j) => {rows[r + i - 1][c + j - 1] = value; formulas.delete(`${r + i}:${c + j}`);});});
           return range;
         },
         createTextFinder(value) {
@@ -103,6 +105,63 @@ test('same normalized order is idempotent; different payload conflicts even afte
   assert.deepEqual(b.send(order({telefono: '+506 (8888)-8888', cliente: ' Persona  de prueba '})), {ok: true, persisted: false, duplicate: true, order_id: id});
   assert.deepEqual(b.send(order({precio: '2600'})), {ok: false, error: 'ORDER_ID_CONFLICT', build});
   assert.equal(b.sheets.Pedidos.rows.length, 5);
+});
+function templateOrders(storedAt301 = false) {
+  const b = backend(), s = b.sheets.Pedidos;
+  if (storedAt301) {
+    assert.equal(b.send().persisted, true);
+    s.rows[300] = s.rows[4];
+    s.notes.set('301:11', s.notes.get('5:11')); s.notes.delete('5:11');
+  }
+  s.rows[4] = ['example date','Example','88888888','Example product','Otro',1,500,500,'Tarjeta','Nuevo'];
+  for (let row = 6; row <= 300; row++) {
+    s.rows[row - 1] = Array(19).fill('');
+    // Exercise both empty and zero calculated results; the formula still counts
+    // toward Apps Script getLastRow(), but must not make an occupied order.
+    s.rows[row - 1][7] = row % 2 ? 0 : '';
+    s.formulas.set(`${row}:8`, `=IF(F${row}="","",F${row}*G${row})`);
+  }
+  return b;
+}
+test('H-only template rows through 300 choose rows 6 then 7 and preserve every other formula', () => {
+  const b = templateOrders(), s = b.sheets.Pedidos;
+  assert.equal(s.getLastRow(), 300);
+  const firstFive = structuredClone(s.rows.slice(0,5)), formulas = new Map(s.formulas);
+  assert.equal(b.send().persisted, true); assert.equal(s.rows[5][10], id); assert.equal(s.rows[5][7], 5000);
+  assert.equal(b.send().duplicate, true);
+  assert.equal(b.send(order({precio:'999'})).error, 'ORDER_ID_CONFLICT');
+  const next = 'c8a08229-65ec-4a1b-8140-34f7dc86b73e';
+  assert.equal(b.send(order({order_id:next})).persisted, true); assert.equal(s.rows[6][10], next);
+  assert.deepEqual(s.rows.slice(0,5), firstFive); assert.equal(s.rows.length, 300);
+  assert.equal(s.formulas.has('6:8'), false); assert.equal(s.formulas.has('7:8'), false);
+  for (let row = 8; row <= 300; row++) assert.equal(s.formulas.get(`${row}:8`), formulas.get(`${row}:8`));
+  assert.deepEqual(s.writes.filter(w => w.c === 1).map(w => w.r), [6,7]);
+});
+test('stored row 301 remains discoverable for duplicate/conflict while new orders fill row 6', () => {
+  const b = templateOrders(true), s = b.sheets.Pedidos, existing = s.rows[300].slice(), note = s.notes.get('301:11');
+  const writesBefore = s.writes.length;
+  assert.deepEqual(b.send(), {ok:true,persisted:false,duplicate:true,order_id:id});
+  assert.equal(b.send(order({precio:'999'})).error, 'ORDER_ID_CONFLICT');
+  assert.equal(s.writes.length, writesBefore);
+  const next = 'c8a08229-65ec-4a1b-8140-34f7dc86b73e';
+  assert.equal(b.send(order({order_id:next})).persisted, true); assert.equal(s.rows[5][10], next);
+  assert.equal(b.send().duplicate, true); assert.equal(s.rows.length, 301);
+  assert.deepEqual(s.rows[300], existing); assert.equal(s.notes.get('301:11'), note);
+});
+test('any value or formula outside H protects an existing row, even false/zero/empty-result formulas', () => {
+  const b = templateOrders(), s = b.sheets.Pedidos;
+  s.rows[5][0] = 0; s.rows[6][18] = false; s.rows[7][10] = 'existing-order-id';
+  s.rows[8][1] = ' '; s.formulas.set('10:9', '=IF(TRUE,"","")');
+  const protectedRows = structuredClone(s.rows.slice(0,10));
+  assert.equal(b.send().persisted, true); assert.equal(s.rows[10][10], id);
+  assert.deepEqual(s.rows.slice(0,10), protectedRows); assert.equal(s.formulas.get('10:9'), '=IF(TRUE,"","")');
+});
+test('first available row search continues across bounded batches without overwriting orders', () => {
+  const b = templateOrders(), s = b.sheets.Pedidos;
+  for (let row = 6; row <= 254; row++) s.rows[row - 1][1] = `Existing ${row}`;
+  const protectedRows = structuredClone(s.rows.slice(0,254));
+  assert.equal(b.send().persisted, true); assert.equal(s.rows[254][10], id);
+  assert.deepEqual(s.rows.slice(0,254), protectedRows); assert.equal(s.formulas.has('256:8'), true);
 });
 test('server rejects invalid fields, totals and parameter pollution without writing', () => {
   const cases = {order_id: 'bad', cliente: 'X', telefono: '123', telefono_alt: 'bad', email: 'x@bad', provincia: 'Other', canton: '', distrito: '', direccion: 'X', producto: '', categoria: 'Bad', cantidad: '1.5', precio: '-1', pago: 'Unknown'};

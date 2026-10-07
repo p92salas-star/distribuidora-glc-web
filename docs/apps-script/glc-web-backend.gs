@@ -94,6 +94,24 @@ function glcOrderValidate_(e) {
   return {data: data};
 }
 
+function glcOrderAvailableRow_(sheet) {
+  var first = GLC_ORDER_HEADER_ROW + 1, last = sheet.getLastRow();
+  // Only H (template Total) is ignored. Preserve any value or formula in A:G/I:S,
+  // including zero, false and formulas whose current result is an empty string.
+  for (var start = first; start <= last; start += 250) {
+    var count = Math.min(250, last - start + 1);
+    var range = sheet.getRange(start, 1, count, 19);
+    var values = range.getValues(), formulas = range.getFormulas();
+    for (var row = 0; row < count; row++) {
+      var occupied = values[row].some(function (value, column) {
+        return column !== 7 && ((value !== '' && value != null) || formulas[row][column] !== '');
+      });
+      if (!occupied) return start + row;
+    }
+  }
+  return Math.max(first, last + 1);
+}
+
 function glcHandleOrder_(data, master) {
   var lock, locked = false;
   try {
@@ -133,7 +151,7 @@ function glcHandleOrder_(data, master) {
     cache.put(globalKey, String(globalCount + 1), 120);
     cache.put(contactKey, String(contactCount + 1), 7200);
     extra.forEach(function (value, i) {if (glcOrderHeader_(value) === '') sheet.getRange(GLC_ORDER_HEADER_ROW, 11 + i).setValue(GLC_ORDER_EXTRA_HEADERS[i]);});
-    var rowIndex = sheet.getLastRow() + 1;
+    var rowIndex = glcOrderAvailableRow_(sheet);
     if (rowIndex > sheet.getMaxRows()) sheet.insertRowsAfter(sheet.getMaxRows(), 100);
     var literal = glcDistributorLiteral_, received = new Date();
     var row = [received, literal(data.cliente), literal(data.telefono), literal(data.producto), literal(data.categoria),

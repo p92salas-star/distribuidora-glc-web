@@ -3,6 +3,7 @@
  * No calls or changes to the old order deployment.
  */
 var GLC_MASTER_SPREADSHEET_ID = '1QydykhTtaD5HqpB04opPU0MTUTeWxKt3YOQkBJTAMA4';
+var GLC_BACKEND_BUILD = '2026-10-07-schema-fix-1';
 var GLC_ORDER_SOURCE = 'glc_website_order';
 var GLC_ORDER_HEADER_ROW = 4;
 var GLC_ORDER_FIELDS = ['source', 'order_id', 'cliente', 'telefono', 'telefono_alt', 'email',
@@ -16,26 +17,43 @@ function glcMasterSpreadsheet_() {
   return SpreadsheetApp.openById(GLC_MASTER_SPREADSHEET_ID);
 }
 
+function glcWebJson_(result) {
+  if (result.ok === false) result.build = GLC_BACKEND_BUILD;
+  return glcDistributorJson_(result);
+}
+
+function glcOrderHeader_(value) {
+  return String(value == null ? '' : value).normalize('NFC').trim();
+}
+
+function glcOrderHeaderError_(code, index, expected, value) {
+  // Never echo cell contents: a wrongly placed header could contain customer data.
+  return glcWebJson_({ok: false, error: code, header_row: GLC_ORDER_HEADER_ROW,
+    index: index, column: String.fromCharCode(65 + index), expected: expected,
+    actual_type: typeof value,
+    reason: value === undefined ? 'MISSING_COLUMN' : glcOrderHeader_(value) === '' ? 'EMPTY_HEADER' : 'HEADER_VALUE_MISMATCH'});
+}
+
 function doGet(e) {
   // Liveness only: no IDs, spreadsheet contents or claims of a completed write.
-  return glcDistributorJson_({ok: true, service: 'glc-web-backend', master: true});
+  return glcWebJson_({ok: true, service: 'glc-web-backend', master: true, build: GLC_BACKEND_BUILD});
 }
 
 function doPost(e) {
   try {
     var source = e && e.parameter && e.parameter.source;
     if (source !== GLC_ORDER_SOURCE && source !== GLC_DISTRIBUTOR_SOURCE) {
-      return glcDistributorJson_({ok: false, error: 'INVALID_SOURCE'});
+      return glcWebJson_({ok: false, error: 'INVALID_SOURCE'});
     }
     if (e.parameters && e.parameters.source && e.parameters.source.length !== 1) {
-      return glcDistributorJson_({ok: false, error: 'INVALID_SOURCE'});
+      return glcWebJson_({ok: false, error: 'INVALID_SOURCE'});
     }
     var validated = source === GLC_ORDER_SOURCE ? glcOrderValidate_(e) : glcDistributorValidate_(e);
-    if (validated.error) return glcDistributorJson_({ok: false, error: validated.error});
+    if (validated.error) return glcWebJson_({ok: false, error: validated.error});
     var master = glcMasterSpreadsheet_();
     return source === GLC_ORDER_SOURCE ? glcHandleOrder_(validated.data, master) : glcHandleDistributorLead(e, master);
   } catch (_) {
-    return glcDistributorJson_({ok: false, error: 'STORAGE_UNAVAILABLE'});
+    return glcWebJson_({ok: false, error: 'STORAGE_UNAVAILABLE'});
   }
 }
 
@@ -81,34 +99,40 @@ function glcHandleOrder_(data, master) {
   try {
     lock = LockService.getScriptLock();
     locked = lock.tryLock(10000);
-    if (!locked) return glcDistributorJson_({ok: false, error: 'BUSY_RETRY'});
+    if (!locked) return glcWebJson_({ok: false, error: 'BUSY_RETRY'});
     var sheet = master.getSheetByName('Pedidos');
-    if (!sheet || sheet.getLastRow() < GLC_ORDER_HEADER_ROW || sheet.getMaxColumns() < 10) return glcDistributorJson_({ok: false, error: 'ORDER_SCHEMA_MISMATCH'});
+    if (!sheet) return glcWebJson_({ok: false, error: 'ORDER_SHEET_NOT_FOUND'});
+    if (sheet.getLastRow() < GLC_ORDER_HEADER_ROW) return glcWebJson_({ok: false, error: 'ORDER_HEADER_ROW_MISSING', header_row: GLC_ORDER_HEADER_ROW});
+    var columns = sheet.getMaxColumns();
+    if (columns < 10) return glcOrderHeaderError_('ORDER_BASE_HEADER_MISMATCH', columns, GLC_ORDER_BASE_HEADERS[columns], undefined);
     var base = sheet.getRange(GLC_ORDER_HEADER_ROW, 1, 1, 10).getValues()[0];
-    if (base.some(function (value, i) {return value !== GLC_ORDER_BASE_HEADERS[i];})) return glcDistributorJson_({ok: false, error: 'ORDER_SCHEMA_MISMATCH'});
-    // Extend only the grid, never replace A:J headers or existing data.
-    if (sheet.getMaxColumns() < 19) sheet.insertColumnsAfter(sheet.getMaxColumns(), 19 - sheet.getMaxColumns());
+    if (base.every(function (value) {return glcOrderHeader_(value) === '';})) return glcWebJson_({ok: false, error: 'ORDER_HEADER_ROW_MISSING', header_row: GLC_ORDER_HEADER_ROW});
+    var baseMismatch = base.findIndex(function (value, i) {return glcOrderHeader_(value) !== GLC_ORDER_BASE_HEADERS[i];});
+    if (baseMismatch >= 0) return glcOrderHeaderError_('ORDER_BASE_HEADER_MISMATCH', baseMismatch, GLC_ORDER_BASE_HEADERS[baseMismatch], base[baseMismatch]);
+    // Diagnose insufficient columns; do not alter the MASTER grid to hide a mismatch.
+    if (columns < 19) return glcOrderHeaderError_('ORDER_EXTRA_HEADER_MISMATCH', columns, GLC_ORDER_EXTRA_HEADERS[columns - 10], undefined);
     var extra = sheet.getRange(GLC_ORDER_HEADER_ROW, 11, 1, 9).getValues()[0];
-    if (extra.some(function (value, i) {return value !== '' && value !== GLC_ORDER_EXTRA_HEADERS[i];})) return glcDistributorJson_({ok: false, error: 'ORDER_SCHEMA_MISMATCH'});
+    var extraMismatch = extra.findIndex(function (value, i) {var normalized = glcOrderHeader_(value); return normalized !== '' && normalized !== GLC_ORDER_EXTRA_HEADERS[i];});
+    if (extraMismatch >= 0) return glcOrderHeaderError_('ORDER_EXTRA_HEADER_MISMATCH', extraMismatch + 10, GLC_ORDER_EXTRA_HEADERS[extraMismatch], extra[extraMismatch]);
     var hash = glcDistributorHash_(JSON.stringify(data));
     if (sheet.getLastRow() > GLC_ORDER_HEADER_ROW) {
       var found = sheet.getRange(GLC_ORDER_HEADER_ROW + 1, 11, sheet.getLastRow() - GLC_ORDER_HEADER_ROW, 1).createTextFinder(data.order_id)
         .matchEntireCell(true).matchCase(false).useRegularExpression(false).findNext();
       if (found) {
         if (sheet.getRange(found.getRow(), 11).getNote() !== 'glc-order-sha256:' + hash) {
-          return glcDistributorJson_({ok: false, error: 'ORDER_ID_CONFLICT'});
+          return glcWebJson_({ok: false, error: 'ORDER_ID_CONFLICT'});
         }
-        return glcDistributorJson_({ok: true, persisted: false, duplicate: true, order_id: data.order_id});
+        return glcWebJson_({ok: true, persisted: false, duplicate: true, order_id: data.order_id});
       }
     }
     var cache = CacheService.getScriptCache(), now = Date.now();
     var globalKey = 'glc-order-minute-' + Math.floor(now / 60000);
     var contactKey = 'glc-order-contact-' + Math.floor(now / 3600000) + '-' + glcDistributorHash_(data.telefono);
     var globalCount = Number(cache.get(globalKey) || 0), contactCount = Number(cache.get(contactKey) || 0);
-    if (globalCount >= 60 || contactCount >= 5) return glcDistributorJson_({ok: false, error: 'RATE_LIMITED'});
+    if (globalCount >= 60 || contactCount >= 5) return glcWebJson_({ok: false, error: 'RATE_LIMITED'});
     cache.put(globalKey, String(globalCount + 1), 120);
     cache.put(contactKey, String(contactCount + 1), 7200);
-    extra.forEach(function (value, i) {if (value === '') sheet.getRange(GLC_ORDER_HEADER_ROW, 11 + i).setValue(GLC_ORDER_EXTRA_HEADERS[i]);});
+    extra.forEach(function (value, i) {if (glcOrderHeader_(value) === '') sheet.getRange(GLC_ORDER_HEADER_ROW, 11 + i).setValue(GLC_ORDER_EXTRA_HEADERS[i]);});
     var rowIndex = sheet.getLastRow() + 1;
     if (rowIndex > sheet.getMaxRows()) sheet.insertRowsAfter(sheet.getMaxRows(), 100);
     var literal = glcDistributorLiteral_, received = new Date();
@@ -127,9 +151,9 @@ function glcHandleOrder_(data, master) {
     sheet.getRange(rowIndex, 9, 1, 11).setNumberFormat('@');
     sheet.getRange(rowIndex, 1, 1, row.length).setValues([row]);
     SpreadsheetApp.flush();
-    return glcDistributorJson_({ok: true, persisted: true, order_id: data.order_id});
+    return glcWebJson_({ok: true, persisted: true, order_id: data.order_id});
   } catch (_) {
-    return glcDistributorJson_({ok: false, error: 'STORAGE_UNAVAILABLE'});
+    return glcWebJson_({ok: false, error: 'STORAGE_UNAVAILABLE'});
   } finally {
     if (locked) {try {lock.releaseLock();} catch (_) { /* Preserve acknowledgement. */ }}
   }

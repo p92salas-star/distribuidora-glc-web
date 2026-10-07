@@ -10,6 +10,11 @@ const code = read('glc-web-backend.gs');
 const html = read('../../pedido.html');
 const orderScript = [...html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g)].map(m => m[1]).find(s => s.includes('var ENDPOINT'));
 const id = 'b8a08229-65ec-4a1b-8140-34f7dc86b73e';
+const build = '2026-10-07-schema-fix-1';
+// Independent owner-verified schema, not derived from the implementation constants.
+const productionHeaders = ['Fecha','Cliente','Teléfono','Producto','Categoría','Cantidad',
+  'Precio unitario (₡)','Total (₡)','Método de pago','Estado','Order ID','Teléfono alternativo',
+  'Email','Provincia','Cantón','Distrito','Dirección','Source','Received at'];
 function order(changes = {}) {
   return Object.assign({source: 'glc_website_order', order_id: id, cliente: 'Persona de prueba', telefono: '+50688888888',
     telefono_alt: '', email: '', provincia: 'San José', canton: 'Central', distrito: 'Carmen', direccion: 'Dirección de prueba',
@@ -19,10 +24,12 @@ function backend() {
   const flags = {locked: false, opens: 0, flushes: 0}, cache = new Map(), sheets = {};
   function makeSheet(rows = []) {
     const notes = new Map(), writes = [], sheet = {rows, notes, writes, columns: 19, capacity: 1000,
-      getLastRow: () => rows.length, getLastColumn: () => Math.max(0, ...rows.map(r => r.length)),
+      getLastRow: () => rows.findLastIndex(row => row.some(value => value !== '' && value != null)) + 1,
+      getLastColumn: () => Math.max(0, ...rows.map(r => r.length)),
       getMaxRows: () => sheet.capacity, getMaxColumns: () => sheet.columns,
       insertRowsAfter: (after, n) => {sheet.capacity = after + n;}, insertColumnsAfter: (after, n) => {sheet.columns = after + n;}};
     sheet.getRange = (r, c, h = 1, w = 1) => {
+      assert.ok(r > 0 && c > 0 && h > 0 && w > 0 && r + h - 1 <= sheet.capacity && c + w - 1 <= sheet.columns, 'Range must fit the real sheet grid');
       const range = {getRow: () => r, getValue: () => rows[r - 1]?.[c - 1] ?? '',
         getValues: () => Array.from({length: h}, (_, i) => Array.from({length: w}, (_, j) => rows[r + i - 1]?.[c + j - 1] ?? '')),
         getNote: () => notes.get(`${r}:${c}`) || '',
@@ -61,7 +68,7 @@ function backend() {
     [' Registro de pedidos — Distribuidora GLC'],
     ['Instrucciones para registrar pedidos'],
     [],
-    Array.from(context.GLC_ORDER_BASE_HEADERS)
+    [...productionHeaders]
   ]);
   return {flags, cache, sheets, context, send: (p = order(), extra = {}) => context.doPost(Object.assign({parameter: p}, extra))};
 }
@@ -71,15 +78,16 @@ test('bundles the tested distributor module without changes and parses order JS'
 });
 test('health is non-sensitive; unknown/missing/repeated sources never open MASTER', () => {
   const b = backend();
-  assert.deepEqual(b.context.doGet(), {ok: true, service: 'glc-web-backend', master: true});
-  for (const p of [{}, order({source: 'orders'}), order({source: undefined})]) assert.deepEqual(b.send(p), {ok: false, error: 'INVALID_SOURCE'});
+  assert.deepEqual(b.context.doGet(), {ok: true, service: 'glc-web-backend', master: true, build});
+  for (const p of [{}, order({source: 'orders'}), order({source: undefined})]) assert.deepEqual(b.send(p), {ok: false, error: 'INVALID_SOURCE', build});
   assert.equal(b.send(order(), {parameters: {source: ['glc_website_order', 'other']}}).error, 'INVALID_SOURCE');
   assert.equal(b.flags.opens, 0);
 });
 test('row 4 schema is accepted, K:S initializes there, and append preserves rows 1–3 and existing data', () => {
   const b = backend(), s = b.sheets.Pedidos, legacy = ['old date','Legacy','88888888','Old','Otro',1,1000,1000,'Tarjeta','Entregado'];
-  const preamble = structuredClone(s.rows.slice(0,3)), headers = [...s.rows[3]];
-  s.rows.push([...legacy]); s.columns = 10;
+  const preamble = structuredClone(s.rows.slice(0,3)), headers = s.rows[3].slice(0,10);
+  s.rows[3] = [...headers]; // Exercise the supported blank K:S initialization separately.
+  s.rows.push([...legacy]);
   assert.deepEqual(b.send(), {ok: true, persisted: true, order_id: id});
   assert.deepEqual(s.rows.slice(0,3), preamble);
   assert.deepEqual(s.rows[3].slice(0,10), headers); assert.deepEqual(s.rows[4], legacy);
@@ -93,7 +101,7 @@ test('row 4 schema is accepted, K:S initializes there, and append preserves rows
 test('same normalized order is idempotent; different payload conflicts even after status change', () => {
   const b = backend(); b.send(); b.sheets.Pedidos.rows[4][9] = 'Contactado';
   assert.deepEqual(b.send(order({telefono: '+506 (8888)-8888', cliente: ' Persona  de prueba '})), {ok: true, persisted: false, duplicate: true, order_id: id});
-  assert.deepEqual(b.send(order({precio: '2600'})), {ok: false, error: 'ORDER_ID_CONFLICT'});
+  assert.deepEqual(b.send(order({precio: '2600'})), {ok: false, error: 'ORDER_ID_CONFLICT', build});
   assert.equal(b.sheets.Pedidos.rows.length, 5);
 });
 test('server rejects invalid fields, totals and parameter pollution without writing', () => {
@@ -114,7 +122,7 @@ test('formula prefixes are protected in stored text, with +phone normalized inde
   assert.equal(row[3], "'@cmd"); assert.equal(row[16], "'-123 calle");
 });
 test('schema mismatch fails closed; only blank row 4 K:S headers are initialized', () => {
-  for (const col of [0,10]) {const b = backend(); b.sheets.Pedidos.rows[3][col] = 'Different'; assert.equal(b.send().error, 'ORDER_SCHEMA_MISMATCH'); assert.equal(b.sheets.Pedidos.writes.length, 0);}
+  for (const col of [0,10]) {const b = backend(); b.sheets.Pedidos.rows[3][col] = 'Different'; assert.equal(b.send().error, col < 10 ? 'ORDER_BASE_HEADER_MISMATCH' : 'ORDER_EXTRA_HEADER_MISMATCH'); assert.equal(b.sheets.Pedidos.writes.length, 0);}
   const b = backend(); b.sheets.Pedidos.rows[3][10] = 'Order ID'; b.send();
   assert.equal(b.sheets.Pedidos.writes.some(w => w.r === 4 && w.c === 11), false);
 });
@@ -127,10 +135,60 @@ test('Order ID search excludes title/instruction rows and first data starts at r
   assert.equal(b.send(order({precio:'2600'})).error, 'ORDER_ID_CONFLICT'); assert.equal(s.rows.length, 5);
   assert.deepEqual(s.rows.slice(0,3), preamble);
 });
+test('exact owner-verified A:S row 4 and example row 5 accept persistence, retry and conflict', () => {
+  const b = backend(), s = b.sheets.Pedidos;
+  s.rows.push(['example date','Example','88888888','Example product','Otro',1,500,500,'Tarjeta','Nuevo']);
+  const before = structuredClone(s.rows);
+  assert.equal(b.send(order({pago:'Tarjeta', categoria:'Otro'})).persisted, true);
+  assert.equal(s.rows.length, 6); assert.deepEqual(s.rows.slice(0,5), before);
+  assert.equal(b.send(order({pago:'Tarjeta', categoria:'Otro'})).duplicate, true);
+  assert.equal(b.send(order({pago:'Tarjeta', precio:'1000'})).error, 'ORDER_ID_CONFLICT');
+  assert.equal(s.rows.length, 6); assert.deepEqual(s.rows.slice(0,5), before);
+});
+test('header comparison accepts edge whitespace and canonical Unicode, without rewriting headers', () => {
+  const b = backend(), s = b.sheets.Pedidos;
+  s.rows[3] = productionHeaders.map(value => '\uFEFF\u00A0 ' + value.normalize('NFD') + '\t\r\n ');
+  const before = [...s.rows[3]];
+  assert.ok(before.some((value, i) => value !== productionHeaders[i])); // Old literal comparisons fail here.
+  assert.equal(b.send().persisted, true); assert.deepEqual(s.rows[3], before);
+  assert.equal(s.writes.some(w => w.r <= 4), false);
+});
+test('precise missing-sheet/row/column errors never resize or write the sheet', () => {
+  const absent = backend(); delete absent.sheets.Pedidos;
+  assert.deepEqual(absent.send(), {ok:false, error:'ORDER_SHEET_NOT_FOUND', build});
+  for (const blankWithDataBelow of [false,true]) {
+    const b = backend(), s = b.sheets.Pedidos;
+    if (blankWithDataBelow) {s.rows[3] = []; s.rows.push(['Example data']);} else s.rows.length = 3;
+    assert.deepEqual(b.send(), {ok:false,error:'ORDER_HEADER_ROW_MISSING',header_row:4,build});
+    assert.equal(s.writes.length, 0);
+  }
+  for (const count of [9,10,18]) {
+    const b = backend(), s = b.sheets.Pedidos; s.columns = count;
+    assert.deepEqual(b.send(), {ok:false, error:count < 10 ? 'ORDER_BASE_HEADER_MISMATCH' : 'ORDER_EXTRA_HEADER_MISMATCH',
+      header_row:4, index:count, column:String.fromCharCode(65 + count), expected:productionHeaders[count], actual_type:'undefined', reason:'MISSING_COLUMN',build});
+    assert.equal(s.columns, count); assert.equal(s.writes.length, 0);
+  }
+});
+test('header diagnostics identify exact columns but never echo customer data, IDs or formulas', () => {
+  for (const [index, value] of [[6,'Private customer account'], [11,'secret@example.invalid'], [2,new Date()], [5,42], [8,false], [1,'']]) {
+    const b = backend(), s = b.sheets.Pedidos; s.rows[3][index] = value;
+    const result = b.send();
+    assert.deepEqual(result, {ok:false,error:index < 10 ? 'ORDER_BASE_HEADER_MISMATCH' : 'ORDER_EXTRA_HEADER_MISMATCH',
+      header_row:4,index,column:String.fromCharCode(65 + index),expected:productionHeaders[index],actual_type:typeof value,
+      reason:value === '' ? 'EMPTY_HEADER' : 'HEADER_VALUE_MISMATCH',build});
+    assert.equal('actual' in result, false); assert.equal('stack' in result, false);
+    assert.equal(JSON.stringify(result).includes('1QydykhTtaD5HqpB04opPU0MTUTeWxKt3YOQkBJTAMA4'), false);
+    assert.equal(s.writes.length, 0);
+  }
+  for (const value of ['Telefono','teléfono','Telé\u200Bfono','Método\u00A0de pago','=PrivateFormula()']) {
+    const b = backend(); b.sheets.Pedidos.rows[3][2] = value;
+    assert.equal(b.send().error, 'ORDER_BASE_HEADER_MISMATCH');
+  }
+});
 test('busy/storage failures are sanitized; failed writes and lost acknowledgements are retryable', () => {
   for (const flag of ['busy','openError','noteError','writeError','flushError']) {
     const b = backend(); b.flags[flag] = true;
-    assert.deepEqual(b.send(), {ok: false, error: flag === 'busy' ? 'BUSY_RETRY' : 'STORAGE_UNAVAILABLE'});
+    assert.deepEqual(b.send(), {ok: false, error: flag === 'busy' ? 'BUSY_RETRY' : 'STORAGE_UNAVAILABLE', build});
     assert.equal(b.sheets.Pedidos.rows.length, 4); b.flags[flag] = false; assert.equal(b.send().persisted, true);
   }
   const b = backend(); b.send(); // Discard response, as if it were lost in transit.

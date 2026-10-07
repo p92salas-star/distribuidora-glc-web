@@ -1,10 +1,36 @@
 # GLC public web backend — manual activation
 
-**Ready for deployment, not activated or live-verified.** Paste only [glc-web-backend.gs](glc-web-backend.gs) into the new project bound to **Control GLC — MASTER**, ID `1QydykhTtaD5HqpB04opPU0MTUTeWxKt3YOQkBJTAMA4`. The old order endpoint returns anonymous POST HTTP 401 according to the owner's verification. Do not modify or delete that old deployment/project.
+**Schema diagnostic update ready; live root cause not yet established.** The owner confirms the current public GET works, but order POST returns the former generic `ORDER_SCHEMA_MISMATCH`. Use [glc-web-backend.gs](glc-web-backend.gs) in the project bound to **Control GLC — MASTER**, ID `1QydykhTtaD5HqpB04opPU0MTUTeWxKt3YOQkBJTAMA4`. The older, separate order endpoint returns anonymous POST HTTP 401; do not modify/delete that old deployment or reuse it.
 
 The unified file includes the unchanged, tested distributor module. **Do not also paste `distributor-leads.gs` or `master-routing-snippet.gs`**: that would duplicate declarations. The older routing-insertion approach is superseded. This file defines exactly one `doGet` and one `doPost`. All writes open MASTER explicitly; no other workbook or endpoint is used.
 
-## Owner activation — exact sequence
+## Current hotfix — one version update and live retest
+
+1. In the current MASTER-bound public backend project, replace **all contents of Código.gs** with `glc-web-backend.gs`. Keep exactly one `doGet` and `doPost`; do not add the separately bundled modules. Save.
+2. **Deploy → Manage deployments → select the current public Web app → Edit → New version → Deploy**. Keep the same `/exec`, Execute as Me and access Anyone. Do not create another endpoint or change the spreadsheet.
+3. Anonymous GET on that same `/exec` must return `build: "2026-10-07-schema-fix-1"` with `ok:true`, `service:"glc-web-backend"`, `master:true`. A missing/different build proves this corrected GET is not being served; do not proceed to order writes until it matches. The marker identifies this source revision, not a successful Sheets write.
+4. Retest the controlled valid order, then its identical retry using the same order_id. Expect one persisted row, then duplicate success. If it fails, capture the returned JSON including build/error/column/reason. No raw sheet values are included. A legacy `ORDER_SCHEMA_MISMATCH` response cannot come from this file's corrected order path: check the deployed version/URL and duplicate handler definitions before changing any sheet cells.
+
+No Apps Script deployment, Sheets modification or live request was performed by this hotfix.
+
+### Trace of the former generic error
+
+| Former condition | Precise response now |
+|---|---|
+| `getSheetByName('Pedidos')` returns no sheet | `ORDER_SHEET_NOT_FOUND` |
+| Last content row is above row 4, or row 4 A:J is entirely blank | `ORDER_HEADER_ROW_MISSING` |
+| Fewer than 10 allocated columns or an A:J header differs | `ORDER_BASE_HEADER_MISMATCH` |
+| Fewer than 19 allocated columns or a nonblank K:S header differs | `ORDER_EXTRA_HEADER_MISMATCH` |
+
+The supplied exact row-4 A:S schema plus row-5 example passes local persistence/retry/conflict tests. No deterministic failure was reproduced for that exact structure. The previous raw comparisons **do** reject harmless edge whitespace and canonically equivalent decomposed accents; this fragility is fixed, but it is not proven to be the live cause. Deployment-state ambiguity remains until the marker and precise live response are observed.
+
+Header comparison uses `String(value).normalize('NFC').trim()` (empty/null values treated as empty). It preserves accents, case, punctuation, internal spacing and column order; zero-width characters or materially renamed headers still fail. It never rewrites matching headers. Insufficient grid width is reported instead of inserting columns.
+
+Header diagnostics include `header_row:4`, a **zero-based A:S index**, column letter, expected public schema label, `actual_type`, `reason` and build. Reasons are `MISSING_COLUMN`, `EMPTY_HEADER` or `HEADER_VALUE_MISMATCH`. Actual cell contents are intentionally omitted: a misplaced row could contain customer information. All order/router errors include build; the bundled distributor handler and its response contract remain unchanged.
+
+The earlier test double derived headers from implementation constants, always used plain composed text, allowed out-of-grid ranges, and counted array length as last row. Tests now use independent production labels, Unicode/typed values, bounded ranges and the last row containing values. Google documents [getValues()](https://developers.google.com/apps-script/reference/spreadsheet/range#getValues()) as a 2D array of typed values (empty cells are empty strings), and [getMaxColumns()](https://developers.google.com/apps-script/reference/spreadsheet/sheet#getMaxColumns()) as allocated grid width. Plain matching header strings need no display-value conversion; no demonstrated API behavior explains a mismatch for the supplied exact schema.
+
+## Initial owner activation — reference only
 
 1. Open **Control GLC — MASTER → Extensions → Apps Script**.
 2. Use the **new MASTER-bound project**, not the old order deployment's project.
@@ -16,7 +42,7 @@ The unified file includes the unchanged, tested distributor module. **Do not als
 8. Set **Who has access: Anyone** (anonymous access). If that option is unavailable, stop activation; an authenticated-only endpoint cannot serve this public form.
 9. Click **Deploy** and complete the owner's authorization prompts.
 10. Copy the **new `/exec` URL**, not `/dev`. Keep the old project/deployment intact.
-11. Test an anonymous GET: expect `{"ok":true,"service":"glc-web-backend","master":true}`. This is liveness, not proof of a successful Sheets write.
+11. Test an anonymous GET: expect `{"ok":true,"service":"glc-web-backend","master":true,"build":"2026-10-07-schema-fix-1"}`. This is liveness, not proof of a successful Sheets write.
 12. Submit one owner-approved controlled order using `application/x-www-form-urlencoded` and the fields below. Confirm the JSON acknowledgement and the row in MASTER; repeat exactly, then change one field with the same order_id to verify retry/conflict behavior. Avoid any fulfillment or WhatsApp side effects.
 13. Submit one owner-approved distributor test using the [existing payload contract](../distributor-leads.md). Confirm its row in WEB_DISTRIBUIDORES, identical retry acknowledgement and conflict rejection. Verify anonymous POST responses and redirects are readable from the GLC website origin; HTTP 200 or an opaque response is insufficient.
 14. **Only after those checks pass**, replace `PENDING_VERIFIED_GLC_WEB_BACKEND_EXEC_URL` in `pedido.html` and set `#distributorForm[data-endpoint]` to the **same verified new `/exec` URL**, through a separate authorized website release. Do not reinsert the old 401 URL. The order form uses fetch; its HTML action intentionally stays local and its button requires JavaScript.
@@ -56,7 +82,7 @@ New website rows use a server Date in A, numeric quantity/price in F:G, server-c
 Order ID | Teléfono alternativo | Email | Provincia | Cantón | Distrito | Dirección | Source | Received at
 ```
 
-Only blank K:S headers **on row 4** are initialized. A missing Pedidos tab or incompatible nonblank header returns `ORDER_SCHEMA_MISMATCH`. No replacement sheet is created. Received at is server ISO UTC. Existing rows are preserved.
+Only blank K:S headers **on row 4** are initialized. Missing sheet/row and incompatible base/extra headers return the precise codes listed above. No replacement sheet is created and no columns are inserted. Received at is server ISO UTC. Existing rows are preserved.
 
 Under the script lock, the original normalized payload's SHA-256 is stored in the **note on the Order ID cell (K)**, keeping the prescribed 19-column layout. The note is flushed before the row write; a failure before writing leaves no order ID, so retry can safely reuse the blank row. Keep these notes with their rows; do not strip them during imports/sorts/copies. A changed payload or missing hash for an existing ID returns `ORDER_ID_CONFLICT` without overwriting or appending. Normal operational edits (e.g. Estado) do not break an identical retry. Notes contain only a hash, not a copy of personal data.
 

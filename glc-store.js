@@ -11,7 +11,7 @@
     'Catálogo':'Catalog', 'Pedidos':'Orders', 'Citas':'Appointments', 'Más':'More', 'Menú':'Menu', 'Inicio':'Home',
     'Programas profesionales':'Professional programs', 'Entregas y pagos':'Delivery & payment', 'Recompensas':'Rewards',
     'Promociones de la semana:':'This week’s promotion:', '¡Envíos gratis al Valle Central':'Free Central Valley delivery',
-    'por':'on', 'compras mayores a ₡30,000!':'orders over ₡30,000!',
+    'por':'on', 'compras desde ₡25,000!':'orders of ₡25,000 or more!',
     'Tu técnica.':'Your technique.', 'Tu estilo.':'Your style.', 'Tus esenciales.':'Your essentials.',
     'Insumos profesionales para pestañas, cejas y microblading. Encontrá extensiones, pinzas, adhesivos y kits para tu trabajo de cada día.':'Professional supplies for lashes, brows and microblading. Explore extensions, tweezers, adhesives and kits for your everyday work.',
     'Pedir por WhatsApp':'Order on WhatsApp', 'Explorar el catálogo':'Explore the catalog',

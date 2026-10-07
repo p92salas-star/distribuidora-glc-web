@@ -1,8 +1,8 @@
 # Final release gate — 7 October 2026
 
-Branch: `feat/glc-growth-experience-v2`. Starting checkpoint: `576f71f`.
+Branch: `feat/glc-growth-experience-v2`. Rights gate reclassification checkpoint: `9f8b296`.
 
-**Release status: BLOCKED by missing image-rights evidence for 14 active photographs.** Functional smoke and commercial checks pass after the changes below. No backend or spreadsheet work, form submissions, merge, deployment, downloads, or web research was performed.
+**Release status: READY FOR OWNER MERGE/DEPLOY REVIEW.** The owner explicitly confirmed that the 14 active reference photographs listed below were supplied or authorized as product references for the GLC website. This owner authorization is the provenance evidence for `OWNER_AUTHORIZED_REFERENCE`. It applies to those 14 files; it does not authorize independently sourced images listed as removed below. Functional smoke and commercial checks pass. No backend or spreadsheet work, form submissions, merge, deployment, downloads, or web research was performed.
 
 ## Shipping image inventory
 
@@ -12,13 +12,14 @@ Scope: all 63 tracked raster/icon assets at the starting checkpoint, plus public
 | --- | --- | --- |
 | OWNER_PROVIDED | All 25 JPEGs in `img/catalog/owner/` | Explicit Gaudi Lara authorization in `img/catalog/owner/SOURCES.md`; exact file/source mapping in `manifest.json`. Retained. |
 | OWNER_PROVIDED | `img/catalog/agujas-microblanding.jpg`, `maquina-de-cera.jpg`, `tinte-pestanas.jpg`, `vitamina-ayd.jpg` | Owner-authorized photo-only captures documented in `img/catalog/README.md` and `MAPPING.md`. Retained. |
+| OWNER_AUTHORIZED_REFERENCE | 14 active files listed below | Owner confirmation: these were supplied/authorized as product-reference material for the GLC website. May remain active unchanged. |
 | OFFICIAL_BRAND | `img/editorial/glc-logo.jpg`, `img/editorial/glc-logo-transparent.png` | Explicitly identified by the owner in this release mission. Unchanged. |
 | OFFICIAL_BRAND | `img/hero-glc.jpg`, `favicon.ico`, `img/favicon-16.png`, `img/favicon-32.png`, `img/favicon-48.png`, `img/favicon-180.png`, `img/favicon-512.png` | Commit `140128c` records extraction from existing GLC brand artwork; `hero-glc.jpg` visually checked as the GLC logo. Unchanged. |
 | LICENSED_WITH_EVIDENCE | None established | No additional licenses were inferred. |
 | UNKNOWN_UNSAFE | 11 removed images listed below | No rights-holder permission established locally. |
-| UNKNOWN_UNSAFE | 14 active images listed below | No rights-holder permission established locally; publication remains blocked. |
+| UNKNOWN_UNSAFE | 0 active images | All independently sourced/unlicensed images without owner authorization were removed; none are actively referenced. |
 
-After cleanup: 52 tracked image/icon assets remain, comprising 29 OWNER_PROVIDED, 9 OFFICIAL_BRAND, and 14 UNKNOWN_UNSAFE. Inline interface SVG/code remains unchanged; no replacement logo or generated artwork was introduced.
+After cleanup: 52 tracked image/icon assets remain, comprising 29 OWNER_PROVIDED, 9 OFFICIAL_BRAND, and 14 OWNER_AUTHORIZED_REFERENCE. Of these 52 files, 38 have explicit per-source repository evidence and 14 have the owner's explicit authorization documented here. No remaining tracked image is classified UNKNOWN_UNSAFE. Inline interface SVG/code remains unchanged; no replacement logo or generated artwork was introduced.
 
 ## Removed files and replacements
 
@@ -40,9 +41,9 @@ Additional unverified editorial assets were removed where an appropriate authori
 
 Only image references and the one affected alternative text changed in the existing category/home code. Catalog records, product identity, prices, variants, layout and form contracts remain unchanged.
 
-## Remaining release blockers
+## OWNER_AUTHORIZED_REFERENCE — active images
 
-These active assets remain UNKNOWN_UNSAFE. An earlier description of a photograph as "approved" or "existing" is not evidence of rights-holder permission. No documented authorized local equivalent was found for the application scenes or retail-store gallery; replacing them with product shots would misrepresent their subject. Obtain explicit rights evidence for each or supply authorized equivalents before publishing:
+The owner's confirmation covers exactly these 14 existing files. They remain unchanged and active. Similar-looking owner product photos, independent Codex/agent sourcing, and manufacturer availability do not extend this authorization to other assets:
 
 - `img/editorial/lashes.jpg` — first hero slide and existing category mapping.
 - `img/hero-lash-application.jpg` — service/application photograph and existing category mapping.
@@ -59,7 +60,9 @@ These active assets remain UNKNOWN_UNSAFE. An earlier description of a photograp
 - `img/editorial/shopper-lookbook/11-retail-bags.jpg`
 - `img/editorial/shopper-lookbook/12-retail-apparel.jpg`
 
-The twelve shopper photographs are used by the existing dynamic gallery. Local untracked photo collections do not establish permission and were not imported.
+The twelve shopper photographs are used by the existing dynamic gallery. All 14 files resolve in the repository. No layout or image-reference changes were made for this owner authorization.
+
+The independently sourced `img/curated/` photographs identified in the removal history remain removed. The owner authorization for the 14 files above does not restore or reclassify any separately downloaded file. See `img/curated/SOURCES.md`.
 
 ## Targeted validation
 

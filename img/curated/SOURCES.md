@@ -14,4 +14,4 @@ The following URLs are historical provenance only, not licensing evidence or act
 | gollee-adhesive-master.webp | https://gollee.com/wp-content/uploads/2022/03/M01.webp | Adhesivos category |
 | gollee-eye-patches.jpg | https://gollee.com/wp-content/uploads/2022/04/Eye-Patch_Pink-Eye-Pad_Text.jpg | Consumibles category, CSS crop of the patches on the left; source claims excluded from the crop |
 
-The official logos remain unchanged. See `../../docs/release-gate.md` for the remaining editorial-image blockers and the complete shipping-asset classification.
+Owner-authorized references are tracked separately from this independently sourced image set. The owner confirmed that `img/editorial/lashes.jpg`, `img/hero-lash-application.jpg`, and all twelve existing `img/editorial/shopper-lookbook/` photographs were owner-supplied or authorized product references. They are classified `OWNER_AUTHORIZED_REFERENCE` in `../../docs/release-gate.md`. This authorization does not extend to the externally downloaded assets above, which remain removed. Official logo assets remain unchanged.

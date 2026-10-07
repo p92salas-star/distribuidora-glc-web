@@ -1,6 +1,10 @@
-# Category photography
+# Removed external category photography — release gate, 7 October 2026
 
-Downloaded 2026-10-05 from the two websites explicitly authorized by the owner for this visual rebuild. Files are used as category context, not as evidence of a particular GLC SKU, price, package contents or inventory. Actual product cards retain the existing approved GLC photographs.
+These five files and their three JSON source sidecars were removed from the release branch. The earlier note recorded owner approval to select images from these websites; it did not establish permission from the image rights holders. Public availability and manufacturer origin do not establish reuse rights. Classification: UNKNOWN_UNSAFE.
+
+All five files were tracked and publishable from the repository root, including the three with no remaining public-code reference. `glc-growth.js` still used the volume tray and adhesive image. Those references now use the existing owner-authorized technological-lash photograph and adhesive-nozzle photograph respectively. They provide category context, not a new SKU or a compatibility claim. Source authorization: `../catalog/owner/SOURCES.md` and `../catalog/owner/manifest.json`.
+
+The following URLs are historical provenance only, not licensing evidence or active image references.
 
 | Asset | Original source | Use |
 | --- | --- | --- |
@@ -10,4 +14,4 @@ Downloaded 2026-10-05 from the two websites explicitly authorized by the owner f
 | gollee-adhesive-master.webp | https://gollee.com/wp-content/uploads/2022/03/M01.webp | Adhesivos category |
 | gollee-eye-patches.jpg | https://gollee.com/wp-content/uploads/2022/04/Eye-Patch_Pink-Eye-Pad_Text.jpg | Consumibles category, CSS crop of the patches on the left; source claims excluded from the crop |
 
-No logo assets were sourced or created. Header and footer both use the existing `img/editorial/glc-logo-transparent.png` unchanged. Existing GLC editorial files retain their local provenance; the catalog whitelist and data remain unchanged.
+The official logos remain unchanged. See `../../docs/release-gate.md` for the remaining editorial-image blockers and the complete shipping-asset classification.

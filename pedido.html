@@ -493,7 +493,7 @@
     </div>
 
     <div class="order-card">
-      <form class="order-form" id="orderForm" action="https://script.google.com/macros/s/AKfycbx6taZhMApzYRCU4ZQsRm6Hgn_0IjYbvHcyFvWg3XkjCLi2VkLLh2I5tRJOzHcUdkRH3Q/exec" method="POST" novalidate>
+      <form class="order-form" id="orderForm" action="#orderForm" method="POST" novalidate>
 
         <p class="order-subhead">Detalle del pedido</p>
 
@@ -521,13 +521,13 @@
 
         <div class="order-field">
           <label for="cantidad">Cantidad <span class="req">*</span></label>
-          <input type="number" id="cantidad" name="cantidad" min="1" step="1" inputmode="numeric" placeholder="Ej. 2" required>
+          <input type="number" id="cantidad" name="cantidad" min="1" max="10000" step="1" inputmode="numeric" placeholder="Ej. 2" required>
           <span class="error-msg">Ingresá una cantidad válida (mínimo 1).</span>
         </div>
 
         <div class="order-field">
           <label for="precio">Precio unitario (₡) <span class="req">*</span></label>
-          <input type="number" id="precio" name="precio" min="0" step="0.01" inputmode="decimal" placeholder="Ej. 12000" required>
+          <input type="number" id="precio" name="precio" min="0" max="1000000000" step="1" inputmode="numeric" placeholder="Ej. 12000" required>
           <span class="error-msg">Ingresá el precio.</span>
         </div>
 
@@ -614,7 +614,7 @@
 
         <div class="form-status" id="formStatus" role="alert" aria-live="polite"></div>
 
-        <button type="submit" class="btn order-submit" id="orderSubmit">🛒 Enviar Pedido</button>
+        <button type="submit" class="btn order-submit" id="orderSubmit" disabled>🛒 Enviar Pedido</button>
         <p class="order-note">Al enviar, confirmás que los datos son correctos para la facturación y el envío.</p>
       </form>
     </div>
@@ -686,8 +686,19 @@
     var submitBtn = document.getElementById('orderSubmit');
     var fields = Array.prototype.slice.call(form.querySelectorAll('input, select, textarea'));
 
-    // URL real de producción (Google Apps Script)
-    var ENDPOINT = 'https://script.google.com/macros/s/AKfycbx6taZhMApzYRCU4ZQsRm6Hgn_0IjYbvHcyFvWg3XkjCLi2VkLLh2I5tRJOzHcUdkRH3Q/exec';
+    // Reemplazar SOLO después de verificar el nuevo backend público del MASTER.
+    var ENDPOINT = 'PENDING_VERIFIED_GLC_WEB_BACKEND_EXEC_URL';
+    var submitting = false, pendingOrder = null;
+    submitBtn.disabled = false;
+
+    function orderUuid() {
+      if (window.crypto.randomUUID) return window.crypto.randomUUID();
+      // Mismo fallback criptográfico que el formulario de distribuidores.
+      var bytes = window.crypto.getRandomValues(new Uint8Array(16));
+      bytes[6] = (bytes[6] & 15) | 64; bytes[8] = (bytes[8] & 63) | 128;
+      return Array.from(bytes, function (b) { return b.toString(16).padStart(2, '0'); }).join('')
+        .replace(/(.{8})(.{4})(.{4})(.{4})(.{12})/, '$1-$2-$3-$4-$5');
+    }
 
     // Número de la tienda para el aviso por WhatsApp (OPCIÓN A)
     var WHATSAPP_TIENDA = '50670281688';
@@ -709,13 +720,7 @@
         .replace(/\s{2,}/g, ' ')                     // colapsa espacios múltiples
         .trim();
 
-      // ESCUDO ANTI-INYECCIÓN DE FÓRMULAS (Google Sheets / CSV):
-      // si el texto arranca con = + - o @, Sheets lo ejecutaría como fórmula.
-      // Anteponer una comilla simple lo fuerza a leerse como texto plano.
-      if (/^[=+\-@]/.test(limpio)) {
-        limpio = "'" + limpio;
-      }
-
+      // El backend protege las fórmulas al escribir; no alterar aquí teléfonos +506.
       return limpio;
     }
 
@@ -744,10 +749,10 @@
           ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
         }
         if (ok && el.name === 'cantidad') {
-          ok = Number(value) >= 1;
+          ok = /^\d{1,5}$/.test(value) && Number(value) >= 1 && Number(value) <= 10000;
         }
         if (ok && el.name === 'precio') {
-          ok = !isNaN(Number(value)) && Number(value) >= 0;
+          ok = /^\d{1,10}$/.test(value) && Number(value) <= 1000000000;
         }
       }
       if (wrap) { wrap.classList.toggle('invalid', !ok); }
@@ -765,6 +770,7 @@
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+      if (submitting) return;
 
       var firstInvalid = null;
       fields.forEach(function (el) {
@@ -775,6 +781,12 @@
         status.className = 'form-status error';
         status.textContent = 'Revisá el formulario: hay campos obligatorios sin completar o con datos inválidos.';
         firstInvalid.focus();
+        return;
+      }
+
+      if (!/^https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec$/.test(ENDPOINT)) {
+        status.className = 'form-status error';
+        status.textContent = 'El envío en línea todavía no está activo. Tu pedido no fue enviado. Escribinos por WhatsApp.';
         return;
       }
 
@@ -792,20 +804,39 @@
         categoria:    sanitize(form.categoria.value),
         cantidad:     sanitize(form.cantidad.value),
         precio:       sanitize(form.precio.value),
-        pago:         sanitize(form.pago.value)
+        pago:         sanitize(form.pago.value),
+        source:       'glc_website_order'
       };
-      var payload = new URLSearchParams(datos);
+      var fingerprint = JSON.stringify(datos);
+      if (!pendingOrder || pendingOrder.fingerprint !== fingerprint) {
+        pendingOrder = {fingerprint: fingerprint, payload: Object.assign({order_id: orderUuid()}, datos)};
+      }
+      var request = pendingOrder.payload, payload = new URLSearchParams(request);
+      var controller = new AbortController();
+      var timeout = window.setTimeout(function () { controller.abort(); }, 15000);
 
+      submitting = true;
       submitBtn.disabled = true;
+      fields.forEach(function (el) { el.disabled = true; });
       status.className = 'form-status';
       status.textContent = 'Enviando pedido…';
 
       fetch(ENDPOINT, {
         method: 'POST',
-        body: payload
+        body: payload,
+        signal: controller.signal,
+        credentials: 'omit',
+        redirect: 'follow'
       })
         .then(function (response) {
           if (!response.ok) { throw new Error('HTTP ' + response.status); }
+          return response.json();
+        })
+        .then(function (result) {
+          if (!result || result.ok !== true || result.order_id !== request.order_id ||
+              !(result.persisted === true || (result.persisted === false && result.duplicate === true))) {
+            throw new Error('Unconfirmed persistence');
+          }
           status.className = 'form-status ok';
           status.textContent = '¡Pedido enviado! Te contactaremos por WhatsApp para confirmar los detalles y el envío.';
 
@@ -815,12 +846,16 @@
           }
 
           form.reset();
+          pendingOrder = null;
         })
         .catch(function () {
           status.className = 'form-status error';
-          status.textContent = 'No pudimos enviar el pedido. Revisá tu conexión e intentá de nuevo, o escribinos por WhatsApp.';
+          status.textContent = 'No pudimos confirmar la recepción del pedido. Tus datos siguen aquí; intentá de nuevo o escribinos por WhatsApp.';
         })
         .then(function () {
+          window.clearTimeout(timeout);
+          submitting = false;
+          fields.forEach(function (el) { el.disabled = false; });
           submitBtn.disabled = false;
         });
     });

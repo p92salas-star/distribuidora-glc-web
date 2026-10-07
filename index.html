@@ -1902,6 +1902,7 @@
 </style>
 <link rel="stylesheet" href="glc-commerce.css?v=owner-20261006">
 <link rel="stylesheet" href="glc-home.css?v=owner-20261006">
+<link rel="stylesheet" href="glc-opportunities.css?v=1">
 </head>
 <body class="home-page">
 
@@ -1956,6 +1957,7 @@
         <button type="button" class="btn btn-nav" id="navMoreBtn" aria-haspopup="true" aria-expanded="false">Más <span class="nav-more__caret" aria-hidden="true">▾</span></button>
         <div class="nav-more__menu" id="navMoreMenu">
           <a href="#programas">Programas profesionales</a>
+          <a href="#distribuidores" data-growth data-v1-copy="program">Distribuidor autorizado GLC</a>
           <a href="#entrega">Entregas y pagos</a>
           <a href="recompensas.html"><svg class="icon" aria-hidden="true"><use href="#i-gift"/></svg> Recompensas</a>
         </div>
@@ -1987,9 +1989,28 @@
       </div>
       <p class="hero-delivery">Entrega en el Valle Central y envíos a todo Costa Rica.</p>
     </div>
-    <figure class="hero-media">
-      <img src="img/editorial/lashes.jpg" alt="Detalle del cepillado de extensiones de pestañas" width="995" height="1500" loading="eager" fetchpriority="high" decoding="async">
-    </figure>
+    <div class="hero-media hero-carousel" id="heroCarousel" role="region" aria-roledescription="carrusel" aria-label="Fotografías de GLC" data-growth>
+      <div class="hero-slide is-active" role="group" aria-label="1 / 3" aria-hidden="false">
+        <img src="img/editorial/lashes.jpg" alt="Detalle del cepillado de extensiones de pestañas" data-v1-alt="alt1" width="995" height="1500" loading="eager" fetchpriority="high" decoding="async">
+      </div>
+      <div class="hero-slide hero-slide--product" role="group" aria-label="2 / 3" aria-hidden="true">
+        <img src="img/catalog/owner/pestanas-nagaraku-mi.jpg" alt="Bandejas de pestañas Nagaraku del catálogo de GLC" data-v1-alt="alt2" width="416" height="500" loading="lazy" fetchpriority="low" decoding="async">
+      </div>
+      <div class="hero-slide hero-slide--studio" role="group" aria-label="3 / 3" aria-hidden="true">
+        <img src="img/catalog/owner/almohada-lashista-mas.jpg" alt="Almohada de lashista con organizador del catálogo de GLC" data-v1-alt="alt3" width="1000" height="1000" loading="lazy" fetchpriority="low" decoding="async">
+      </div>
+      <div class="hero-carousel-controls" hidden>
+        <button type="button" data-hero-prev aria-label="Fotografía anterior"><svg class="icon" aria-hidden="true" style="transform:rotate(180deg)"><use href="#i-arrow-right"/></svg></button>
+        <div class="hero-carousel-dots" role="group" aria-label="Elegir fotografía">
+          <button type="button" class="hero-carousel-dot" data-hero-slide="0" aria-label="Elegir fotografía 1 / 3" aria-current="true"><span aria-hidden="true"></span></button>
+          <button type="button" class="hero-carousel-dot" data-hero-slide="1" aria-label="Elegir fotografía 2 / 3" aria-current="false"><span aria-hidden="true"></span></button>
+          <button type="button" class="hero-carousel-dot" data-hero-slide="2" aria-label="Elegir fotografía 3 / 3" aria-current="false"><span aria-hidden="true"></span></button>
+        </div>
+        <button type="button" data-hero-next aria-label="Fotografía siguiente"><svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
+        <button type="button" data-hero-play aria-label="Pausar">Pausar</button>
+      </div>
+      <p class="v1-sr-only" data-hero-live aria-live="polite" aria-atomic="true"></p>
+    </div>
   </div>
 </section>
 
@@ -2162,6 +2183,49 @@
         <span class="program-card__cta">Explorar alianza →</span>
       </button>
     </div>
+  </div>
+</section>
+<section class="distributor" id="distribuidores" aria-labelledby="distributorTitle" data-growth>
+  <div class="wrap distributor-layout">
+    <div class="distributor-copy">
+      <h2 id="distributorTitle"><span data-v1-copy="program" style="font:inherit;color:inherit;margin:0">Distribuidor autorizado GLC</span><span data-v1-copy="headline">Llevá GLC a tu zona.</span></h2>
+      <p data-v1-copy="intro">¿Querés emprender con productos profesionales de belleza? Conversemos sobre cómo podés distribuir GLC en tu zona.</p>
+      <ul class="distributor-benefits">
+        <li data-v1-copy="benefit1">Atención comercial personalizada</li>
+        <li data-v1-copy="benefit2">Acceso al catálogo profesional</li>
+        <li data-v1-copy="benefit3">Conversemos sobre condiciones comerciales para distribuidores</li>
+      </ul>
+      <p data-v1-copy="zones">Guanacaste, Limón, San Carlos y otras zonas de Costa Rica. Contanos dónde querés empezar.</p>
+      <figure class="distributor-photo"><img src="img/catalog/owner/organizacion-para-almacenar.jpg" alt="Organizador de herramientas del catálogo de GLC" data-v1-alt="distributorAlt" width="1000" height="1000" loading="lazy" decoding="async"></figure>
+    </div>
+    <form id="distributorForm" class="distributor-form" action="#distribuidores" method="post" data-endpoint="" data-state="idle" aria-labelledby="distributorFormTitle">
+      <h3 id="distributorFormTitle" data-v1-copy="formTitle">Contanos de vos</h3>
+      <p class="form-note" data-v1-copy="requiredNote">Los campos marcados con * son obligatorios.</p>
+      <fieldset class="distributor-fields" disabled>
+        <legend class="v1-sr-only" data-v1-copy="formTitle">Contanos de vos</legend>
+        <div class="distributor-grid">
+          <div class="distributor-field distributor-field--wide"><label for="distributorNombre" data-v1-copy="name">Nombre completo *</label><input id="distributorNombre" name="nombre" autocomplete="name" maxlength="120" required aria-describedby="distributor-error-nombre"><span id="distributor-error-nombre" class="distributor-field-error"></span></div>
+          <div class="distributor-field"><label for="distributorTelefono" data-v1-copy="phone">WhatsApp / teléfono *</label><input id="distributorTelefono" name="whatsapp" type="tel" autocomplete="tel" inputmode="tel" maxlength="25" required aria-describedby="distributor-error-whatsapp"><span id="distributor-error-whatsapp" class="distributor-field-error"></span></div>
+          <div class="distributor-field"><label for="distributorEmail" data-v1-copy="email">Correo *</label><input id="distributorEmail" name="email" type="email" autocomplete="email" maxlength="254" required aria-describedby="distributor-error-email"><span id="distributor-error-email" class="distributor-field-error"></span></div>
+          <div class="distributor-field"><label for="distributorProvincia" data-v1-copy="province">Provincia *</label><select id="distributorProvincia" name="provincia" autocomplete="address-level1" required aria-describedby="distributor-error-provincia"><option value="" data-v1-copy="choose">Seleccioná una provincia</option><option>San José</option><option>Alajuela</option><option>Cartago</option><option>Heredia</option><option>Guanacaste</option><option>Puntarenas</option><option>Limón</option></select><span id="distributor-error-provincia" class="distributor-field-error"></span></div>
+          <div class="distributor-field"><label for="distributorZona" data-v1-copy="zone">Cantón / zona *</label><input id="distributorZona" name="canton_zona" autocomplete="address-level2" maxlength="120" required aria-describedby="distributor-error-canton_zona"><span id="distributor-error-canton_zona" class="distributor-field-error"></span></div>
+        </div>
+        <details class="distributor-optional">
+          <summary data-v1-copy="optional">Un poco más sobre tu proyecto (opcional)</summary>
+          <div class="distributor-grid">
+            <div class="distributor-field"><label for="distributorNegocio" data-v1-copy="business">¿Actualmente tenés negocio?</label><select id="distributorNegocio" name="tiene_negocio"><option value="" data-v1-copy="unspecified">Sin indicar</option><option value="SI" data-v1-copy="yes">Sí</option><option value="NO" data-v1-copy="no">No</option></select></div>
+            <div class="distributor-field"><label for="distributorTipo" data-v1-copy="businessType">Tipo de negocio / actividad</label><input id="distributorTipo" name="tipo_negocio" maxlength="160" aria-describedby="distributor-error-tipo_negocio"><span id="distributor-error-tipo_negocio" class="distributor-field-error"></span></div>
+            <div class="distributor-field distributor-field--wide"><label for="distributorMensaje" data-v1-copy="interest">Comentario / interés</label><textarea id="distributorMensaje" name="mensaje" rows="3" maxlength="1000" aria-describedby="distributor-error-mensaje"></textarea><span id="distributor-error-mensaje" class="distributor-field-error"></span></div>
+          </div>
+        </details>
+        <label class="distributor-consent" for="distributorConsent"><input id="distributorConsent" name="consentimiento" type="checkbox" required aria-describedby="distributor-error-consentimiento"><span data-v1-copy="consent">Autorizo a Distribuidora GLC a contactarme sobre esta solicitud.</span></label>
+        <span id="distributor-error-consentimiento" class="distributor-field-error"></span>
+      </fieldset>
+      <button type="submit" class="btn btn-primary distributor-submit" disabled>Enviar solicitud</button>
+      <p class="distributor-status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <a class="distributor-contact" href="https://wa.me/50670281688" target="_blank" rel="noopener" data-v1-copy="contact">Prefiero conversar por WhatsApp</a>
+      <noscript><p>Para enviar el formulario necesitás JavaScript. Podés contactarnos por WhatsApp. / JavaScript is required for the form. You can contact us on WhatsApp.</p></noscript>
+    </form>
   </div>
 </section>
 <section class="home-service" id="como-comprar"><section>
@@ -3224,5 +3288,6 @@
 <script src="glc-commerce.js?v=owner-20261006"></script>
 <script src="glc-store.js?v=editorial-rebuild"></script>
 <script src="glc-growth.js?v=owner-20261006"></script>
+<script src="glc-opportunities.js?v=1"></script>
 </body>
 </html>

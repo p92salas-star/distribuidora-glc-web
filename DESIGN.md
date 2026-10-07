@@ -112,10 +112,16 @@ Reservation terms remain unchanged: initial payment from ₡10,000, payments fro
 
 ## Owner photography refinement — 6 October 2026
 
-The approved architecture remains intact. The hero is a single static technique image; there is no hero carousel. No new distributor program was added. The existing B2B inquiry has no connected persistence endpoint.
+The approved architecture remains intact. The original hero technique photograph now opens a three-photo carousel, with two owner-authorized product photographs. A separate distributor lead section follows the existing professional programs; it does not replace the B2B inquiry. Both lead integrations remain without a connected persistence endpoint.
 
 Owner photographs now lead the four featured products, six-product lash/tool rail, four relevant discovery destinations, and their existing catalog/quick-view/kit entries. Complete source compositions are contained, with no blend mode, grading or recoloring. All 25 owner images are resolved; identity decisions and conservative fan-photo reuse are documented in img/catalog/owner/manifest.json and SOURCES.md.
 
 Product category labels use natural case. Mobile supporting copy is 15px; reservation details are 14px. Reservation steps preserve the two-column sequence with each step’s full width available to its text. Social colors are small icon accents, and catalog header controls now share that restraint. The spacing scale, editorial Fraunces/Work Sans pairing and existing focus/reduced-motion behavior are preserved.
 
 Figma and Adobe tools were unavailable in this session; no external design file or Adobe treatment is claimed. This implemented system remains the design reference.
+
+## Hero carousel and distributor V1
+
+The hero text, actions, dimensions and mobile crop retain their approved layout. `glc-opportunities.css` scopes the crossfade, contained owner-product slides and ivory 44px-minimum controls to the photographic region. Autoplay advances at six seconds; manual interaction pauses it. Reduced motion keeps a stable, manually controlled image.
+
+`#distribuidores` pairs existing serif typography, ruled benefits and an authorized product photograph with a compact labeled form. Required contact/location fields stay visible; optional business details use a disclosure. It uses the existing palette and language event without adding a new component system. Success requires explicit acknowledgement of persistence; integration requirements and source provenance are documented in `docs/distributor-leads.md`.

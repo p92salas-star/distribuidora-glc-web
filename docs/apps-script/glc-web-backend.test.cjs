@@ -31,7 +31,7 @@ function backend() {
         setValue: value => range.setValues([[value]]),
         setValues(values) {
           assert.equal(flags.locked, true);
-          if (flags.writeError && r > 1) throw Error('private write error');
+          if (flags.writeError && r > 4) throw Error('private write error');
           writes.push({r, c, values});
           values.forEach((row, i) => {rows[r + i - 1] ??= []; row.forEach((value, j) => {rows[r + i - 1][c + j - 1] = value;});});
           return range;
@@ -57,7 +57,12 @@ function backend() {
     Utilities: {DigestAlgorithm: {SHA_256: 'sha256'}, Charset: {UTF_8: 'utf8'}, computeDigest: (algorithm, value) => Array.from(createHash(algorithm).update(value).digest())}
   });
   vm.runInContext(code, context);
-  sheets.Pedidos = makeSheet([Array.from(context.GLC_ORDER_BASE_HEADERS)]);
+  sheets.Pedidos = makeSheet([
+    [' Registro de pedidos — Distribuidora GLC'],
+    ['Instrucciones para registrar pedidos'],
+    [],
+    Array.from(context.GLC_ORDER_BASE_HEADERS)
+  ]);
   return {flags, cache, sheets, context, send: (p = order(), extra = {}) => context.doPost(Object.assign({parameter: p}, extra))};
 }
 test('bundles the tested distributor module without changes and parses order JS', () => {
@@ -71,23 +76,25 @@ test('health is non-sensitive; unknown/missing/repeated sources never open MASTE
   assert.equal(b.send(order(), {parameters: {source: ['glc_website_order', 'other']}}).error, 'INVALID_SOURCE');
   assert.equal(b.flags.opens, 0);
 });
-test('order persists A:S with numeric totals, Nuevo status, note hash; legacy A:J stays intact', () => {
+test('row 4 schema is accepted, K:S initializes there, and append preserves rows 1–3 and existing data', () => {
   const b = backend(), s = b.sheets.Pedidos, legacy = ['old date','Legacy','88888888','Old','Otro',1,1000,1000,'Tarjeta','Entregado'];
-  const headers = [...s.rows[0]]; s.rows.push([...legacy]); s.columns = 10;
+  const preamble = structuredClone(s.rows.slice(0,3)), headers = [...s.rows[3]];
+  s.rows.push([...legacy]); s.columns = 10;
   assert.deepEqual(b.send(), {ok: true, persisted: true, order_id: id});
-  assert.deepEqual(s.rows[0].slice(0,10), headers); assert.deepEqual(s.rows[1], legacy);
-  assert.deepEqual(s.rows[0].slice(10), Array.from(b.context.GLC_ORDER_EXTRA_HEADERS));
-  assert.equal(s.rows[2].length, 19); assert.equal(s.rows[2][7], 5000); assert.equal(s.rows[2][9], 'Nuevo');
-  assert.equal(s.rows[2][10], id); assert.equal(s.rows[2][17], 'glc_website_order');
-  assert.match(s.notes.get('3:11'), /^glc-order-sha256:[a-f0-9]{64}$/);
-  assert.equal(s.writes.some(w => w.r === 1 && w.c <= 10), false);
+  assert.deepEqual(s.rows.slice(0,3), preamble);
+  assert.deepEqual(s.rows[3].slice(0,10), headers); assert.deepEqual(s.rows[4], legacy);
+  assert.deepEqual(s.rows[3].slice(10), Array.from(b.context.GLC_ORDER_EXTRA_HEADERS));
+  assert.equal(s.rows[5].length, 19); assert.equal(s.rows[5][7], 5000); assert.equal(s.rows[5][9], 'Nuevo');
+  assert.equal(s.rows[5][10], id); assert.equal(s.rows[5][17], 'glc_website_order');
+  assert.match(s.notes.get('6:11'), /^glc-order-sha256:[a-f0-9]{64}$/);
+  assert.equal(s.writes.some(w => w.r < 4 || (w.r === 4 && w.c <= 10)), false);
   assert.equal(b.flags.locked, false);
 });
 test('same normalized order is idempotent; different payload conflicts even after status change', () => {
-  const b = backend(); b.send(); b.sheets.Pedidos.rows[1][9] = 'Contactado';
+  const b = backend(); b.send(); b.sheets.Pedidos.rows[4][9] = 'Contactado';
   assert.deepEqual(b.send(order({telefono: '+506 (8888)-8888', cliente: ' Persona  de prueba '})), {ok: true, persisted: false, duplicate: true, order_id: id});
   assert.deepEqual(b.send(order({precio: '2600'})), {ok: false, error: 'ORDER_ID_CONFLICT'});
-  assert.equal(b.sheets.Pedidos.rows.length, 2);
+  assert.equal(b.sheets.Pedidos.rows.length, 5);
 });
 test('server rejects invalid fields, totals and parameter pollution without writing', () => {
   const cases = {order_id: 'bad', cliente: 'X', telefono: '123', telefono_alt: 'bad', email: 'x@bad', provincia: 'Other', canton: '', distrito: '', direccion: 'X', producto: '', categoria: 'Bad', cantidad: '1.5', precio: '-1', pago: 'Unknown'};
@@ -99,29 +106,38 @@ test('server rejects invalid fields, totals and parameter pollution without writ
   }
   const b = backend(); assert.equal(b.send(order(), {parameters: {cantidad: ['2','3']}}).ok, false);
   assert.equal(b.send(order(), {postData: {length:16001}}).ok, false);
-  assert.equal(b.send(order({precio: '0'})).persisted, true); assert.equal(b.sheets.Pedidos.rows[1][7], 0);
+  assert.equal(b.send(order({precio: '0'})).persisted, true); assert.equal(b.sheets.Pedidos.rows[4][7], 0);
 });
 test('formula prefixes are protected in stored text, with +phone normalized independently', () => {
   const b = backend(); assert.equal(b.send(order({cliente:'=HYPERLINK("x")', producto:'@cmd', direccion:'-123 calle', telefono:'+506 (8888)-8888'})).ok, true);
-  const row = b.sheets.Pedidos.rows[1]; assert.equal(row[1], '\'=HYPERLINK("x")'); assert.equal(row[2], "'+50688888888");
+  const row = b.sheets.Pedidos.rows[4]; assert.equal(row[1], '\'=HYPERLINK("x")'); assert.equal(row[2], "'+50688888888");
   assert.equal(row[3], "'@cmd"); assert.equal(row[16], "'-123 calle");
 });
-test('schema mismatch fails closed; only blank K:S headers are initialized', () => {
-  for (const col of [0,10]) {const b = backend(); b.sheets.Pedidos.rows[0][col] = 'Different'; assert.equal(b.send().error, 'ORDER_SCHEMA_MISMATCH'); assert.equal(b.sheets.Pedidos.writes.length, 0);}
-  const b = backend(); b.sheets.Pedidos.rows[0][10] = 'Order ID'; b.send();
-  assert.equal(b.sheets.Pedidos.writes.some(w => w.r === 1 && w.c === 11), false);
+test('schema mismatch fails closed; only blank row 4 K:S headers are initialized', () => {
+  for (const col of [0,10]) {const b = backend(); b.sheets.Pedidos.rows[3][col] = 'Different'; assert.equal(b.send().error, 'ORDER_SCHEMA_MISMATCH'); assert.equal(b.sheets.Pedidos.writes.length, 0);}
+  const b = backend(); b.sheets.Pedidos.rows[3][10] = 'Order ID'; b.send();
+  assert.equal(b.sheets.Pedidos.writes.some(w => w.r === 4 && w.c === 11), false);
+});
+test('Order ID search excludes title/instruction rows and first data starts at row 5', () => {
+  const b = backend(), s = b.sheets.Pedidos;
+  s.rows[0][10] = id; // A matching value above the header must not be treated as an order.
+  const preamble = structuredClone(s.rows.slice(0,3));
+  assert.equal(b.send().persisted, true); assert.equal(s.rows.length, 5); assert.equal(s.rows[4][10], id);
+  assert.equal(b.send().duplicate, true); assert.equal(s.rows.length, 5);
+  assert.equal(b.send(order({precio:'2600'})).error, 'ORDER_ID_CONFLICT'); assert.equal(s.rows.length, 5);
+  assert.deepEqual(s.rows.slice(0,3), preamble);
 });
 test('busy/storage failures are sanitized; failed writes and lost acknowledgements are retryable', () => {
   for (const flag of ['busy','openError','noteError','writeError','flushError']) {
     const b = backend(); b.flags[flag] = true;
     assert.deepEqual(b.send(), {ok: false, error: flag === 'busy' ? 'BUSY_RETRY' : 'STORAGE_UNAVAILABLE'});
-    assert.equal(b.sheets.Pedidos.rows.length, 1); b.flags[flag] = false; assert.equal(b.send().persisted, true);
+    assert.equal(b.sheets.Pedidos.rows.length, 4); b.flags[flag] = false; assert.equal(b.send().persisted, true);
   }
   const b = backend(); b.send(); // Discard response, as if it were lost in transit.
-  assert.equal(b.send().duplicate, true); assert.equal(b.sheets.Pedidos.rows.length, 2);
+  assert.equal(b.send().duplicate, true); assert.equal(b.sheets.Pedidos.rows.length, 5);
   const uncertain = backend(); uncertain.flags.flushFailAt = 2;
   assert.equal(uncertain.send().error, 'STORAGE_UNAVAILABLE');
-  assert.equal(uncertain.send().duplicate, true); assert.equal(uncertain.sheets.Pedidos.rows.length, 2);
+  assert.equal(uncertain.send().duplicate, true); assert.equal(uncertain.sheets.Pedidos.rows.length, 5);
 });
 test('rate guard blocks new IDs, hashes contact keys, and allows confirmed retries', () => {
   const b = backend(); b.send();
@@ -136,7 +152,7 @@ test('unified distributor route persists, retries and rejects conflicts through 
   assert.deepEqual(b.send(p), {ok:true, persisted:true, lead_id:id});
   assert.deepEqual(b.send(p), {ok:true, persisted:false, duplicate:true, lead_id:id});
   assert.equal(b.send({...p, mensaje:'Otro'}).error, 'LEAD_ID_CONFLICT');
-  assert.equal(b.sheets.WEB_DISTRIBUIDORES.rows.length, 2); assert.equal(b.sheets.Pedidos.rows.length, 1);
+  assert.equal(b.sheets.WEB_DISTRIBUIDORES.rows.length, 2); assert.equal(b.sheets.Pedidos.rows.length, 4);
 });
 
 function frontend(fetchImpl, configured = true, fallback = false) {
@@ -183,6 +199,6 @@ test('client generates a new UUID for changed data and a secure fallback UUID wh
 test('actual order frontend/backend round trip recovers a lost acknowledgement without duplicating', async () => {
   const b = backend(); let first = true;
   const f = frontend(options => {const result = b.send(Object.fromEntries(options.body)); if (first) {first=false; throw Error('lost response');} return response(result);});
-  f.send(); await settle(); assert.equal(f.status.className, 'form-status error'); assert.equal(b.sheets.Pedidos.rows.length, 2);
-  f.send(); await settle(); assert.equal(f.status.className, 'form-status ok'); assert.equal(b.sheets.Pedidos.rows.length, 2);
+  f.send(); await settle(); assert.equal(f.status.className, 'form-status error'); assert.equal(b.sheets.Pedidos.rows.length, 5);
+  f.send(); await settle(); assert.equal(f.status.className, 'form-status ok'); assert.equal(b.sheets.Pedidos.rows.length, 5);
 });

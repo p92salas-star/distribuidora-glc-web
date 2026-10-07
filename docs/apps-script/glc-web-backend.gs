@@ -4,6 +4,7 @@
  */
 var GLC_MASTER_SPREADSHEET_ID = '1QydykhTtaD5HqpB04opPU0MTUTeWxKt3YOQkBJTAMA4';
 var GLC_ORDER_SOURCE = 'glc_website_order';
+var GLC_ORDER_HEADER_ROW = 4;
 var GLC_ORDER_FIELDS = ['source', 'order_id', 'cliente', 'telefono', 'telefono_alt', 'email',
   'provincia', 'canton', 'distrito', 'direccion', 'producto', 'categoria', 'cantidad', 'precio', 'pago'];
 var GLC_ORDER_BASE_HEADERS = ['Fecha', 'Cliente', 'Teléfono', 'Producto', 'Categoría',
@@ -82,16 +83,16 @@ function glcHandleOrder_(data, master) {
     locked = lock.tryLock(10000);
     if (!locked) return glcDistributorJson_({ok: false, error: 'BUSY_RETRY'});
     var sheet = master.getSheetByName('Pedidos');
-    if (!sheet || sheet.getLastRow() < 1 || sheet.getMaxColumns() < 10) return glcDistributorJson_({ok: false, error: 'ORDER_SCHEMA_MISMATCH'});
-    var base = sheet.getRange(1, 1, 1, 10).getValues()[0];
+    if (!sheet || sheet.getLastRow() < GLC_ORDER_HEADER_ROW || sheet.getMaxColumns() < 10) return glcDistributorJson_({ok: false, error: 'ORDER_SCHEMA_MISMATCH'});
+    var base = sheet.getRange(GLC_ORDER_HEADER_ROW, 1, 1, 10).getValues()[0];
     if (base.some(function (value, i) {return value !== GLC_ORDER_BASE_HEADERS[i];})) return glcDistributorJson_({ok: false, error: 'ORDER_SCHEMA_MISMATCH'});
     // Extend only the grid, never replace A:J headers or existing data.
     if (sheet.getMaxColumns() < 19) sheet.insertColumnsAfter(sheet.getMaxColumns(), 19 - sheet.getMaxColumns());
-    var extra = sheet.getRange(1, 11, 1, 9).getValues()[0];
+    var extra = sheet.getRange(GLC_ORDER_HEADER_ROW, 11, 1, 9).getValues()[0];
     if (extra.some(function (value, i) {return value !== '' && value !== GLC_ORDER_EXTRA_HEADERS[i];})) return glcDistributorJson_({ok: false, error: 'ORDER_SCHEMA_MISMATCH'});
     var hash = glcDistributorHash_(JSON.stringify(data));
-    if (sheet.getLastRow() > 1) {
-      var found = sheet.getRange(2, 11, sheet.getLastRow() - 1, 1).createTextFinder(data.order_id)
+    if (sheet.getLastRow() > GLC_ORDER_HEADER_ROW) {
+      var found = sheet.getRange(GLC_ORDER_HEADER_ROW + 1, 11, sheet.getLastRow() - GLC_ORDER_HEADER_ROW, 1).createTextFinder(data.order_id)
         .matchEntireCell(true).matchCase(false).useRegularExpression(false).findNext();
       if (found) {
         if (sheet.getRange(found.getRow(), 11).getNote() !== 'glc-order-sha256:' + hash) {
@@ -107,7 +108,7 @@ function glcHandleOrder_(data, master) {
     if (globalCount >= 60 || contactCount >= 5) return glcDistributorJson_({ok: false, error: 'RATE_LIMITED'});
     cache.put(globalKey, String(globalCount + 1), 120);
     cache.put(contactKey, String(contactCount + 1), 7200);
-    extra.forEach(function (value, i) {if (value === '') sheet.getRange(1, 11 + i).setValue(GLC_ORDER_EXTRA_HEADERS[i]);});
+    extra.forEach(function (value, i) {if (value === '') sheet.getRange(GLC_ORDER_HEADER_ROW, 11 + i).setValue(GLC_ORDER_EXTRA_HEADERS[i]);});
     var rowIndex = sheet.getLastRow() + 1;
     if (rowIndex > sheet.getMaxRows()) sheet.insertRowsAfter(sheet.getMaxRows(), 100);
     var literal = glcDistributorLiteral_, received = new Date();

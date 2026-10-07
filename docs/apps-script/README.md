@@ -40,7 +40,9 @@ Success: `{"ok":true,"persisted":true,"order_id":"submitted-uuid"}`. Identical r
 
 Required strings: `source`, `order_id`, `cliente` (3–120), `telefono` (8–15 digits, optional leading +), `provincia` (seven Costa Rican provinces), `canton`/`distrito` (1–120 each), `direccion` (5–1000), `producto` (1–300), `categoria`, `cantidad`, `precio`, `pago`. `telefono_alt` and `email` are optional at the backend; if supplied, phone/email validation applies (email maximum 254). Category/payment values must match the existing order form options. Quantity: integer 1–10,000; unit price: integer ₡0–₡1,000,000,000. These are intake bounds, not price verification or a payment authorization; staff must confirm customer-entered prices. Unknown fields, including a submitted total, are rejected.
 
-**A:J stays in this exact order:**
+Pedidos has its title in row 1, instructions in row 2, a blank row 3, and headers in **row 4** (`GLC_ORDER_HEADER_ROW = 4`). Rows 1–3 remain untouched. Data starts at row 5; new orders append after the last existing data row, and Order ID lookup starts at row 5.
+
+**A:J on row 4 stays in this exact order:**
 
 ```text
 Fecha | Cliente | Teléfono | Producto | Categoría | Cantidad | Precio unitario (₡) | Total (₡) | Método de pago | Estado
@@ -54,7 +56,7 @@ New website rows use a server Date in A, numeric quantity/price in F:G, server-c
 Order ID | Teléfono alternativo | Email | Provincia | Cantón | Distrito | Dirección | Source | Received at
 ```
 
-Only blank K:S headers are initialized. A missing Pedidos tab or incompatible nonblank header returns `ORDER_SCHEMA_MISMATCH`. No replacement sheet is created. Received at is server ISO UTC. Existing rows are preserved.
+Only blank K:S headers **on row 4** are initialized. A missing Pedidos tab or incompatible nonblank header returns `ORDER_SCHEMA_MISMATCH`. No replacement sheet is created. Received at is server ISO UTC. Existing rows are preserved.
 
 Under the script lock, the original normalized payload's SHA-256 is stored in the **note on the Order ID cell (K)**, keeping the prescribed 19-column layout. The note is flushed before the row write; a failure before writing leaves no order ID, so retry can safely reuse the blank row. Keep these notes with their rows; do not strip them during imports/sorts/copies. A changed payload or missing hash for an existing ID returns `ORDER_ID_CONFLICT` without overwriting or appending. Normal operational edits (e.g. Estado) do not break an identical retry. Notes contain only a hash, not a copy of personal data.
 

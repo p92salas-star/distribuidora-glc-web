@@ -110,7 +110,7 @@
         var response=await fetch(endpoint,{method:'POST',body:new URLSearchParams(payload),signal:controller.signal,credentials:'omit',redirect:'follow'});
         if(!response.ok)throw new Error('HTTP response');
         var result=await response.json();
-        if(result.ok!==true||result.persisted!==true||result.lead_id!==payload.lead_id)throw new Error('Unconfirmed persistence');
+        if(!result||result.ok!==true||result.lead_id!==payload.lead_id||!(result.persisted===true||(result.persisted===false&&result.duplicate===true)))throw new Error('Unconfirmed persistence');
         submitted=true;form.reset();pendingLead=null;setState('success','success');
       }catch(_){setState('error','error');}finally{window.clearTimeout(timeout);}
     });

@@ -12,7 +12,13 @@
     'Programas profesionales':'Professional programs', 'Entregas y pagos':'Delivery & payment', 'Recompensas':'Rewards',
     'Promociones de la semana:':'This week’s promotion:', '¡Envíos gratis al Valle Central':'Free Central Valley delivery',
     'por':'on', 'compras desde ₡25,000!':'orders of ₡25,000 or more!',
-    'Tu técnica.':'Your technique.', 'Tu estilo.':'Your style.', 'Tus esenciales.':'Your essentials.',
+    'Tu técnica.':'Your technique.', 'En':'In', 'primer plano.':'focus.', 'Tu estilo.':'Your style.', 'Tus esenciales.':'Your essentials.',
+    'Herramientas para quienes crean cada mirada':'Tools for the hands behind every look',
+    'Pestañas, cejas y microblading: productos para profesionales de belleza en Costa Rica.':'Lashes, brows and microblading supplies for beauty professionals in Costa Rica.',
+    'Explorá el catálogo':'Explore the catalog', 'Hablá con GLC':'Talk with GLC',
+    'Belleza profesional, Costa Rica':'Professional beauty, Costa Rica', 'Especialidad GLC':'A GLC specialty',
+    'Pestañas tecnológicas':'Technology lashes', 'Ver opciones':'See options',
+    'Para profesionales de pestañas, cejas y microblading':'For lash, brow and microblading professionals', 'DESLIZÁ':'SCROLL',
     'Insumos profesionales para pestañas, cejas y microblading. Encontrá extensiones, pinzas, adhesivos y kits para tu trabajo de cada día.':'Professional supplies for lashes, brows and microblading. Explore extensions, tweezers, adhesives and kits for your everyday work.',
     'Pedir por WhatsApp':'Order on WhatsApp', 'Explorar el catálogo':'Explore the catalog',
     'Entrega en el Valle Central y envíos a todo Costa Rica.':'Central Valley delivery and shipping throughout Costa Rica.',
@@ -61,7 +67,7 @@
     'Elegí el servicio, la fecha y la franja horaria que te queden mejor. Confirmamos tu espacio por WhatsApp.':'Choose your preferred service, date and time slot. We confirm your appointment on WhatsApp.',
     'Agendar mi cita':'Book my appointment', 'La belleza':'Beauty', 'nos conecta.':'connects us.',
     'Explorá el catálogo, las promociones y las novedades de GLC.':'Discover the catalog, promotions and updates from GLC.',
-    'Correo':'Email', 'Privacidad':'Privacy', 'Términos y Condiciones':'Terms & Conditions', 'Política de Privacidad':'Privacy Policy', 'Aceptar':'Accept',
+    'Explorá GLC':'Explore GLC', 'Información':'Information', 'Sistema de apartados':'Product reservations', 'Correo':'Email', 'Privacidad':'Privacy', 'Términos y Condiciones':'Terms & Conditions', 'Política de Privacidad':'Privacy Policy', 'Aceptar':'Accept',
     '🍪 Usamos únicamente los recursos técnicos necesarios para mostrar el sitio (como tipografías de Google). No usamos cookies de publicidad ni de analítica. Más información en nuestra':'🍪 We use only technical resources needed to display this site (such as Google Fonts). No advertising or analytics cookies. Learn more in our',
     '← Volver al inicio':'← Back to home', 'Tu próximo':'Your next', 'imprescindible.':'essential.',
     'Pestañas, herramientas y esenciales para tu estudio. Elegí tu producto, encontrá tu variante y pedilo por WhatsApp.':'Lashes, tools and essentials for your studio. Choose your product and variant, then order on WhatsApp.',
@@ -88,14 +94,14 @@
     'Hay productos con precio por confirmar.':'Some products need a price confirmation.',
     'Consultar carrito por WhatsApp':'Send bag to WhatsApp', 'Completar datos de envío':'Complete delivery details',
     'No se pudo guardar en este navegador. Tu carrito seguirá disponible mientras esta página esté abierta.':'This browser could not save your bag. It remains available while this page stays open.',
-    'Tu carrito se actualizó.':'Your bag was updated.', 'Idioma: español':'Language: Spanish', 'Idioma: inglés':'Language: English'
+    'Tu carrito se actualizó.':'Your bag was updated.', 'Idioma: español':'Language: Spanish', 'Idioma: inglés':'Language: English', '\u00bfQu\u00e9 busc\u00e1s hoy?':'What are you looking for today?', 'Explorar tienda':'Explore the store', 'Volver al inicio':'Back to home', 'Distribuidores':'Distributors', 'Beneficios GLC':'GLC benefits', 'Ayuda e informaci\u00f3n':'Help & information', 'Sistema de apartados':'Product reservations', 'Agendar cita':'Book an appointment', 'Arm\u00e1 tu kit':'Build your kit', "Todo para la":"Everything for the", "mirada profesional.":"professional gaze.", "Insumos para pestañas, cejas y microblading, con atención cercana desde Costa Rica.":"Lash, brow and microblading supplies, with personal service from Costa Rica.", "Hablar por WhatsApp":"Chat on WhatsApp", "Elegí el camino que acompaña tu trabajo o tu próxima cita.":"Choose the path for your work or your next appointment.", "Tienda y catálogo":"Store & catalog", "Pestañas, cejas, microblading y herramientas profesionales.":"Lashes, brows, microblading and professional tools.", "Crezcamos en Costa Rica":"Let’s grow in Costa Rica", "Conversemos sobre distribuir GLC en tu zona.":"Let’s discuss GLC distribution in your area.", "Por encargo":"By request", "Consultá por tus compras.":"Ask us about your purchases.", "Servicios de belleza":"Beauty services", "Cejas, pestañas y microblading.":"Brows, lashes and microblading.", "Una opción de compra":"A purchase option", "Revisá los pasos y condiciones.":"Review the steps and conditions.", "Para tu etapa profesional":"For your professional journey", "Conocé membresías y programas.":"Discover memberships and programs.", "Elegí el camino que acompaña tu trabajo o tu próxima cita.":"Choose a path for your work or next appointment.", "Técnica profesional":"Professional artistry", "Pedir por WhatsApp":"Order on WhatsApp", "Consultá por productos de tiendas de confianza. Compartí el enlace o una descripción y te ayudamos a revisar tu solicitud por WhatsApp.":"Ask about products from trusted stores. Share a link or description and we will help review your request on WhatsApp.", "Quiero consultar una compra":"Ask about a purchase", "Contanos qué querés consultar":"Tell us what you would like to ask about", "Compartinos el enlace o una descripción del artículo para revisar tu solicitud.":"Share the item link or a description so we can review your request."
   };
   function english(source) {
     if (Object.prototype.hasOwnProperty.call(words, source)) return words[source];
     return source.replace(/^(\d+) productos$/, '$1 products').replace(/^(\d+) de (\d+) productos$/, '$1 of $2 products').replace(/^(\d+) opciones disponibles$/, '$1 available options').replace(/^Desde /, 'From ').replace(/^Snapshot del catálogo/, 'Catalog snapshot').replace(/^Todos (\d+)$/, 'All $1').replace(/^Ver detalles de /,'View details for ').replace(/^Elegir opciones de /,'Choose options for ').replace(/^Ver producto /,'View product ').replace(/^Pedir /,'Order ').replace(/, variante /,', variant ');
   }
   var originals = new WeakMap(), originalAttributes = new WeakMap();
-  var excluded = 'script,style,svg,.prod-card__name,.merch-card h3,#qvTitle,#qvVariant,.variant-chips,.cart-item__name,.cart-item__variant,.hero-brand-panel';
+  var excluded = 'script,style,svg,[data-growth],.prod-card__name,.merch-card h3,#qvTitle,#qvVariant,.variant-chips,.cart-item__name,.cart-item__variant,.hero-brand-panel';
   function translate(root) {
     if (root.nodeType === 3) { translateText(root); return; }
     if (root.nodeType !== 1 || root.closest(excluded)) return;
@@ -215,6 +221,13 @@
     });
     var total = cart.reduce(function (n,item) { return n + (item.price || 0) * item.quantity; },0), unknown = cart.some(function (item) { return item.price === null; });
     var totalRow = element('p','cart-total'); totalRow.append(element('span','',t(unknown ? 'Subtotal conocido' : 'Subtotal')),element('span','',money(total))); summary.appendChild(totalRow);
+    var shipping = element('div','shipping-progress');
+    var shippingText = total >= 25000
+      ? (language === 'en' ? '✓ Your order reaches the amount for free Central Valley delivery.' : '✓ Tu compra alcanza el monto para envío gratis al Valle Central.')
+      : (language === 'en' ? '₡' + (25000-total).toLocaleString('en-US') + ' away from free Central Valley delivery.' : 'Te faltan ₡' + (25000-total).toLocaleString('en-US') + ' para envío gratis al Valle Central.');
+    var shippingLabel = element('p','',shippingText); shippingLabel.id = 'shippingProgressLabel';
+    var progress = element('progress'); progress.max = 25000; progress.value = Math.min(total,25000); progress.setAttribute('aria-labelledby','shippingProgressLabel');
+    shipping.append(shippingLabel,progress); summary.appendChild(shipping);
     summary.appendChild(element('p','',(unknown ? t('Hay productos con precio por confirmar.') + ' ' : '') + t('Confirmamos disponibilidad, envío y precio final por WhatsApp.')));
     var message = language === 'en' ? 'Hello! I would like to check availability for:\n\n' : '¡Hola! Quisiera consultar disponibilidad de:\n\n';
     cart.forEach(function (item) { message += item.quantity + ' × ' + item.name + (item.variant ? ' — ' + item.variant : '') + ' · ' + money(item.price) + (item.price !== null ? ' c/u · ' + money(item.price * item.quantity) : '') + '\n'; });
@@ -233,6 +246,7 @@
     document.documentElement.lang = language;
     languageControl.querySelectorAll('button').forEach(function (control) { control.setAttribute('aria-pressed',String(control.dataset.language === language)); });
     translate(document.body); renderCart();
+    document.dispatchEvent(new CustomEvent('glc:language', {detail:language}));
   }
   applyLanguage();
   // New filtered cards and quick-view prices use the same curated vocabulary.

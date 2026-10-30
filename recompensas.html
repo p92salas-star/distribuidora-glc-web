@@ -23,15 +23,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600;700&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --paper: #FBF6F0;
+    --paper: #f7f4ef;
     --blush: #F3DAD0;
-    --ink: #2A2422;
-    --ink-soft: #554C48;
-    --gold: #AD8A4E;
-    --berry: #8B3A46;
-    --berry-dark: #702E38;
-    --line: rgba(42,36,34,0.14);
-    --card: #FFFDFB;
+    --ink: #2c2727;
+    --ink-soft: #655e5c;
+    --gold: #806b49;
+    --berry: #653444;
+    --berry-dark: #492633;
+    --line: #ded6d2;
+    --card: #fff;
   }
 
   * { box-sizing: border-box; }
@@ -155,12 +155,9 @@
     margin: 0 auto;
   }
 
-  .wordmark {
-    font-family: 'Fraunces', serif;
-    font-size: 20px;
-    letter-spacing: 0.01em;
-  }
-  .wordmark span { color: var(--gold); }
+  .brand-lockup { display:inline-flex; align-items:center; flex:none; min-height:44px; }
+  .brand-lockup img { display:block; width:104px; height:74px; object-fit:contain; }
+  .brand-lockup:focus-visible { outline:3px solid #ad7446; outline-offset:4px; }
 
   .btn {
     display: inline-flex;
@@ -244,7 +241,7 @@
     flex-wrap: wrap;
     gap: 24px;
   }
-  .foot-left .wordmark { font-size: 18px; }
+  .foot-left .brand-lockup img { width:112px; height:80px; }
   .foot-left .place { color: var(--ink-soft); font-size: 14px; margin-top: 6px; }
   .foot-signature {
     font-family: 'Caveat', cursive;
@@ -356,8 +353,8 @@
     padding-bottom: 20px;
     border-bottom: 1px solid rgba(173,138,78,0.25);
   }
-  .loyalty-card__brand .wordmark { font-size: 18px; color: #FBF6F0; }
-  .loyalty-card__brand .wordmark span { color: var(--gold); }
+  .loyalty-card__brand .brand-lockup { width:104px; height:74px; justify-content:center; padding:3px; background:#fff; }
+  .loyalty-card__brand .brand-lockup img { width:98px; height:68px; }
   .loyalty-card__chip {
     width: 34px;
     height: 26px;
@@ -590,31 +587,35 @@
   }
 .return-home { max-width:1080px; margin:0 auto; padding:14px 24px; font-size:14px; } .return-home a { display:inline-flex; align-items:center; min-height:44px; text-decoration:underline; text-underline-offset:4px; }
 </style>
-</head>
-<body>
+<link rel="stylesheet" href="glc-shell.css?v=v4"><link rel="stylesheet" href="glc-harmony.css?v=7"><script>if(window.parent!==window)document.documentElement.classList.add("embedded-view");</script><link rel="stylesheet" href="module-v9.css"><script src="module-v9.js" defer></script></head>
+<body class="service-page glc-harmony glc-legacy">
 
-<div class="promo-banner" id="promoBanner">
-  <div class="promo-banner__inner">
-    <p class="promo-banner__text">✨ <span class="promo-tag">Promociones de la semana:</span> ¡Envíos gratis al Valle Central por compras desde ₡25,000! ✨</p>
-    <button class="promo-banner__close" type="button" aria-label="Cerrar banner promocional">&times;</button>
-  </div>
-</div>
-
-<header class="site">
-  <div class="header-row">
-    <div class="wordmark"><a href="index.html">Distribuidora <span>GLC</span></a></div>
-    <nav class="header-nav">
-      <a class="btn btn-nav" href="pedido.html">🛒 Pedidos</a>
-      <a class="btn btn-nav" href="index.html#agendar-citas">🗓️ Citas</a>
-      <a class="btn btn-nav" href="index.html#personal-shopper">✈️ Personal Shopper</a>
-      <a class="btn btn-nav is-active" href="recompensas.html">🎁 Recompensas</a>
-      <a class="btn btn-primary" href="https://wa.me/50670281688" target="_blank" rel="noopener">WhatsApp</a>
-    </nav>
-  </div>
-</header>
-<nav aria-label="Regreso a Inicio" class="return-home"><a href="index.html">&larr; Volver al inicio</a></nav>
-
-<section class="rewards">
+<div class="promo-banner" id="promoBanner"><div class="promo-banner__inner">
+  <p class="promo-banner__text"><span class="growth-promo-label">PARA TU ESTUDIO</span><a class="growth-promo-link" href="catalogo.html"><span class="growth-promo-copy">¡Envíos gratis al Valle Central por compras desde ₡25,000!</span><svg class="growth-promo-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a></p>
+  <button class="promo-banner__close" type="button" aria-label="Cerrar banner promocional"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button>
+</div></div>
+<header class="site"><div class="header-row">
+  <a class="brand-lockup" href="index.html" aria-label="Distribuidora GLC by Gaudi Lara, inicio"><img src="img/editorial/glc-logo-transparent.png" alt="Distribuidora GLC by Gaudi Lara" width="800" height="570"></a>
+  <button class="mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="primaryNav">Menú</button>
+  <a class="mobile-whatsapp" href="https://wa.me/50670281688" target="_blank" rel="noopener noreferrer" aria-label="Escribir por WhatsApp"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg></a>
+  <nav class="header-nav" id="primaryNav" aria-label="Navegación principal">
+    <a class="btn btn-nav nav-home-return" href="index.html" data-en="Home">Inicio</a>
+    <a class="btn btn-nav" href="catalogo.html" data-en="Store">Tienda</a>
+    <a class="btn btn-nav" href="distribuidores.html" data-en="Distributors">Distribuidores</a>
+    <a class="btn btn-nav" href="personal-shopper.html" data-en="Personal Shopper">Personal Shopper</a>
+    <a class="btn btn-nav" href="citas.html" data-en="Appointments">Citas</a>
+    <div class="nav-more"><button type="button" class="btn btn-nav" id="navMoreBtn" aria-haspopup="true" aria-expanded="false" data-en="More">Más <span class="nav-more__caret" aria-hidden="true">⌄</span></button>
+      <div class="nav-more__menu" id="navMoreMenu">
+        <a href="apartados.html" data-en="Reservations">Sistema de apartados</a>
+        <a href="beneficios.html" data-en="GLC benefits">Beneficios GLC</a>
+        <a href="ayuda.html" data-en="Help & information">Ayuda e información</a>
+        <a href="recompensas.html" data-en="Rewards">Recompensas</a>
+        <a href="pedido.html" data-en="Place an order">Realizar pedido</a>
+      </div>
+    </div>
+    <a class="nav-contact" href="https://wa.me/50670281688" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg><span data-en="WhatsApp">WhatsApp</span></a>
+  </nav>
+</div></header><div class="page-return"><a href="index.html"><svg class="icon" aria-hidden="true"><use href="#i-arrow-left"/></svg><span data-en="Back to home">Volver al inicio</span></a></div><main id="main-content" class="service-main"><section class="rewards">
   <div class="wrap">
     <div class="rewards__head">
       <p class="rewards__kicker">Programa de fidelidad</p>
@@ -624,7 +625,7 @@
 
     <div class="loyalty-card">
       <div class="loyalty-card__brand">
-        <a class="wordmark" href="index.html">Distribuidora <span>GLC</span></a>
+        <a class="brand-lockup" href="index.html" aria-label="Distribuidora GLC by Gaudi Lara, inicio"><img src="img/editorial/glc-logo-transparent.png" alt="Distribuidora GLC by Gaudi Lara" width="800" height="570"></a>
         <div class="loyalty-card__chip" aria-hidden="true"></div>
       </div>
 
@@ -655,7 +656,6 @@
         <p class="stamps-caption" id="rewardsStampsCaption"></p>
 
         <div class="rewards-incentive">
-          <span class="rewards-incentive__icon" aria-hidden="true">🎁</span>
           <p class="rewards-incentive__text">
             <span>Beneficio para vos</span>
             <span id="rewardsIncentive"></span>
@@ -668,13 +668,13 @@
       Cada 5 compras completás una tarjeta. Los datos se consultan de forma segura y solo se usan para tu programa de fidelidad.
     </p>
   </div>
-</section>
+</section></main>
 
 <footer>
   <div class="wrap">
     <div class="foot-row">
       <div class="foot-left">
-        <a class="wordmark" href="index.html">Distribuidora <span style="color:var(--gold)">GLC</span></a>
+        <a class="brand-lockup" href="index.html" aria-label="Distribuidora GLC by Gaudi Lara, inicio"><img src="img/editorial/glc-logo-transparent.png" alt="Distribuidora GLC by Gaudi Lara" width="800" height="570"></a>
         <p class="place">Desamparados, Costa Rica</p>
         <p class="foot-signature">by Gaudi Lara</p>
       </div>
@@ -874,5 +874,5 @@
   })();
 </script>
 
-</body>
+<script src="data/glc-catalog.js?v=owner-20261006-final"></script><script src="glc-page-runtime.js?v=v4"></script><script src="glc-growth.js?v=v4"></script><script src="glc-store.js?v=v4"></script><script src="glc-opportunities.js?v=v4"></script><script src="glc-premium-motion.js?v=v4"></script><script src="glc-navigation.js?v=v4"></script><script src="glc-harmony.js?v=7"></script></body>
 </html>

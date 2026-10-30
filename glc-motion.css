@@ -1,0 +1,214 @@
+/* GLC motion direction: warm daylight, real craft photography, precise movement. */
+:root{
+  --ivory:#f9f8f6;
+  --paper:#fcfaf7;
+  --berry:#75505c;
+  --berry-dark:#593e48;
+  --ink:#171514;
+  --ink-soft:#625c58;
+  --line:#ddd7d0;
+  --gold:#8b7757;
+  --gold-light:#e4d6c2;
+  --glc-paper:#f9f8f6;
+  --glc-sand:#f4f0ea;
+  --glc-rose:#efe4e6;
+  --glc-rose-deep:#dcc7cc;
+  --glc-ink:#171514;
+  --glc-muted:#625c58;
+  --glc-line:#ddd7d0;
+  --glc-wine:#75505c;
+  --glc-champagne:#b9a47e;
+  --glc-ease:cubic-bezier(.16,1,.3,1);
+}
+body.home-page{background:var(--glc-paper);color:var(--glc-ink)}
+body.home-page::selection{background:#e5d4d8;color:var(--glc-ink)}
+
+/* Announcement stays legible and secondary to the GLC mark. */
+#promoBanner,#promoBanner.growth-promo{background:#f1ebe5;border:0;border-bottom:1px solid var(--glc-line);color:var(--glc-ink)}
+#promoBanner::before{display:none}
+#promoBanner .promo-banner__inner{min-height:46px;height:auto;max-width:1380px;padding:2px 48px 2px 16px;gap:22px}
+#promoBanner .promo-banner__text{grid-template-columns:auto minmax(0,1fr);justify-content:start;gap:14px;margin:0;color:var(--glc-ink)}
+#promoBanner .growth-promo-label{padding-right:14px;border-right:1px solid #c8b8a8;color:#806c59;font:600 9px/1.4 'Work Sans',Arial,sans-serif;letter-spacing:.14em}
+#promoBanner .growth-promo-link{min-height:40px;justify-content:flex-start;gap:10px;color:var(--glc-ink);font:500 12px/1.45 'Work Sans',Arial,sans-serif}
+#promoBanner .growth-promo-count{color:#75665a}
+#promoBanner .growth-promo-controls button{width:38px;min-width:38px;height:38px;border:1px solid #d1c5b8;background:transparent;color:#504942}
+#promoBanner .growth-promo-controls button:hover:not(:disabled){background:#e9dfd6;border-color:#c4b4a3;color:var(--glc-ink);transform:none}
+#promoBanner .promo-banner__close{width:40px;height:40px;color:#5d5650}
+
+/* The approved logo is the identity, not a small icon beside generic navigation. */
+header.site{position:sticky;top:0;z-index:40;background:rgba(249,248,246,.94);border-bottom:1px solid rgba(205,195,185,.65);box-shadow:none;transition:background-color .28s ease,border-color .28s ease}
+header.site.is-scrolled{background:rgba(249,248,246,.82);border-color:rgba(205,195,185,.5);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+header.site .header-row{max-width:1440px;min-height:104px;padding:5px clamp(22px,4.6vw,68px);gap:30px}
+header.site .header-row>.brand-lockup{display:inline-flex;align-items:center;flex:0 0 auto}
+header.site .brand-lockup img{width:156px;height:104px;object-fit:contain;filter:none;transform:none}
+header.site .header-nav{gap:clamp(8px,1.3vw,20px)}
+header.site .header-nav .btn-nav{min-height:46px;padding-inline:7px;background:transparent;color:#302a27;font-size:13px;letter-spacing:.015em}
+header.site .header-nav .btn-nav:hover,header.site .header-nav .btn-nav.is-active{background:transparent;color:var(--glc-wine)}
+header.site .header-nav .btn-nav::after{position:absolute;right:7px;bottom:5px;left:7px;height:1px;background:var(--glc-wine);content:"";transform:scaleX(0);transform-origin:left;transition:transform .32s var(--glc-ease)}
+header.site .header-nav .btn-nav:is(:hover,:focus-visible,.is-active)::after{transform:scaleX(1)}
+header.site .header-socials{border-color:var(--glc-line)}
+header.site .header-socials .social-follow__link{color:#615752}
+header.site .mobile-menu-toggle{color:var(--glc-ink)}
+
+/* Editorial cover: human scale type on the left, one real campaign photograph on the right. */
+.hero-world{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);grid-template-rows:minmax(590px, min(72vw,740px));align-items:stretch;gap:clamp(22px,4vw,60px);max-width:1520px;margin:0 auto;padding:clamp(34px,4.3vw,64px) clamp(24px,5.4vw,82px);overflow:hidden;background:var(--glc-paper);color:var(--glc-ink)}
+.hero-world__copy{position:relative;top:auto;left:auto;z-index:2;align-self:center;width:auto;max-width:620px;padding:0;transform:none}
+.hero-world__signature{display:flex;align-items:center;gap:10px;margin:0 0 29px;color:#635951;font:500 10px/1.4 'Work Sans',Arial,sans-serif;letter-spacing:.11em;text-transform:uppercase}
+.hero-world__signature span:first-child{color:#55404a}
+.hero-world__signature i{width:22px;height:1px;background:var(--glc-champagne)}
+.hero-world h1{max-width:none;margin:0;color:var(--glc-ink);font:400 clamp(58px,5.3vw,76px)/.99 'Fraunces',Georgia,serif;letter-spacing:-.04em}
+.hero-world h1 em{color:var(--glc-wine);font-weight:400;white-space:nowrap}
+.hero-world__lede{max-width:43ch;margin:24px 0 0;color:#514b47;font:400 15px/1.75 'Work Sans',Arial,sans-serif}
+.hero-world__actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px;margin-top:28px}
+.hero-world__catalog{min-height:52px;padding:0 21px;background:#26211f;color:#fffaf5;font:500 13px/1 'Work Sans',Arial,sans-serif;letter-spacing:.015em;transition:transform .25s var(--glc-ease),background-color .2s ease}
+.hero-world__catalog:hover{background:#4b3a3e;color:#fffaf5;transform:translateY(-2px) scale(1.015)}
+.hero-world__whatsapp{display:inline-flex;align-items:center;gap:8px;min-height:48px;color:#34302c;font:500 13px/1.4 'Work Sans',Arial,sans-serif;text-decoration:none}
+.hero-world__whatsapp .icon{width:17px;height:17px;color:#6b755d}
+.hero-world__whatsapp:hover{color:var(--glc-wine)}
+.hero-world__delivery{margin:18px 0 0;color:#756d66;font:400 11px/1.6 'Work Sans',Arial,sans-serif;letter-spacing:.015em}
+.hero-world__photograph{position:relative;inset:auto;z-index:1;grid-column:2;grid-row:1;margin:0;min-width:0;min-height:590px;overflow:hidden;background:#e9dfda}
+.hero-world__photograph img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:53% 45%;transform:scale(1.015);transition:transform 1.4s var(--glc-ease);will-change:auto;animation:glc-photo-settle 1.45s var(--glc-ease) both}
+.hero-world__photograph.is-arrived img{transform:scale(1)}
+.hero-world__photograph::after{position:absolute;z-index:2;inset:0;background:#ede1df;content:"";pointer-events:none;transform:translate3d(0,0,0);animation:glc-photo-curtain 1.08s var(--glc-ease) .12s both}
+.hero-world__photograph.is-arrived::after{animation-name:glc-photo-curtain}
+.hero-world__caption{position:absolute;top:auto;right:17px;bottom:17px;left:17px;z-index:3;display:flex;align-items:center;gap:9px;min-height:38px;padding:8px 12px;background:rgba(249,248,246,.92);color:#514943;font:500 9px/1.4 'Work Sans',Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+.hero-world__note{position:absolute;right:clamp(30px,6.6vw,98px);bottom:clamp(68px,10vh,112px);z-index:4;grid-template-columns:62px 1fr;gap:12px;width:228px;min-height:84px;padding:10px;background:#f7f0ed;color:#25211f;box-shadow:0 10px 34px rgba(52,38,34,.12);transition:transform .28s var(--glc-ease),background-color .2s ease}
+.hero-world__note:hover{transform:translateY(-3px)}
+.hero-world__note-image{width:62px;height:62px;background:#fbf8f4}
+.hero-world__note small{color:#75665c;font:600 8px/1.4 'Work Sans',Arial,sans-serif;letter-spacing:.11em}
+.hero-world__note strong{font:500 15px/1.15 'Fraunces',Georgia,serif}
+.hero-world__note em{color:#75505c;font:500 9px/1.4 'Work Sans',Arial,sans-serif}
+body.home-page .btn-primary{background:#302927;border-color:#302927;color:#fffaf5}
+body.home-page .btn-primary:hover{background:#4d3b40;border-color:#4d3b40;color:#fffaf5}
+
+/* Pastel warmth carries through commerce; one matte espresso field marks VIP programs. */
+#catalogo{background:#f3eeea!important;color:var(--glc-ink)}
+#catalogo::before{display:none!important}
+#catalogo #discovery h2,#catalogo .real-catalog__head h2,#catalogo .section-head h2{color:var(--glc-ink)}
+#catalogo .section-head--commerce p,#catalogo .discovery-description{color:#625a54}
+#catalogo .discovery-path{color:#302a27;border-color:#d9d1ca}
+#catalogo .discovery-path[aria-pressed="true"]{color:#583d48;border-color:#9c7883}
+#catalogo .discovery-path-index{color:#907a64}
+#catalogo .discovery-stage{background:#faf8f5}
+#catalogo .discovery-detail h3{color:#2e2825}
+#catalogo .discovery-preview a{color:#4c4140}
+#catalogo .discovery-actions .btn-primary,#catalogo .real-catalog__cta-row .btn-primary{background:#312a28;border-color:#312a28;color:#fffaf5}
+/* Keep technique discovery on the same warm, legible palette as the rest of GLC. */
+#catalogo #discovery .section-head--commerce p{color:#514b47}
+#catalogo #discoveryExperience .discovery-path{border-color:#d9d1ca;background:transparent;color:#302a27}
+#catalogo #discoveryExperience .discovery-path:hover{background:#f2e9e8;color:#211d1b;transform:none}
+#catalogo #discoveryExperience .discovery-path[aria-pressed="true"]{border-color:#b9a4a7;background:#e9dfe0;color:#211d1b;transform:none}
+#catalogo #discoveryExperience .discovery-path-index,#catalogo #discoveryExperience .discovery-path[aria-pressed="true"] .discovery-path-index{color:#514742}
+#catalogo #discoveryExperience .discovery-path:focus-visible{outline-color:#302927}
+#catalogo #discoveryExperience .discovery-stage{background:#faf8f5;color:#211d1b}
+#catalogo #discoveryExperience .discovery-detail h3{color:#211d1b}
+#catalogo #discoveryExperience .discovery-description{color:#514b47}
+#catalogo #discoveryExperience .discovery-preview,#catalogo #discoveryExperience .discovery-preview li{border-color:#ddd5ce}
+#catalogo #discoveryExperience .discovery-preview a,#catalogo #discoveryExperience .discovery-preview a span{color:#302a27}
+#catalogo #discoveryExperience .discovery-actions .text-link,#catalogo #discovery>.text-link,#catalogo #discoveryExperience .discovery-actions .text-link:hover,#catalogo #discovery>.text-link:hover{color:#302a27;text-decoration-color:#746963}
+#catalogo #discoveryExperience .discovery-actions .btn{background:#312a28;border-color:#312a28;color:#fffaf5}
+#catalogo #discoveryExperience .discovery-actions .btn:hover{background:#4d3b40;border-color:#4d3b40;color:#fffaf5}
+.shopper-service{background:#ece5e4!important;color:var(--glc-ink)}
+.shopper-service .shopper__intro,.shopper-service .shopper .shopper__intro h2{color:var(--glc-ink)}
+.shopper-service .shopper__intro .lede{color:#514a46}
+.shopper-service .shopper__by{color:#795b65}
+.shopper-service .shopper-request summary{background:#302927;border-color:#302927;color:#fffaf5}
+.shopper-service .shopper-lookbook__controls{background:#e4d8d7;color:#302927}
+.shopper-service .shopper-lookbook__count{color:#624d52}
+.shopper-service .shopper-lookbook__button{border-color:#b7a7a2;color:#302927}
+.shopper-service .shopper-lookbook__button:hover{border-color:#75505c;color:#75505c}
+.layaway{background:#f0e8e8!important;color:#26211f}
+.layaway-intro h2,.layaway-steps h3,.layaway-details h3{color:#26211f}
+.layaway-intro>p,.layaway-steps p,.layaway-details p,.layaway-details .layaway-note{color:#5c5350}
+.layaway-steps li,.layaway-details{border-color:#d1c2c0}
+.layaway-number{color:#8d6f76}
+.layaway-actions .btn{background:#302927;border-color:#302927;color:#fffaf5}
+.layaway-actions .text-link{color:#302927}
+#programas{background:#282321!important;color:#faf6f0}
+#programas .section-head h2,#programas .program-card h3,#programas .program-card--b2b h3{color:#faf6f0}
+#programas .section-head p,#programas .program-card p{color:#e8dfd9}
+#programas .program-card,#programas .program-card--student,#programas .program-card--b2b{border-color:rgba(237,220,205,.27);color:#faf6f0}
+#programas .program-card__cta{color:#f1e9e2}
+#programas :focus-visible{outline-color:#ead5c2}
+#seguinos .social-follow{background:#eee8e3!important;color:#292421;border-color:#dbd1c8}
+#seguinos .social-follow__inner h2{color:#292421}
+#seguinos .social-follow__description{color:#615850}
+#seguinos .social-follow__link{border-color:#d3c8be;color:#37312d}
+footer{background:#f7f4f0!important;color:#292421}
+/* Replace low-contrast gold copy on light panels; reserve light neutrals for dark panels. */
+body.home-page .cat-card__count,body.home-page .feat-card__cat,body.home-page .snapshot-badge .icon,
+body.home-page .cat-chip .icon,body.home-page .kit-journey li::before,body.home-page .kit-price,
+body.home-page .kit-total,body.home-page #seguinos .social-follow__inner .kicker,
+body.home-page .lux-modal .lux-modal__kicker{color:#302927}
+body.home-page .lux-modal--dark .lux-modal__kicker{color:#f1e9e2}
+.shopper-service .shopper__by{color:#49383b}
+
+/* One choreographed arrival, followed by quiet feedback during discovery. */
+.hero-world__signature,.hero-world h1,.hero-world__lede,.hero-world__actions,.hero-world__delivery,.hero-world__note{animation:glc-copy-arrive .74s var(--glc-ease) both;opacity:1}
+.hero-world__signature{animation-delay:.08s}.hero-world h1{animation-delay:.18s}.hero-world__lede{animation-delay:.3s}.hero-world__actions{animation-delay:.42s}.hero-world__delivery{animation-delay:.5s}.hero-world__note{animation-delay:.54s}
+.hero-world__caption{animation:glc-caption-arrive .8s var(--glc-ease) .84s both}
+@keyframes glc-photo-curtain{to{transform:translate3d(101%,0,0)}}
+@keyframes glc-photo-settle{from{transform:scale(1.055)}to{transform:scale(1)}}
+@keyframes glc-copy-arrive{from{opacity:.58;transform:translate3d(0,20px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes glc-caption-arrive{from{opacity:.65;transform:translate3d(0,7px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+.hero-world__photograph img{transition:transform 1.4s var(--glc-ease)}
+.hero-world__catalog:focus-visible,.hero-world__whatsapp:focus-visible,.hero-world__note:focus-visible{outline:2px solid #795c66;outline-offset:4px}
+.cat-card__photo img,.feat-card__photo img,.discovery-feature-image,.merch-card__image img{transition:transform .65s var(--glc-ease),opacity .35s ease}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){
+  .cat-card:hover .cat-card__photo img,.feat-card:hover .feat-card__photo img,.merch-card:hover .merch-card__image img{transform:scale(1.025)}
+  .hero-world__note:hover .hero-world__note-image img{transform:scale(1.035)}
+}
+.lux-overlay.is-open .lux-modal{animation:glc-modal-in .38s var(--glc-ease) both}
+@keyframes glc-modal-in{from{opacity:0;transform:translateY(12px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+dialog.cart-drawer[open]{animation:glc-drawer-in .36s var(--glc-ease) both}
+@keyframes glc-drawer-in{from{opacity:.5;transform:translateX(18px)}to{opacity:1;transform:translateX(0)}}
+@media(max-width:1100px) and (min-width:761px){
+  header.site .header-row{padding-inline:24px;gap:14px}
+  header.site .brand-lockup img{width:132px;height:92px}
+  header.site .header-nav{gap:4px}
+  header.site .header-nav .btn-nav{padding-inline:5px;font-size:12px}
+  .hero-world{grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);grid-template-rows:minmax(540px,66vw);gap:26px;padding-inline:34px}
+  .hero-world__photograph{min-height:540px}
+  .hero-world h1{font-size:clamp(54px,5.8vw,64px)}
+}
+@media(max-width:760px){
+  #promoBanner .promo-banner__inner{grid-template-columns:minmax(0,1fr) auto;min-height:58px;padding:5px 42px 5px 7px;gap:4px}
+  #promoBanner .promo-banner__text{display:grid;grid-template-columns:auto minmax(0,1fr);gap:9px}
+  #promoBanner .growth-promo-label{padding-right:8px;font-size:8px}
+  #promoBanner .growth-promo-link{min-height:44px;font-size:10.5px;line-height:1.35}
+  #promoBanner .growth-promo-controls{gap:1px}
+  #promoBanner .growth-promo-controls button{width:44px;min-width:44px;height:44px;font-size:9px}
+  header.site .header-row{min-height:82px;padding:4px 16px;gap:8px}
+  header.site .brand-lockup img{width:104px;height:74px}
+  header.site .mobile-menu-toggle{min-height:44px;padding:7px 5px}
+  .hero-world{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto;gap:24px;margin:0;padding:34px 21px 24px}
+  .hero-world__copy{grid-column:1;grid-row:1;padding:0 3px}
+  .hero-world__signature{margin-bottom:18px;font-size:8px;letter-spacing:.09em}
+  .hero-world h1{max-width:none;font-size:clamp(44px,11.8vw,54px);line-height:.99}
+  .hero-world__lede{max-width:40ch;margin-top:16px;font-size:13px;line-height:1.62}
+  .hero-world__actions{gap:12px 18px;margin-top:19px}
+  .hero-world__catalog{min-height:48px;padding-inline:16px;font-size:12px}
+  .hero-world__whatsapp{font-size:11px}
+  .hero-world__delivery{margin-top:12px;font-size:10px}
+  .hero-world__photograph{grid-column:1;grid-row:2;min-height:0;height:clamp(260px,72vw,380px)}
+  .hero-world__photograph img{object-position:52% 46%}
+  .hero-world__caption{right:9px;bottom:9px;left:9px;min-height:34px;padding:6px 9px;font-size:8px}
+  .hero-world__note{position:relative;right:auto;bottom:auto;grid-row:3;align-self:start;width:206px;min-height:74px;grid-template-columns:54px 1fr;margin:-58px 12px 0 auto;padding:8px}
+  .hero-world__note-image{width:54px;height:54px}
+  #programas .wrap{display:block}
+}
+@media(max-width:380px){
+  #promoBanner .growth-promo-label{display:none}
+  #promoBanner .promo-banner__text{display:block}
+  header.site .brand-lockup img{width:94px;height:68px}
+  .hero-world{padding-inline:17px}
+  .hero-world h1{font-size:42px}
+  .hero-world__actions{gap:11px}
+  .hero-world__catalog{font-size:11px}
+  .hero-world__note{right:26px;bottom:64px;width:196px}
+}
+@media(prefers-reduced-motion:reduce){
+  header.site,header.site .header-nav .btn-nav::after,.hero-world__photograph img,.cat-card__photo img,.feat-card__photo img,.merch-card__image img{transition:none!important;transform:none!important;animation:none!important}
+  .hero-world__photograph::after,.hero-world__signature,.hero-world h1,.hero-world__lede,.hero-world__actions,.hero-world__delivery,.hero-world__note,.hero-world__caption{animation:none!important;transform:none!important;opacity:1!important}
+  .hero-world__note,.hero-world__catalog:hover{transform:none}
+}

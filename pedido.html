@@ -700,6 +700,22 @@
     var submitting = false, pendingOrder = null;
     submitBtn.disabled = false;
 
+    // QOC-49 1b: a cart of Q'Ocupa's catalog goes to Gaudi's panel in Q'Ocupa (glc-qocupa-order.js).
+    function qocupaOrder() {
+      var q = window.GLC_QOCUPA_ORDER;
+      return q && q.ready() ? q : null;
+    }
+    window.addEventListener('load', function () {
+      var q = qocupaOrder();
+      if (!q) return;
+      form.producto.value = q.summary(); form.producto.readOnly = true;
+      form.cantidad.value = String(q.quantity()); form.cantidad.readOnly = true;
+      form.precio.value = String(q.total()); form.precio.readOnly = true;
+      var note = document.createElement('p'); note.className = 'form-hint';
+      note.textContent = 'Estos son los productos de tu carrito. Para cambiarlos, volvé al carrito.';
+      form.producto.closest('.order-field').appendChild(note);
+    });
+
     function orderUuid() {
       if (window.crypto.randomUUID) return window.crypto.randomUUID();
       // Mismo fallback criptográfico que el formulario de distribuidores.
@@ -793,7 +809,9 @@
         return;
       }
 
-      if (!/^https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec$/.test(ENDPOINT)) {
+      var q = qocupaOrder();
+      var target = q ? q.endpoint : ENDPOINT;
+      if (!q && !/^https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec$/.test(ENDPOINT)) {
         status.className = 'form-status error';
         status.textContent = 'El envío en línea todavía no está activo. Tu pedido no fue enviado. Escribinos por WhatsApp.';
         return;
@@ -816,6 +834,7 @@
         pago:         sanitize(form.pago.value),
         source:       'glc_website_order'
       };
+      if (q) { datos.items = q.items(); }
       var fingerprint = JSON.stringify(datos);
       if (!pendingOrder || pendingOrder.fingerprint !== fingerprint) {
         pendingOrder = {fingerprint: fingerprint, payload: Object.assign({order_id: orderUuid()}, datos)};
@@ -830,7 +849,7 @@
       status.className = 'form-status';
       status.textContent = 'Enviando pedido…';
 
-      fetch(ENDPOINT, {
+      fetch(target, {
         method: 'POST',
         body: payload,
         signal: controller.signal,
@@ -838,7 +857,16 @@
         redirect: 'follow'
       })
         .then(function (response) {
-          if (!response.ok) { throw new Error('HTTP ' + response.status); }
+          if (!response.ok) {
+            // Q'Ocupa says why in words (a product no longer in the catalog, too many orders…): show it.
+            return response.json().catch(function () { return {}; }).then(function (body) {
+              var error = new Error('HTTP ' + response.status);
+              if (q && body && typeof body.error === 'string' && body.error.length < 300 && response.status !== 403) {
+                error.userMessage = body.error;
+              }
+              throw error;
+            });
+          }
           return response.json();
         })
         .then(function (result) {
@@ -856,10 +884,15 @@
 
           form.reset();
           pendingOrder = null;
+          if (q) {
+            q.clear();
+            ['producto', 'cantidad', 'precio'].forEach(function (name) { form[name].readOnly = false; });
+          }
         })
-        .catch(function () {
+        .catch(function (error) {
           status.className = 'form-status error';
-          status.textContent = 'No pudimos confirmar la recepción del pedido. Tus datos siguen aquí; intentá de nuevo o escribinos por WhatsApp.';
+          status.textContent = (error && error.userMessage ? error.userMessage + ' ' : '') +
+            'No pudimos confirmar la recepción del pedido. Tus datos siguen aquí; intentá de nuevo o escribinos por WhatsApp.';
         })
         .then(function () {
           window.clearTimeout(timeout);
@@ -871,5 +904,5 @@
   })();
 </script>
 
-<script src="data/glc-catalog.js?v=owner-20261006-final"></script><script src="glc-qocupa-catalog.js?v=1"></script><script src="glc-page-runtime.js?v=v4"></script><script src="glc-growth.js?v=v4"></script><script src="glc-store.js?v=v4"></script><script src="glc-opportunities.js?v=v4"></script><script src="glc-premium-motion.js?v=v4"></script><script src="glc-navigation.js?v=v4"></script><script src="glc-harmony.js?v=7"></script></body>
+<script src="data/glc-catalog.js?v=owner-20261006-final"></script><script src="glc-qocupa-catalog.js?v=1"></script><script src="glc-qocupa-order.js?v=1"></script><script src="glc-page-runtime.js?v=v4"></script><script src="glc-growth.js?v=v4"></script><script src="glc-store.js?v=v4"></script><script src="glc-opportunities.js?v=v4"></script><script src="glc-premium-motion.js?v=v4"></script><script src="glc-navigation.js?v=v4"></script><script src="glc-harmony.js?v=7"></script></body>
 </html>
